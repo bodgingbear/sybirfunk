@@ -4,6 +4,7 @@ import { HealthBar } from 'objects/HealthBar';
 import { SnowManager } from 'objects/SnowManager';
 import { Commerade } from 'objects/Turrets/Commerade';
 import { CommeradesController } from 'objects/Turrets/CommeradesController';
+import { Flag } from 'objects/Flag';
 import { LightsController } from './LightsController';
 
 export class GameScene extends Phaser.Scene {
@@ -22,12 +23,13 @@ export class GameScene extends Phaser.Scene {
   enemies!: Phaser.GameObjects.Group;
 
   public create(): void {
-    new LightsController(this);
-
     const bg = this.add.image(1270 / 2, 720 / 2, 'bg').setPipeline('Light2D');
     bg.setScale(5);
 
     this.physics.world.setBounds(0, 350, 1200, 720 - 350);
+
+    new LightsController(this);
+    new Flag(this, new Phaser.Math.Vector2(1270 - 120, 720 / 2 - 30));
 
     new SnowManager(this);
 
