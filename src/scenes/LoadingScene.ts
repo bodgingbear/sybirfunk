@@ -21,6 +21,7 @@ export class LoadingScene extends Phaser.Scene {
       loadAsset('images/NormalMap.png'),
     ]);
 
+    this.load.image('blood', loadAsset('images/blood.png'));
     // Assets go here
     this.load.video(
       'demo',

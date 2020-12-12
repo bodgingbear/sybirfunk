@@ -13,6 +13,7 @@ export class SnowManager {
     this.scene = scene;
     this.snow1 = this.scene.add.particles('snow1');
     this.snow2 = this.scene.add.particles('snow2');
+
     this.createEmitters(this.snow1);
     this.createEmitters(this.snow2);
     this.addSnow(100);
@@ -29,6 +30,7 @@ export class SnowManager {
       frequency: 200,
     });
     emitter.setScale(2);
+    emitter.setBlendMode(Phaser.BlendModes.ADD);
     emitter.setLifespan(Infinity);
     emitter.setAlpha(0.3);
     this.emitters.push(emitter);
