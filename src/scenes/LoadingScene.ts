@@ -34,17 +34,18 @@ export class LoadingScene extends Phaser.Scene {
       true
     );
 
-    this.load.image('snow1', 'images/snowflake1.png');
-    this.load.image('snow2', 'images/snowflake2.png');
+    this.load.image('snow1', [
+      'images/snowflake1.png',
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
+    this.load.image('snow2', [
+      'images/snowflake2.png',
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
     this.load.spritesheet('ivan', loadAsset('images/iwan.png'), {
       frameWidth: 11,
       frameHeight: 18,
     });
-
-    this.load.image('bullet', [
-      loadAsset('images/bullet.png'),
-      loadAsset('images/defaultNormalMap.png'),
-    ]);
 
     this.load.image('guy1-0', [
       loadAsset('images/guy1-0.png'),

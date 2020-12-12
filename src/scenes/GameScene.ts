@@ -9,6 +9,8 @@ import { TourManager } from 'objects/TourManager';
 import { LightsController } from './LightsController';
 
 export class GameScene extends Phaser.Scene {
+  bullets!: Phaser.GameObjects.Group;
+
   public constructor() {
     super({
       key: 'GameScene',
@@ -36,13 +38,13 @@ export class GameScene extends Phaser.Scene {
 
     const keys = this.input.keyboard.createCursorKeys();
 
-    const bullets = this.add.group();
+    this.bullets = this.add.group();
 
     this.ivan = new Ivan(
       this,
       new Phaser.Math.Vector2(1270 / 2, 720 / 2),
       keys,
-      bullets
+      this.bullets
     );
 
     this.enemies = this.add.group();
@@ -50,17 +52,22 @@ export class GameScene extends Phaser.Scene {
     this.commerades = this.add.group();
 
     this.commerades.add(
-      new Commerade(this, new Phaser.Math.Vector2(1000, 600), bullets).sprite
+      new Commerade(this, new Phaser.Math.Vector2(1000, 600), this.bullets)
+        .sprite
     );
 
     const money = new Money(this, new Phaser.Math.Vector2(100, 200));
 
     const tourManager = new TourManager(this, this.enemies, money);
 
-    this.physics.add.collider(this.enemies, bullets, (enemyObj, bulletObj) => {
-      enemyObj.getData('ref').onHit(tourManager.onEnemyKill);
-      bulletObj.destroy();
-    });
+    this.physics.add.collider(
+      this.enemies,
+      this.bullets,
+      (enemyObj, bulletObj) => {
+        enemyObj.getData('ref').onHit(tourManager.onEnemyKill);
+        bulletObj.getData('ref').destroy();
+      }
+    );
 
     // KUBA
     const healthBar = new HealthBar(this, new Phaser.Math.Vector2(1000, 100));
@@ -84,5 +91,7 @@ export class GameScene extends Phaser.Scene {
       .getArray()
       .forEach((obj) => obj.getData('ref').update());
     this.commeradesController.update();
+
+    this.bullets?.getChildren().forEach((b) => b.getData('ref').update());
   }
 }
