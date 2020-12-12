@@ -53,7 +53,7 @@ export class GameScene extends Phaser.Scene {
     this.commerades = this.add.group();
 
     this.commerades.add(
-      new Commerade(this, new Phaser.Math.Vector2(50, 600)).sprite
+      new Commerade(this, new Phaser.Math.Vector2(1000, 600), bullets).sprite
     );
 
     this.physics.add.collider(this.enemies, bullets, (enemyObj, bulletObj) => {
