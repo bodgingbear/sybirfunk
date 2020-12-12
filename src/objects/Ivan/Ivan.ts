@@ -31,6 +31,7 @@ export class Ivan {
     this.body.immovable = true;
 
     this.gun = new Gun(this.scene, this.body, this.bullets);
+
     keys.space?.on('down', () => {
       if (weapon === 'gun') {
         this.gun.shoot();
