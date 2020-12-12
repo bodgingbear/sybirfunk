@@ -8,6 +8,7 @@ import { Table } from 'objects/Table';
 import { Flag } from 'objects/Flag';
 import { TourManager } from 'objects/TourManager';
 import { Boris } from 'objects/Turrets/Boris';
+import { Inventory } from 'objects/Inventory';
 import { LightsController } from './LightsController';
 
 export class GameScene extends Phaser.Scene {
@@ -44,6 +45,8 @@ export class GameScene extends Phaser.Scene {
 
     new SnowManager(this);
     const keys = this.input.keyboard.createCursorKeys();
+
+    const inventory = new Inventory();
 
     this.bullets = this.add.group();
 
@@ -95,8 +98,8 @@ export class GameScene extends Phaser.Scene {
     );
     this.boris.activate();
 
-    // KUBA
-    const healthBar = new HealthBar(this, new Phaser.Math.Vector2(865, 105));
+    const healthBar = new HealthBar(this, inventory);
+    inventory.on('change', healthBar.onChange);
 
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
       healthBar.shrink();

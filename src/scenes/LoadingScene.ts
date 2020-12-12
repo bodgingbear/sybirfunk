@@ -74,6 +74,9 @@ export class LoadingScene extends Phaser.Scene {
       frameHeight: 17,
     });
 
+    this.load.image('ammo', loadAsset('images/ammo.png'));
+    this.load.image('money', loadAsset('images/money.png'));
+
     this.load.image('ammo-on', loadAsset('images/ammo-on.png'));
     this.load.image('boris-on', loadAsset('images/boris-on.png'));
     this.load.image('knife-on', loadAsset('images/knife-on.png'));

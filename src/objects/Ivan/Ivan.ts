@@ -1,4 +1,3 @@
-import { Bullet } from '../Bullet';
 import { Gun } from './Gun';
 
 const PLAYER_VELOCITY = 300;
