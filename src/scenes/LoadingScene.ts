@@ -79,6 +79,10 @@ export class LoadingScene extends Phaser.Scene {
     this.load.image('molotov-on', loadAsset('images/molotov-on.png'));
     this.load.image('sasha-on', loadAsset('images/sasha-on.png'));
     this.load.image('vodka-on', loadAsset('images/vodka-on.png'));
+    this.load.spritesheet('boris', loadAsset('images/boris.png'), {
+      frameWidth: 21,
+      frameHeight: 20,
+    });
   }
 
   public preload(): void {
@@ -121,6 +125,16 @@ export class LoadingScene extends Phaser.Scene {
       key: 'flag-wave',
       frames: [{ key: 'flag-0' }, { key: 'flag-1' }],
       frameRate: 3,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'boris-walk',
+      frames: this.anims.generateFrameNumbers('boris', {
+        start: 0,
+        end: -1,
+      }),
+      frameRate: 6,
       repeat: -1,
     });
   }
