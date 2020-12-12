@@ -17,7 +17,7 @@ export class LoadingScene extends Phaser.Scene {
 
   private loadAssets() {
     this.load.image('bg', [
-      loadAsset('images/backgroun.png'),
+      loadAsset('images/background.png'),
       loadAsset('images/NormalMap.png'),
     ]);
 
