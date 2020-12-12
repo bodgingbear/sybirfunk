@@ -25,6 +25,12 @@ export class FlyingCorpse {
     parts[2].body.velocity.y = CORPSE_VELOCITY * 0.5;
     parts[3].body.velocity.y = CORPSE_VELOCITY * 0.05;
 
+    this.scene.time.addEvent({
+      delay: 2000,
+      callback: () => {
+        parts.forEach((part) => part.destroy());
+      },
+    });
     new Blood(this.scene, position, 300, 100, 100);
   }
 }

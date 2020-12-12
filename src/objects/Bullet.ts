@@ -39,6 +39,12 @@ export class Bullet {
   }
 
   update() {
+    if (this.body.x < 0) {
+      this.sprite.destroy();
+      this.body.destroy();
+      this.scene.lights.removeLight(this.light);
+    }
+
     this.light.setPosition(this.body.x, this.body.y);
   }
 }
