@@ -17,7 +17,7 @@ export class LoadingScene extends Phaser.Scene {
 
   private loadAssets() {
     this.load.image('bg', [
-      loadAsset('images/backgroun.png'),
+      loadAsset('images/background.png'),
       loadAsset('images/NormalMap.png'),
     ]);
 
@@ -29,6 +29,11 @@ export class LoadingScene extends Phaser.Scene {
       false,
       true
     );
+
+    this.load.spritesheet('ivan', loadAsset('images/iwan.png'), {
+      frameWidth: 11,
+      frameHeight: 18,
+    });
   }
 
   public preload(): void {
@@ -40,7 +45,17 @@ export class LoadingScene extends Phaser.Scene {
     this.loadCreditsAssets();
   }
 
-  public create(): void {}
+  public create(): void {
+    this.anims.create({
+      key: 'ivan-walk',
+      frames: this.anims.generateFrameNumbers('ivan', {
+        start: 0,
+        end: -1,
+      }),
+      frameRate: 6,
+      repeat: -1,
+    });
+  }
 
   public update(): void {
     if (shouldSkipIntro()) {
