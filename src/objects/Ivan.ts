@@ -1,9 +1,13 @@
+import { Bullet } from './Bullet';
+
 const PLAYER_VELOCITY = 110;
 
 /** Player
  */
 export class Ivan {
   body: Phaser.Physics.Arcade.Body;
+
+  position: Phaser.Math.Vector2;
 
   constructor(
     private scene: Phaser.Scene,
@@ -20,6 +24,12 @@ export class Ivan {
     scene.physics.world.enable(sprite);
 
     this.body = sprite.body as Phaser.Physics.Arcade.Body;
+
+    this.position = position;
+
+    keys.space?.on('down', () => {
+      new Bullet(scene, this.position);
+    });
   }
 
   update() {
@@ -34,5 +44,7 @@ export class Ivan {
     }
 
     this.body.setVelocity(velocity.x, velocity.y);
+
+    this.position = this.body.position;
   }
 }
