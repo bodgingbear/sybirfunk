@@ -1,6 +1,7 @@
 import { Enemy } from 'objects/Enemy/Enemy';
 import { Ivan } from 'objects/Ivan';
 import { HealthBar } from 'objects/HealthBar';
+import { Money } from 'objects/Money';
 import { SnowManager } from 'objects/SnowManager';
 import { Commerade } from 'objects/Turrets/Commerade';
 import { CommeradesController } from 'objects/Turrets/CommeradesController';
@@ -67,6 +68,8 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
       healthBar.shrink();
     });
+
+    const money = new Money(this, new Phaser.Math.Vector2(100, 100));
 
     // END KUBA
 

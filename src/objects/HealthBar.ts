@@ -30,6 +30,7 @@ export class HealthBar {
       return;
     }
     this.barShrinking.scaleX -= 0.1;
+    this.barShrinking.scaleX = Math.max(this.barShrinking.scaleX, 0);
 
     this.hasCooledDown = false;
 
