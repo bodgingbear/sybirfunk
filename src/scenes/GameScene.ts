@@ -1,3 +1,4 @@
+import { Enemy } from 'objects/Enemy';
 import { Ivan } from 'objects/Ivan';
 
 export class GameScene extends Phaser.Scene {
@@ -27,6 +28,10 @@ export class GameScene extends Phaser.Scene {
       new Phaser.Math.Vector2(1270 / 2, 720 / 2),
       keys
     );
+
+    new Enemy(this, new Phaser.Math.Vector2(0, 200));
+    new Enemy(this, new Phaser.Math.Vector2(50, 400));
+    new Enemy(this, new Phaser.Math.Vector2(-100, 500));
   }
 
   update() {
