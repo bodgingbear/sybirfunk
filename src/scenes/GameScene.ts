@@ -1,4 +1,4 @@
-import { Enemy } from 'objects/Enemy';
+import { Enemy } from 'objects/Enemy/Enemy';
 import { Ivan } from 'objects/Ivan';
 
 export class GameScene extends Phaser.Scene {

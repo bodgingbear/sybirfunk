@@ -7,8 +7,6 @@ const PLAYER_VELOCITY = 110;
 export class Ivan {
   body: Phaser.Physics.Arcade.Body;
 
-  position: Phaser.Math.Vector2;
-
   constructor(
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
@@ -26,10 +24,8 @@ export class Ivan {
 
     this.body = sprite.body as Phaser.Physics.Arcade.Body;
 
-    this.position = position;
-
     keys.space?.on('down', () => {
-      this.bullets.add(new Bullet(scene, this.position).sprite);
+      this.bullets.add(new Bullet(scene, this.body.position).sprite);
     });
   }
 
@@ -45,7 +41,5 @@ export class Ivan {
     }
 
     this.body.setVelocity(velocity.x, velocity.y);
-
-    this.position = this.body.position;
   }
 }

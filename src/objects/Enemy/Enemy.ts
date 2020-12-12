@@ -1,3 +1,5 @@
+import { FlyingCorpse } from './FlyingCorpse';
+
 const ENEMY_VELOCITY = 110;
 
 export class Enemy {
@@ -28,6 +30,8 @@ export class Enemy {
 
   public onHit = () => {
     this.sprite.destroy();
+
+    new FlyingCorpse(this.scene, this.body.position);
   };
 
   update() {}
