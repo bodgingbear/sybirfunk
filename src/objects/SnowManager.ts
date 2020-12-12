@@ -13,8 +13,14 @@ export class SnowManager {
 
   constructor(scene: GameScene) {
     this.scene = scene;
-    this.snow1 = this.scene.add.particles('snow1');
-    this.snow2 = this.scene.add.particles('snow2');
+    this.snow1 = this.scene.add
+      .particles('snow1')
+      .setDepth(2)
+      .setPipeline('Light2D');
+    this.snow2 = this.scene.add
+      .particles('snow2')
+      .setDepth(2)
+      .setPipeline('Light2D');
 
     this.createEmitters(this.snow1);
     this.createEmitters(this.snow2);

@@ -9,11 +9,13 @@ export class Blood {
     spreadY: number = 100
   ) {
     const bloodParticles = Array.from(Array(count)).map(() => {
-      const sprite = this.scene.add.sprite(
-        position.x - spreadX / 2 + Math.random() * spreadY,
-        position.y - spreadY / 2 + Math.random() * spreadY,
-        'blood'
-      );
+      const sprite = this.scene.add
+        .sprite(
+          position.x - spreadX / 2 + Math.random() * spreadY,
+          position.y - spreadY / 2 + Math.random() * spreadY,
+          'blood'
+        )
+        .setPipeline('Light2D');
 
       sprite.setScale(0.1 + Math.random() * 2);
 

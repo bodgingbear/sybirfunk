@@ -6,13 +6,11 @@ const CORPSE_VELOCITY = 500;
 export class FlyingCorpse {
   constructor(private scene: Phaser.Scene, position: Phaser.Math.Vector2) {
     const parts = Array.from(Array(4)).map(() => {
-      const sprite = this.scene.add.rectangle(
-        position.x,
-        position.y,
-        20,
-        20,
-        0xff0000
-      );
+      const sprite = this.scene.add
+        .sprite(position.x, position.y, 'blood')
+        .setScale(10)
+        .setPipeline('Light2D');
+
       this.scene.physics.world.enable(sprite);
       return sprite;
     });

@@ -1,6 +1,7 @@
 import { Money } from 'objects/Money';
 import { FlyingCorpse } from './FlyingCorpse';
 import { Blood } from './Blood';
+import { Reward } from './Reward';
 
 const ENEMY_VELOCITY = 110;
 
@@ -19,8 +20,9 @@ export class Enemy {
     private money: Money
   ) {
     this.sprite = this.scene.add
-      .sprite(position.x, position.y, 'guy1')
-      .setScale(5);
+      .sprite(position.x, position.y, 'guy1-0')
+      .setScale(5)
+      .setPipeline('Light2D');
     scene.physics.world.enable(this.sprite);
 
     this.sprite.setData('ref', this);
@@ -45,6 +47,7 @@ export class Enemy {
       this.sprite.destroy();
 
       new FlyingCorpse(this.scene, this.body.position);
+      new Reward(this.scene, this.body.position);
 
       deathCb();
     }

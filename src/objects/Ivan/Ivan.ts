@@ -18,7 +18,8 @@ export class Ivan {
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
     private keys: Phaser.Types.Input.Keyboard.CursorKeys,
-    private bullets: Phaser.GameObjects.Group
+    private bullets: Phaser.GameObjects.Group,
+    weapon: 'gun' | 'knife' = 'gun'
   ) {
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'ivan')
@@ -29,7 +30,14 @@ export class Ivan {
     this.body.collideWorldBounds = true;
     this.body.immovable = true;
 
-    this.gun = new Gun(this.scene, this.body, this.keys, this.bullets);
+    this.gun = new Gun(this.scene, this.body, this.bullets);
+    keys.space?.on('down', () => {
+      if (weapon === 'gun') {
+        this.gun.shoot();
+      } else {
+        // knife.attack()
+      }
+    });
 
     this.gun.setBullets(20);
 
