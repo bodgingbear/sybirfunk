@@ -1,4 +1,4 @@
-const BULLET_VELOCITY = 900;
+export const BULLET_VELOCITY = -900;
 
 export class Bullet {
   body: Phaser.Physics.Arcade.Body;
@@ -7,7 +7,12 @@ export class Bullet {
 
   light: Phaser.GameObjects.Light;
 
-  constructor(private scene: Phaser.Scene, position: Phaser.Math.Vector2) {
+  constructor(
+    private scene: Phaser.Scene,
+    position: Phaser.Math.Vector2,
+    private xVelocity: number = BULLET_VELOCITY,
+    private yVelocity: number = 0
+  ) {
     this.sprite = this.scene.add.circle(position.x, position.y, 2, 0xd9c078);
 
     this.light = this.scene.lights.addLight(
@@ -24,7 +29,8 @@ export class Bullet {
 
     this.sprite.setData('ref', this);
 
-    this.body.velocity.x = -BULLET_VELOCITY;
+    this.body.velocity.x = xVelocity;
+    this.body.velocity.y = yVelocity;
   }
 
   destroy() {

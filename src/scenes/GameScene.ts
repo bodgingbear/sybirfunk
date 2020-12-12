@@ -7,6 +7,7 @@ import { CommeradesController } from 'objects/Turrets/CommeradesController';
 import { Table } from 'objects/Table';
 import { Flag } from 'objects/Flag';
 import { TourManager } from 'objects/TourManager';
+import { Boris } from 'objects/Turrets/Boris';
 import { LightsController } from './LightsController';
 
 export class GameScene extends Phaser.Scene {
@@ -23,6 +24,8 @@ export class GameScene extends Phaser.Scene {
   private ivan!: Ivan;
 
   private commerades!: Phaser.GameObjects.Group;
+
+  private boris: Boris | undefined;
 
   private commeradesController!: CommeradesController;
 
@@ -83,9 +86,15 @@ export class GameScene extends Phaser.Scene {
         bulletObj.getData('ref').destroy();
       }
     );
+    this.boris = new Boris(
+      this,
+      new Phaser.Math.Vector2(1300, 600),
+      this.bullets
+    );
+    this.boris.activate();
 
     // KUBA
-    const healthBar = new HealthBar(this, new Phaser.Math.Vector2(1000, 100));
+    const healthBar = new HealthBar(this, new Phaser.Math.Vector2(900, 100));
 
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
       healthBar.shrink();
@@ -102,6 +111,7 @@ export class GameScene extends Phaser.Scene {
 
   update() {
     this.ivan.update();
+    this.boris?.update();
     this.commerades.children
       .getArray()
       .forEach((obj) => obj.getData('ref').update());

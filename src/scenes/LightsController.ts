@@ -1,5 +1,5 @@
 export class LightsController {
-  alarmTween: Phaser.Tweens.Tween;
+  alarmTween: Phaser.Tweens.Tween | undefined;
 
   alarmLights: Phaser.GameObjects.Light[];
 
@@ -25,6 +25,11 @@ export class LightsController {
     this.alarmLights = [light, light2];
 
     this.scene.lights.addLight(1280 - 100, 100, 1280, 0xffffff, 1.25);
+    const moon = this.scene.add
+      .sprite(1280 - 100, 100, 'moon')
+      .setScale(5)
+      .setDepth(10);
+    this.scene.lights.addLight(moon.x, moon.y, 1280, 0xffffff, 1.25);
   }
 
   startAlarm() {
@@ -46,7 +51,7 @@ export class LightsController {
   }
 
   stopAlarm = () => {
-    this.alarmTween.stop();
+    this.alarmTween?.stop();
     this.alarmLights[0].setIntensity(0);
     this.alarmLights[1].setIntensity(0);
   };

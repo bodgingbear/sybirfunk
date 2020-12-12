@@ -1,4 +1,5 @@
 import { Bullet } from 'objects/Bullet';
+import { Ally } from './Ally';
 
 const SPEED = 100;
 const TOP = 350;
@@ -8,10 +9,8 @@ function getRandomInt(max: number) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-export class Commerade {
+export class Commerade implements Ally {
   body: Phaser.Physics.Arcade.Body;
-
-  position: Phaser.Math.Vector2;
 
   sprite: Phaser.GameObjects.Sprite;
 
@@ -21,7 +20,7 @@ export class Commerade {
 
   constructor(
     private scene: Phaser.Scene,
-    position: Phaser.Math.Vector2,
+    private position: Phaser.Math.Vector2,
     private bullets: Phaser.GameObjects.Group,
     private state: 'searching' | 'shooting' = 'searching'
   ) {
@@ -35,7 +34,6 @@ export class Commerade {
 
     this.body = this.sprite.body as Phaser.Physics.Arcade.Body;
     this.body.setCollideWorldBounds(true);
-    this.position = position;
 
     this.sprite.setData('ref', this);
 
