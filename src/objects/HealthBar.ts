@@ -1,5 +1,7 @@
 export class HealthBar {
-  health: number;
+  barShrinking: Phaser.GameObjects.Rectangle;
+
+  hasCooledDown = true;
 
   constructor(private scene: Phaser.Scene, position: Phaser.Math.Vector2) {
     const bar = this.scene.add.rectangle(
@@ -10,15 +12,33 @@ export class HealthBar {
       0xffffff
     );
 
-    const barShrinking = this.scene.add.rectangle(
-      position.x,
+    this.barShrinking = this.scene.add.rectangle(
+      position.x - 130,
       position.y,
-      265,
+      260,
       25,
       0xff0000
     );
 
-    this.health = 100;
+    this.barShrinking.setOrigin(0, 0.5);
+
+    // this.health = 100;
+  }
+
+  shrink() {
+    if (this.hasCooledDown === false) {
+      return;
+    }
+    this.barShrinking.scaleX -= 0.1;
+
+    this.hasCooledDown = false;
+
+    this.scene.time.addEvent({
+      delay: 1000,
+      callback: () => {
+        this.hasCooledDown = true;
+      },
+    });
   }
 
   update() {}

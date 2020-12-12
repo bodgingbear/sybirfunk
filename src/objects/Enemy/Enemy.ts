@@ -26,6 +26,8 @@ export class Enemy {
     this.position = position;
 
     this.body.velocity.x = ENEMY_VELOCITY;
+
+    this.body.immovable = true;
   }
 
   public onHit = () => {

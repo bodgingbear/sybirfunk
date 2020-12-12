@@ -24,6 +24,7 @@ export class Ivan {
 
     this.body = this.sprite.body as Phaser.Physics.Arcade.Body;
     this.body.collideWorldBounds = true;
+    this.body.immovable = true;
 
     keys.space?.on('down', () => {
       this.bullets.add(
