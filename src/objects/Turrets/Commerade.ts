@@ -2,8 +2,12 @@ import { Enemy } from 'objects/Enemy';
 import { Bullet } from 'objects/Bullet';
 
 const SPEED = 100;
-const TOP = 0;
-const BOTTOM = 200;
+const TOP = 350;
+const BOTTOM = 635;
+
+function getRandomInt(max: number) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
 
 export class Commerade {
   body: Phaser.Physics.Arcade.Body;
@@ -11,6 +15,8 @@ export class Commerade {
   position: Phaser.Math.Vector2;
 
   sprite: Phaser.GameObjects.Sprite;
+
+  shootingEvent: Phaser.Time.TimerEvent | undefined;
 
   constructor(
     private scene: Phaser.Scene,
@@ -27,6 +33,7 @@ export class Commerade {
     this.sprite.anims.play('sasha-walk');
 
     this.body = this.sprite.body as Phaser.Physics.Arcade.Body;
+    this.body.setCollideWorldBounds(true);
     this.body.setImmovable(true);
     this.position = position;
 
@@ -40,7 +47,7 @@ export class Commerade {
       return;
     }
     this.state = 'shooting';
-    this.scene.time.addEvent({
+    this.shootingEvent = this.scene.time.addEvent({
       delay: 1200,
       loop: true,
       callback: () => this.shoot(this.body.y),
@@ -57,6 +64,16 @@ export class Commerade {
       ).sprite
     );
   };
+
+  finishShooting() {
+    if (this.state === 'searching') {
+      return;
+    }
+
+    this.state = 'searching';
+    this.shootingEvent?.destroy();
+    this.body.setVelocityY(getRandomInt(2) === 0 ? SPEED : -SPEED);
+  }
 
   update() {
     if (this.state !== 'searching') {

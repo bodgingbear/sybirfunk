@@ -17,6 +17,8 @@ export class CommeradesController {
       ).some((body) => this.enemiesYs.includes(body));
       if (intersects) {
         commerade.getData('ref').foundEnemy();
+      } else {
+        commerade.getData('ref').finishShooting();
       }
     });
   }
