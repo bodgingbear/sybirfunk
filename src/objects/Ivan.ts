@@ -1,6 +1,6 @@
 import { Bullet } from './Bullet';
 
-const PLAYER_VELOCITY = 110;
+const PLAYER_VELOCITY = 300;
 
 /** Player
  */

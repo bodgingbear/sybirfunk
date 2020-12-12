@@ -1,5 +1,6 @@
 import { Enemy } from 'objects/Enemy/Enemy';
 import { Ivan } from 'objects/Ivan';
+import { LightsController } from './LightsController';
 
 export class GameScene extends Phaser.Scene {
   public constructor() {
@@ -11,20 +12,12 @@ export class GameScene extends Phaser.Scene {
   private ivan!: Ivan;
 
   public create(): void {
-    this.lights.enable();
-    this.lights.setAmbientColor(0);
+    new LightsController(this);
 
     const bg = this.add.image(1270 / 2, 720 / 2, 'bg').setPipeline('Light2D');
     bg.setScale(5);
 
-    this.lights.addLight(1270, 720 / 2 - 100, 400, 0xff0000, 0.5);
-    this.lights.addLight(1270, 720 / 2 + 200, 600, 0xff0000, 0.5);
-
     this.physics.world.setBounds(0, 350, 1200, 720 - 350);
-
-    this.lights
-      .addLight(1280 / 2 + 50, 720 / 2 + 100, 600, 0x111111)
-      .setIntensity(2);
 
     const keys = this.input.keyboard.createCursorKeys();
 

@@ -39,6 +39,8 @@ export class LoadingScene extends Phaser.Scene {
       frameWidth: 8,
       frameHeight: 18,
     });
+
+    this.load.image('flag', loadAsset('images/background.png'));
   }
 
   public preload(): void {
