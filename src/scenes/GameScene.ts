@@ -4,9 +4,12 @@ import { HealthBar } from 'objects/HealthBar';
 import { SnowManager } from 'objects/SnowManager';
 import { Commerade } from 'objects/Turrets/Commerade';
 import { CommeradesController } from 'objects/Turrets/CommeradesController';
+import { Table } from 'objects/Table';
 import { LightsController } from './LightsController';
 
 export class GameScene extends Phaser.Scene {
+  table!: Table;
+
   public constructor() {
     super({
       key: 'GameScene',
@@ -24,13 +27,12 @@ export class GameScene extends Phaser.Scene {
   public create(): void {
     new LightsController(this);
 
-    const bg = this.add.image(1270 / 2, 720 / 2, 'bg').setPipeline('Light2D');
+    const bg = this.add.image(1280 / 2, 720 / 2, 'bg').setPipeline('Light2D');
     bg.setScale(5);
 
     this.physics.world.setBounds(0, 350, 1200, 720 - 350);
 
     new SnowManager(this);
-
     const keys = this.input.keyboard.createCursorKeys();
 
     const bullets = this.add.group();
@@ -41,6 +43,9 @@ export class GameScene extends Phaser.Scene {
       keys,
       bullets
     );
+
+    this.table = new Table(this, this.ivan);
+    this.ivan.sprite.setDepth(2);
 
     this.enemies = this.add.group();
 
@@ -76,5 +81,12 @@ export class GameScene extends Phaser.Scene {
       .getArray()
       .forEach((obj) => obj.getData('ref').update());
     this.commeradesController.update();
+
+    this.table.setTableEntered(
+      Phaser.Geom.Intersects.RectangleToRectangle(
+        this.ivan.sprite.getBounds(),
+        this.table.box.getBounds()
+      )
+    );
   }
 }

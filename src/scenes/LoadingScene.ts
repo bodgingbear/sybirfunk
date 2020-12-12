@@ -31,6 +31,7 @@ export class LoadingScene extends Phaser.Scene {
       true
     );
 
+    this.load.image('stolik', 'images/stolik.png');
     this.load.image('snow1', 'images/snowflake1.png');
     this.load.image('snow2', 'images/snowflake2.png');
     this.load.spritesheet('ivan', loadAsset('images/iwan.png'), {
@@ -48,6 +49,13 @@ export class LoadingScene extends Phaser.Scene {
       frameWidth: 14,
       frameHeight: 17,
     });
+
+    this.load.image('ammo-on', loadAsset('images/ammo-on.png'));
+    this.load.image('boris-on', loadAsset('images/boris-on.png'));
+    this.load.image('knife-on', loadAsset('images/knife-on.png'));
+    this.load.image('molotov-on', loadAsset('images/molotov-on.png'));
+    this.load.image('sasha-on', loadAsset('images/sasha-on.png'));
+    this.load.image('vodka-on', loadAsset('images/vodka-on.png'));
   }
 
   public preload(): void {
