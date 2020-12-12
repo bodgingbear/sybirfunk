@@ -1,6 +1,6 @@
 import { Bullet } from './Bullet';
 
-const PLAYER_VELOCITY = 110;
+const PLAYER_VELOCITY = 300;
 
 /** Player
  */
@@ -40,8 +40,9 @@ export class Ivan {
     this.light = this.scene.lights.addLight(
       position.x,
       position.y,
-      200,
-      0xffffff
+      300,
+      0xffffff,
+      0.6
     );
   }
 

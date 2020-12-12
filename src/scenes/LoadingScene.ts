@@ -21,6 +21,7 @@ export class LoadingScene extends Phaser.Scene {
       loadAsset('images/NormalMap.png'),
     ]);
 
+    this.load.image('blood', loadAsset('images/blood.png'));
     // Assets go here
     this.load.video(
       'demo',
@@ -35,6 +36,17 @@ export class LoadingScene extends Phaser.Scene {
     this.load.spritesheet('ivan', loadAsset('images/iwan.png'), {
       frameWidth: 11,
       frameHeight: 18,
+    });
+
+    this.load.spritesheet('guy1', loadAsset('images/guy1.png'), {
+      frameWidth: 8,
+      frameHeight: 18,
+    });
+
+    this.load.image('flag', loadAsset('images/background.png'));
+    this.load.spritesheet('sasha', loadAsset('images/sasha.png'), {
+      frameWidth: 14,
+      frameHeight: 17,
     });
   }
 
@@ -51,6 +63,25 @@ export class LoadingScene extends Phaser.Scene {
     this.anims.create({
       key: 'ivan-walk',
       frames: this.anims.generateFrameNumbers('ivan', {
+        start: 0,
+        end: -1,
+      }),
+      frameRate: 6,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'guy1-walk',
+      frames: this.anims.generateFrameNumbers('guy1', {
+        start: 0,
+        end: -1,
+      }),
+      frameRate: 6,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'sasha-walk',
+      frames: this.anims.generateFrameNumbers('sasha', {
         start: 0,
         end: -1,
       }),

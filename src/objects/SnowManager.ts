@@ -1,5 +1,7 @@
 import { GameScene } from 'scenes/GameScene';
 
+const MIN_SPEED = 30;
+
 export class SnowManager {
   scene: GameScene;
 
@@ -7,13 +9,16 @@ export class SnowManager {
 
   snow2: Phaser.GameObjects.Particles.ParticleEmitterManager;
 
+  emitters: Phaser.GameObjects.Particles.ParticleEmitter[] = [];
+
   constructor(scene: GameScene) {
     this.scene = scene;
     this.snow1 = this.scene.add.particles('snow1');
     this.snow2 = this.scene.add.particles('snow2');
+
     this.createEmitters(this.snow1);
     this.createEmitters(this.snow2);
-    this.addSnow(100);
+    this.addSnow(200);
   }
 
   createEmitters(
@@ -23,31 +28,21 @@ export class SnowManager {
       x: { min: 0, max: 1280 },
       y: -1,
       speedX: -10,
-      speedY: { min: 30, max: 40 },
+      speedY: { min: MIN_SPEED, max: 40 },
       frequency: 200,
     });
     emitter.setScale(2);
-    emitter.setLifespan(Infinity);
+    emitter.setBlendMode(Phaser.BlendModes.ADD);
+    emitter.setLifespan((720 / MIN_SPEED) * 1000);
     emitter.setAlpha(0.3);
+    this.emitters.push(emitter);
   }
 
   addSnow(quantity: Number) {
-    Array.from(Array(quantity)).forEach(() => {
-      const particle1 = this.scene.add
-        .sprite(Math.random() * 1600, Math.random() * 800, 'snow1')
-        .setScale(2)
-        .setAlpha(0.3);
-      const particle2 = this.scene.add
-        .sprite(Math.random() * 1600, Math.random() * 800, 'snow2')
-        .setScale(2)
-        .setAlpha(0.3);
-      this.scene.physics.world.enable(particle1);
-      particle1.body.velocity.x = -10;
-      particle1.body.velocity.y = Math.random() * 10 + 30;
-
-      this.scene.physics.world.enable(particle2);
-      particle2.body.velocity.x = -10;
-      particle2.body.velocity.y = Math.random() * 10 + 30;
-    });
+    for (let index = 0; index < quantity; index++) {
+      this.emitters[
+        Math.round(Math.random() * (this.emitters.length - 1))
+      ].emitParticleAt(Math.random() * 1600, Math.random() * 800);
+    }
   }
 }

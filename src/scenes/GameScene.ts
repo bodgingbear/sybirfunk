@@ -4,6 +4,7 @@ import { HealthBar } from 'objects/HealthBar';
 import { SnowManager } from 'objects/SnowManager';
 import { Commerade } from 'objects/Turrets/Commerade';
 import { CommeradesController } from 'objects/Turrets/CommeradesController';
+import { LightsController } from './LightsController';
 
 export class GameScene extends Phaser.Scene {
   public constructor() {
@@ -21,20 +22,12 @@ export class GameScene extends Phaser.Scene {
   enemies!: Phaser.GameObjects.Group;
 
   public create(): void {
-    this.lights.enable();
-    this.lights.setAmbientColor(0);
+    new LightsController(this);
 
     const bg = this.add.image(1270 / 2, 720 / 2, 'bg').setPipeline('Light2D');
     bg.setScale(5);
 
-    this.lights.addLight(1270, 720 / 2 - 100, 400, 0xff0000, 0.5);
-    this.lights.addLight(1270, 720 / 2 + 200, 600, 0xff0000, 0.5);
-
     this.physics.world.setBounds(0, 350, 1200, 720 - 350);
-
-    this.lights
-      .addLight(1280 / 2 + 50, 720 / 2 + 100, 600, 0x111111)
-      .setIntensity(2);
 
     new SnowManager(this);
 
@@ -60,7 +53,7 @@ export class GameScene extends Phaser.Scene {
     this.commerades = this.add.group();
 
     this.commerades.add(
-      new Commerade(this, new Phaser.Math.Vector2(50, 600)).sprite
+      new Commerade(this, new Phaser.Math.Vector2(1000, 600), bullets).sprite
     );
 
     this.physics.add.collider(this.enemies, bullets, (enemyObj, bulletObj) => {
@@ -79,7 +72,8 @@ export class GameScene extends Phaser.Scene {
 
     this.commeradesController = new CommeradesController(
       this.commerades,
-      this.enemies
+      this.enemies,
+      this.physics
     );
   }
 
