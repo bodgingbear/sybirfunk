@@ -18,7 +18,10 @@ export class LightsController {
       0.5
     );
 
-    const moon = this.scene.add.sprite(1280 - 100, 100, 'moon').setScale(5);
+    const moon = this.scene.add
+      .sprite(1280 - 100, 100, 'moon')
+      .setScale(5)
+      .setDepth(10);
     this.scene.lights.addLight(moon.x, moon.y, 1280, 0xffffff, 1.25);
 
     this.scene.tweens.addCounter({
