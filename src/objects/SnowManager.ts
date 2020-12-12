@@ -7,6 +7,8 @@ export class SnowManager {
 
   snow2: Phaser.GameObjects.Particles.ParticleEmitterManager;
 
+  emitters: Phaser.GameObjects.Particles.ParticleEmitter[] = [];
+
   constructor(scene: GameScene) {
     this.scene = scene;
     this.snow1 = this.scene.add.particles('snow1');
@@ -29,25 +31,14 @@ export class SnowManager {
     emitter.setScale(2);
     emitter.setLifespan(Infinity);
     emitter.setAlpha(0.3);
+    this.emitters.push(emitter);
   }
 
   addSnow(quantity: Number) {
-    Array.from(Array(quantity)).forEach(() => {
-      const particle1 = this.scene.add
-        .sprite(Math.random() * 1600, Math.random() * 800, 'snow1')
-        .setScale(2)
-        .setAlpha(0.3);
-      const particle2 = this.scene.add
-        .sprite(Math.random() * 1600, Math.random() * 800, 'snow2')
-        .setScale(2)
-        .setAlpha(0.3);
-      this.scene.physics.world.enable(particle1);
-      particle1.body.velocity.x = -10;
-      particle1.body.velocity.y = Math.random() * 10 + 30;
-
-      this.scene.physics.world.enable(particle2);
-      particle2.body.velocity.x = -10;
-      particle2.body.velocity.y = Math.random() * 10 + 30;
-    });
+    for (let index = 0; index < quantity; index++) {
+      this.emitters[
+        Math.round(Math.random() * (this.emitters.length - 1))
+      ].emitParticleAt(Math.random() * 1600, Math.random() * 800);
+    }
   }
 }
