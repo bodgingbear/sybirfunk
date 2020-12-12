@@ -9,7 +9,7 @@ export class Table extends EventEmitter<
 
   private tableEntered = false;
 
-  private isRoundOn = false;
+  private isRoundOn = true;
 
   ammo: Phaser.GameObjects.Image;
 
