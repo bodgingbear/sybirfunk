@@ -115,7 +115,7 @@ export class Boris implements Ally {
         vel.x,
         vel.y,
         1,
-        hideLight
+        { hideLight, lightIntensityMultiplier: 2 }
       ).sprite
     );
   };

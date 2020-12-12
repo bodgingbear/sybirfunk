@@ -1,5 +1,10 @@
 export const BULLET_VELOCITY = -900;
 
+interface BulletLightConfig {
+  hideLight: boolean;
+  lightIntensityMultiplier: number;
+}
+
 export class Bullet {
   body: Phaser.Physics.Arcade.Body;
 
@@ -13,8 +18,11 @@ export class Bullet {
     private xVelocity: number = BULLET_VELOCITY,
     private yVelocity: number = 0,
     public damage = 1,
-    hideLight = false
+    lightConfig?: BulletLightConfig
   ) {
+    const { hideLight = false, lightIntensityMultiplier = 1 } =
+      lightConfig || {};
+
     this.sprite = this.scene.add.circle(position.x, position.y, 2, 0xd9c078);
 
     if (!hideLight) {
@@ -23,7 +31,7 @@ export class Bullet {
         position.y,
         200,
         0xffffff,
-        0.1
+        0.1 * lightIntensityMultiplier
       );
     }
 
