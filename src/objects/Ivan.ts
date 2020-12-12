@@ -7,26 +7,40 @@ const PLAYER_VELOCITY = 110;
 export class Ivan {
   body: Phaser.Physics.Arcade.Body;
 
+  sprite: Phaser.GameObjects.Sprite;
+
+  light: Phaser.GameObjects.Light;
+
   constructor(
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
     private keys: Phaser.Types.Input.Keyboard.CursorKeys,
     private bullets: Phaser.GameObjects.Group
   ) {
-    const sprite = this.scene.add.rectangle(
-      position.x,
-      position.y,
-      50,
-      50,
-      0xff0000
-    );
-    scene.physics.world.enable(sprite);
+    this.sprite = this.scene.add
+      .sprite(position.x, position.y, 'ivan')
+      .setScale(5);
+    scene.physics.world.enable(this.sprite);
 
-    this.body = sprite.body as Phaser.Physics.Arcade.Body;
+    this.body = this.sprite.body as Phaser.Physics.Arcade.Body;
 
     keys.space?.on('down', () => {
-      this.bullets.add(new Bullet(scene, this.body.position).sprite);
+      this.bullets.add(
+        new Bullet(
+          scene,
+          this.body.position.add(new Phaser.Math.Vector2(-10, 37))
+        ).sprite
+      );
     });
+
+    this.sprite.anims.play('ivan-walk');
+
+    this.light = this.scene.lights.addLight(
+      position.x,
+      position.y,
+      200,
+      0xffffff
+    );
   }
 
   update() {
@@ -41,5 +55,7 @@ export class Ivan {
     }
 
     this.body.setVelocity(velocity.x, velocity.y);
+
+    this.light.setPosition(this.sprite.x, this.sprite.y);
   }
 }
