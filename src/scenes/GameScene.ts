@@ -38,8 +38,9 @@ export class GameScene extends Phaser.Scene {
     enemies.add(new Enemy(this, new Phaser.Math.Vector2(50, 400)).sprite);
     enemies.add(new Enemy(this, new Phaser.Math.Vector2(-100, 500)).sprite);
 
-    this.physics.add.collider(enemies, bullets, () => {
-      console.log('bang');
+    this.physics.add.collider(enemies, bullets, (enemyObj, bulletObj) => {
+      enemyObj.getData('ref').onHit();
+      bulletObj.destroy();
     });
   }
 
