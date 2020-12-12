@@ -16,10 +16,20 @@ export class GameScene extends Phaser.Scene {
 
     const bg = this.add.image(1270 / 2, 720 / 2, 'bg').setPipeline('Light2D');
     bg.setScale(1270 / bg.width);
-    this.lights.addLight(1280 / 2 + 400, 720 / 2 - 100, 400, 0xff0000);
+    const light = this.lights.addLight(
+      1280 / 2 + 400,
+      720 / 2 - 100,
+      400,
+      0xffffff
+    );
     this.lights
       .addLight(1280 / 2 + 50, 720 / 2 + 100, 600, 0x111111)
       .setIntensity(2);
+
+    this.input.on('pointermove', function (pointer: Phaser.Math.Vector2) {
+      light.x = pointer.x;
+      light.y = pointer.y;
+    });
 
     const keys = this.input.keyboard.createCursorKeys();
 
