@@ -1,15 +1,15 @@
 const BULLET_VELOCITY = 900;
 
-/** Player
- */
 export class Bullet {
   body: Phaser.Physics.Arcade.Body;
 
-  constructor(private scene: Phaser.Scene, position: Phaser.Math.Vector2) {
-    const sprite = this.scene.add.circle(position.x, position.y, 5, 0x0000ff);
-    scene.physics.world.enable(sprite);
+  sprite: Phaser.GameObjects.GameObject;
 
-    this.body = sprite.body as Phaser.Physics.Arcade.Body;
+  constructor(private scene: Phaser.Scene, position: Phaser.Math.Vector2) {
+    this.sprite = this.scene.add.circle(position.x, position.y, 5, 0x0000ff);
+    this.scene.physics.world.enable(this.sprite);
+
+    this.body = this.sprite.body as Phaser.Physics.Arcade.Body;
 
     this.body.velocity.x = -BULLET_VELOCITY;
   }

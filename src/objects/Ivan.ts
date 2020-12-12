@@ -12,7 +12,8 @@ export class Ivan {
   constructor(
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
-    private keys: Phaser.Types.Input.Keyboard.CursorKeys
+    private keys: Phaser.Types.Input.Keyboard.CursorKeys,
+    private bullets: Phaser.GameObjects.Group
   ) {
     const sprite = this.scene.add.rectangle(
       position.x,
@@ -28,7 +29,7 @@ export class Ivan {
     this.position = position;
 
     keys.space?.on('down', () => {
-      new Bullet(scene, this.position);
+      this.bullets.add(new Bullet(scene, this.position).sprite);
     });
   }
 

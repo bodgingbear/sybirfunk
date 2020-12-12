@@ -23,15 +23,24 @@ export class GameScene extends Phaser.Scene {
 
     const keys = this.input.keyboard.createCursorKeys();
 
+    const bullets = this.add.group();
+
     this.ivan = new Ivan(
       this,
       new Phaser.Math.Vector2(1270 / 2, 720 / 2),
-      keys
+      keys,
+      bullets
     );
 
-    new Enemy(this, new Phaser.Math.Vector2(0, 200));
-    new Enemy(this, new Phaser.Math.Vector2(50, 400));
-    new Enemy(this, new Phaser.Math.Vector2(-100, 500));
+    const enemies = this.add.group();
+
+    enemies.add(new Enemy(this, new Phaser.Math.Vector2(0, 200)).sprite);
+    enemies.add(new Enemy(this, new Phaser.Math.Vector2(50, 400)).sprite);
+    enemies.add(new Enemy(this, new Phaser.Math.Vector2(-100, 500)).sprite);
+
+    this.physics.add.collider(enemies, bullets, () => {
+      console.log('bang');
+    });
   }
 
   update() {
