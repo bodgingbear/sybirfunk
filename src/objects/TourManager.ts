@@ -30,7 +30,7 @@ export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
     this.showTimeLeft(timeLeft);
     this.scene.time.addEvent({
       delay: 1000,
-      repeat: timeLeft,
+      repeat: timeLeft - 1,
       callback: () => {
         timeLeft--;
         this.showTimeLeft(timeLeft);

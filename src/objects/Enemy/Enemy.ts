@@ -1,5 +1,6 @@
 import { Money } from 'objects/Money';
 import { FlyingCorpse } from './FlyingCorpse';
+import { Blood } from './Blood';
 
 const ENEMY_VELOCITY = 110;
 
@@ -9,6 +10,8 @@ export class Enemy {
   position: Phaser.Math.Vector2;
 
   sprite: Phaser.GameObjects.Sprite;
+
+  hp = 2;
 
   constructor(
     private scene: Phaser.Scene,
@@ -34,8 +37,15 @@ export class Enemy {
   }
 
   public onHit = () => {
-    this.sprite.destroy();
-    new FlyingCorpse(this.scene, this.body.position);
+    this.hp--;
+
+    if (this.hp > 0) {
+      new Blood(this.scene, this.body.position, 100, 50, 50);
+    } else {
+      this.sprite.destroy();
+
+      new FlyingCorpse(this.scene, this.body.position);
+    }
 
     this.money.onHit();
   };
