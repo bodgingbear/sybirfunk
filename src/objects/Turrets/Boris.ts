@@ -39,9 +39,9 @@ export class Boris implements Ally {
     this.light = this.scene.lights.addLight(
       position.x,
       position.y,
-      400,
+      500,
       0xff0000,
-      0.75
+      0.2
     );
   }
 
@@ -92,7 +92,7 @@ export class Boris implements Ally {
                 },
               })
               .on('complete', () => {
-                this.sprite.flipX = -1;
+                this.sprite.flipX = false;
                 this.leftWeaponShooting?.destroy();
                 this.rightWeaponShooting?.destroy();
                 this.state = 'finish';
@@ -113,7 +113,8 @@ export class Boris implements Ally {
           new Phaser.Math.Vector2(-10, 37)
         ),
         vel.x,
-        vel.y
+        vel.y,
+        false
       ).sprite
     );
   };
@@ -131,6 +132,8 @@ export class Boris implements Ally {
   }
 
   update() {
+    this.bullets?.getChildren().forEach((b) => b.getData('ref').update());
+
     switch (this.state) {
       case 'awaiting':
         break;

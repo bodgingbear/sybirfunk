@@ -5,23 +5,26 @@ export class Bullet {
 
   sprite: Phaser.GameObjects.GameObject;
 
-  light: Phaser.GameObjects.Light;
+  light: Phaser.GameObjects.Light | undefined;
 
   constructor(
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
     private xVelocity: number = BULLET_VELOCITY,
-    private yVelocity: number = 0
+    private yVelocity: number = 0,
+    lightOn = true
   ) {
     this.sprite = this.scene.add.circle(position.x, position.y, 2, 0xd9c078);
 
-    this.light = this.scene.lights.addLight(
-      position.x,
-      position.y,
-      200,
-      0xffffff,
-      0.1
-    );
+    if (lightOn) {
+      this.light = this.scene.lights.addLight(
+        position.x,
+        position.y,
+        200,
+        0xffffff,
+        0.1
+      );
+    }
 
     this.scene.physics.world.enable(this.sprite);
 
@@ -35,16 +38,20 @@ export class Bullet {
 
   destroy() {
     this.sprite.destroy();
-    this.scene.lights.removeLight(this.light);
+    if (this.light) {
+      this.scene.lights.removeLight(this.light);
+    }
   }
 
   update() {
     if (this.body.x < 0) {
       this.sprite.destroy();
       this.body.destroy();
-      this.scene.lights.removeLight(this.light);
+      if (this.light) {
+        this.scene.lights.removeLight(this.light);
+      }
     }
 
-    this.light.setPosition(this.body.x, this.body.y);
+    this.light?.setPosition(this.body.x, this.body.y);
   }
 }
