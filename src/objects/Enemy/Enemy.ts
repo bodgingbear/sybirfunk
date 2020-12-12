@@ -1,4 +1,5 @@
 import { Money } from 'objects/Money';
+import { Bullet } from 'objects/Bullet';
 import { FlyingCorpse } from './FlyingCorpse';
 import { Blood } from './Blood';
 import { Reward } from './Reward';
@@ -38,8 +39,8 @@ export class Enemy {
     this.sprite.anims.play('guy1-walk');
   }
 
-  public onHit = (deathCb: () => void) => {
-    this.hp--;
+  public onHit = (bullet: Bullet, deathCb: () => void) => {
+    this.hp -= bullet.damage;
 
     if (this.hp > 0) {
       new Blood(this.scene, this.body.position, 100, 50, 50);

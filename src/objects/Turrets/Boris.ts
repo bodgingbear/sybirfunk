@@ -54,7 +54,7 @@ export class Boris implements Ally {
     this.leftWeaponShooting = this.scene.time.addEvent({
       delay: 150,
       loop: true,
-      callback: () => this.shoot(this.body.y + 10),
+      callback: () => this.shoot(this.body.y + 10, true),
     });
     this.rightWeaponShooting = this.scene.time.addEvent({
       delay: 150,
@@ -101,7 +101,7 @@ export class Boris implements Ally {
       });
   }
 
-  private shoot = (y: number) => {
+  private shoot = (y: number, hideLight = false) => {
     const vel = new Phaser.Math.Vector2(BULLET_VELOCITY, 0).rotate(
       this.sprite.rotation
     );
@@ -114,7 +114,8 @@ export class Boris implements Ally {
         ),
         vel.x,
         vel.y,
-        false
+        1,
+        hideLight
       ).sprite
     );
   };

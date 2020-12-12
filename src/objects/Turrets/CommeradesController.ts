@@ -1,8 +1,8 @@
-import { Commerade } from './Commerade';
-
 export class CommeradesController {
   get enemiesYs(): number[] {
-    return this.enemies.children.getArray().map((e) => e.y);
+    return this.enemies.children
+      .getArray()
+      .map((e) => (e as Phaser.GameObjects.Sprite).y);
   }
 
   constructor(
@@ -23,7 +23,7 @@ export class CommeradesController {
   update() {
     this.commerades.children.getArray().forEach((commerade) => {
       const intersects = this.commeradeBody(
-        Math.floor(commerade.y)
+        Math.floor((commerade as Phaser.GameObjects.Sprite).y)
       ).some((body) => this.enemiesYs.includes(body));
       if (intersects) {
         commerade.getData('ref').foundEnemy();

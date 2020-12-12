@@ -56,16 +56,22 @@ export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
   }
 
   private spawnEnemies() {
-    this.enemies.add(
-      new Enemy(this.scene, new Phaser.Math.Vector2(0, 400), this.money).sprite
-    );
-    this.enemies.add(
-      new Enemy(this.scene, new Phaser.Math.Vector2(50, 400), this.money).sprite
-    );
-    this.enemies.add(
-      new Enemy(this.scene, new Phaser.Math.Vector2(-100, 500), this.money)
-        .sprite
-    );
-    this.enemiesCount = 3;
+    const positions = [
+      new Phaser.Math.Vector2(0, 400),
+      new Phaser.Math.Vector2(50, 400),
+      new Phaser.Math.Vector2(-100, 500),
+      new Phaser.Math.Vector2(-150, 500),
+      new Phaser.Math.Vector2(-200, 500),
+      new Phaser.Math.Vector2(-250, 500),
+      new Phaser.Math.Vector2(-300, 500),
+      new Phaser.Math.Vector2(-350, 500),
+      new Phaser.Math.Vector2(-400, 500),
+    ];
+
+    positions.forEach((v) => {
+      this.enemies.add(new Enemy(this.scene, v, this.money).sprite);
+    });
+
+    this.enemiesCount = positions.length;
   }
 }

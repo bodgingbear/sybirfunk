@@ -8,7 +8,7 @@ export class FlyingCorpse {
     const parts = Array.from(Array(4)).map(() => {
       const sprite = this.scene.add
         .sprite(position.x, position.y, 'blood')
-        .setScale(10)
+        .setScale(4)
         .setPipeline('Light2D');
 
       this.scene.physics.world.enable(sprite);

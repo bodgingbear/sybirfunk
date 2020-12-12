@@ -82,7 +82,9 @@ export class GameScene extends Phaser.Scene {
       this.enemies,
       this.bullets,
       (enemyObj, bulletObj) => {
-        enemyObj.getData('ref').onHit(tourManager.onEnemyKill);
+        enemyObj
+          .getData('ref')
+          .onHit(bulletObj.getData('ref'), tourManager.onEnemyKill);
         bulletObj.getData('ref').destroy();
       }
     );

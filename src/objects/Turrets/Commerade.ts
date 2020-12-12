@@ -66,7 +66,10 @@ export class Commerade implements Ally {
         this.scene,
         new Phaser.Math.Vector2(this.body.position.x, y).add(
           new Phaser.Math.Vector2(-10, 37)
-        )
+        ),
+        undefined,
+        undefined,
+        2
       ).sprite
     );
   };
