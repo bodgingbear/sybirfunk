@@ -7,8 +7,18 @@ export class CommeradesController {
 
   constructor(
     private commerades: Phaser.GameObjects.Group,
-    private enemies: Phaser.GameObjects.Group
-  ) {}
+    private enemies: Phaser.GameObjects.Group,
+    private physics: Phaser.Physics.Arcade.ArcadePhysics
+  ) {
+    this.physics.add.collider(
+      this.enemies,
+      this.commerades,
+      (enemyObj, commeradeObj) => {
+        enemyObj.getData('ref').onCommeradeTouch();
+        commeradeObj.getData('ref').gotHit();
+      }
+    );
+  }
 
   update() {
     this.commerades.children.getArray().forEach((commerade) => {

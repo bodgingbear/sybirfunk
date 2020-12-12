@@ -18,6 +18,7 @@ export class Enemy {
     this.sprite.setData('ref', this);
 
     this.body = this.sprite.body as Phaser.Physics.Arcade.Body;
+    this.body.setImmovable(true);
 
     this.position = position;
 
@@ -30,6 +31,10 @@ export class Enemy {
     this.sprite.destroy();
 
     new FlyingCorpse(this.scene, this.body.position);
+  };
+
+  public onCommeradeTouch = () => {
+    this.body.velocity.x -= 20;
   };
 
   update() {}

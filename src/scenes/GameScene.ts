@@ -66,7 +66,8 @@ export class GameScene extends Phaser.Scene {
 
     this.commeradesController = new CommeradesController(
       this.commerades,
-      this.enemies
+      this.enemies,
+      this.physics
     );
   }
 
