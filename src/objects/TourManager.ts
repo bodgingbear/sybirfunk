@@ -1,5 +1,6 @@
 import { EventEmitter } from 'packages/utils';
 import { Enemy } from './Enemy/Enemy';
+import { Money } from './Money';
 
 export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
   private enemiesCount = 0;
@@ -8,7 +9,8 @@ export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
 
   constructor(
     private scene: Phaser.Scene,
-    private enemies: Phaser.GameObjects.Group
+    private enemies: Phaser.GameObjects.Group,
+    private money: Money
   ) {
     super();
 
@@ -55,13 +57,14 @@ export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
 
   private spawnEnemies() {
     this.enemies.add(
-      new Enemy(this.scene, new Phaser.Math.Vector2(0, 400)).sprite
+      new Enemy(this.scene, new Phaser.Math.Vector2(0, 400), this.money).sprite
     );
     this.enemies.add(
-      new Enemy(this.scene, new Phaser.Math.Vector2(50, 400)).sprite
+      new Enemy(this.scene, new Phaser.Math.Vector2(50, 400), this.money).sprite
     );
     this.enemies.add(
-      new Enemy(this.scene, new Phaser.Math.Vector2(-100, 500)).sprite
+      new Enemy(this.scene, new Phaser.Math.Vector2(-100, 500), this.money)
+        .sprite
     );
     this.enemiesCount = 3;
   }

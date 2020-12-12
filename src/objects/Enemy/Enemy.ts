@@ -1,3 +1,4 @@
+import { Money } from 'objects/Money';
 import { FlyingCorpse } from './FlyingCorpse';
 import { Blood } from './Blood';
 
@@ -12,7 +13,11 @@ export class Enemy {
 
   hp = 2;
 
-  constructor(private scene: Phaser.Scene, position: Phaser.Math.Vector2) {
+  constructor(
+    private scene: Phaser.Scene,
+    position: Phaser.Math.Vector2,
+    private money: Money
+  ) {
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'guy1')
       .setScale(5);
@@ -43,6 +48,8 @@ export class Enemy {
 
       deathCb();
     }
+
+    this.money.onHit();
   };
 
   public onCommeradeTouch = () => {

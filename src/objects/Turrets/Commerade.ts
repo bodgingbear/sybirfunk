@@ -86,6 +86,7 @@ export class Commerade {
   public gotHit() {
     this.light.intensity = 0;
     this.sprite.destroy();
+    this.shootingEvent?.destroy();
   }
 
   update() {
