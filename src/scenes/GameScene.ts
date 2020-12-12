@@ -1,5 +1,6 @@
 import { Enemy } from 'objects/Enemy';
 import { Ivan } from 'objects/Ivan';
+import { HealthBar } from 'objects/HealthBar';
 
 export class GameScene extends Phaser.Scene {
   public constructor() {
@@ -41,6 +42,9 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.collider(enemies, bullets, () => {
       console.log('bang');
     });
+
+    // KUBA
+    const healthBar = new HealthBar(this, new Phaser.Math.Vector2(1000, 100));
   }
 
   update() {
