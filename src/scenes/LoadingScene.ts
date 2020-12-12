@@ -29,6 +29,9 @@ export class LoadingScene extends Phaser.Scene {
       false,
       true
     );
+
+    this.load.image('snow1', 'images/snowflake1.png');
+    this.load.image('snow2', 'images/snowflake2.png');
   }
 
   public preload(): void {

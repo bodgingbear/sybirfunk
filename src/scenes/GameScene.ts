@@ -1,5 +1,6 @@
 import { Enemy } from 'objects/Enemy';
 import { Ivan } from 'objects/Ivan';
+import { SnowManager } from 'objects/SnowManager';
 
 export class GameScene extends Phaser.Scene {
   public constructor() {
@@ -9,6 +10,8 @@ export class GameScene extends Phaser.Scene {
   }
 
   private ivan!: Ivan;
+
+  private snowManager!: SnowManager;
 
   public create(): void {
     this.lights.enable();
@@ -30,6 +33,8 @@ export class GameScene extends Phaser.Scene {
       light.x = pointer.x;
       light.y = pointer.y;
     });
+
+    this.snowManager = new SnowManager(this);
 
     const keys = this.input.keyboard.createCursorKeys();
 
