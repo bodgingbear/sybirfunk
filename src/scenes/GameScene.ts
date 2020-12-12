@@ -6,13 +6,14 @@ export class GameScene extends Phaser.Scene {
   }
 
   public create(): void {
-    const text = this.add.text(1280 / 2, 720 / 2, 'Here is the game', {
-      fontSize: '48px',
-      fill: '#fff',
-      align: 'center',
-      lineSpacing: 10,
-    });
+    this.lights.enable();
+    this.lights.setAmbientColor(0);
 
-    text.setOrigin(0.5, 0.5);
+    const bg = this.add.image(1270 / 2, 720 / 2, 'bg').setPipeline('Light2D');
+    bg.setScale(1270 / bg.width);
+    this.lights.addLight(1280 / 2 + 400, 720 / 2 - 100, 400, 0xff0000);
+    this.lights
+      .addLight(1280 / 2 + 50, 720 / 2 + 100, 600, 0x111111)
+      .setIntensity(2);
   }
 }

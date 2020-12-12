@@ -16,6 +16,11 @@ export class LoadingScene extends Phaser.Scene {
   }
 
   private loadAssets() {
+    this.load.image('bg', [
+      loadAsset('images/backgroun.png'),
+      loadAsset('images/NormalMap.png'),
+    ]);
+
     // Assets go here
     this.load.video(
       'demo',
@@ -92,6 +97,6 @@ export class LoadingScene extends Phaser.Scene {
   };
 
   private changeScene = () => {
-    this.scene.start('MainMenuScene');
+    this.scene.start('GameScene');
   };
 }
