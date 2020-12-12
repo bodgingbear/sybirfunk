@@ -11,6 +11,7 @@ export class SnowManager {
     this.scene = scene;
     this.snow1 = this.scene.add.particles('snow1');
     this.snow2 = this.scene.add.particles('snow2');
+
     this.createEmitters(this.snow1);
     this.createEmitters(this.snow2);
     this.addSnow(100);
@@ -19,16 +20,18 @@ export class SnowManager {
   createEmitters(
     particle: Phaser.GameObjects.Particles.ParticleEmitterManager
   ) {
-    const emitter = particle.createEmitter({
-      x: { min: 0, max: 1280 },
-      y: -1,
-      speedX: -10,
-      speedY: { min: 30, max: 40 },
-      frequency: 200,
-    });
-    emitter.setScale(2);
-    emitter.setLifespan(Infinity);
-    emitter.setAlpha(0.3);
+    particle
+      .createEmitter({
+        x: { min: 0, max: 1280 },
+        y: -1,
+        speedX: -10,
+        speedY: { min: 30, max: 40 },
+        frequency: 200,
+      })
+      .setBlendMode(Phaser.BlendModes.ADD)
+      .setScale(2)
+      .setLifespan(Infinity)
+      .setAlpha(0.3);
   }
 
   addSnow(quantity: Number) {
