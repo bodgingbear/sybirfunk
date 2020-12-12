@@ -1,3 +1,5 @@
+import { FlyingCorpse } from './FlyingCorpse';
+
 const ENEMY_VELOCITY = 110;
 
 export class Enemy {
@@ -17,12 +19,20 @@ export class Enemy {
     );
     scene.physics.world.enable(this.sprite);
 
+    this.sprite.setData('ref', this);
+
     this.body = this.sprite.body as Phaser.Physics.Arcade.Body;
 
     this.position = position;
 
     this.body.velocity.x = ENEMY_VELOCITY;
   }
+
+  public onHit = () => {
+    this.sprite.destroy();
+
+    new FlyingCorpse(this.scene, this.body.position);
+  };
 
   update() {}
 }
