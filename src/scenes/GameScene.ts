@@ -1,12 +1,9 @@
 import { Enemy } from 'objects/Enemy/Enemy';
 import { Ivan } from 'objects/Ivan';
-<<<<<<< HEAD
 import { HealthBar } from 'objects/HealthBar';
-=======
 import { SnowManager } from 'objects/SnowManager';
 import { Commerade } from 'objects/Turrets/Commerade';
 import { CommeradesController } from 'objects/Turrets/CommeradesController';
->>>>>>> 4d88861adc5e165b193bbcae98e190900ca056d2
 
 export class GameScene extends Phaser.Scene {
   public constructor() {
@@ -71,15 +68,13 @@ export class GameScene extends Phaser.Scene {
       bulletObj.destroy();
     });
 
-<<<<<<< HEAD
     // KUBA
     const healthBar = new HealthBar(this, new Phaser.Math.Vector2(1000, 100));
-=======
+
     this.commeradesController = new CommeradesController(
       this.commerades,
       this.enemies
     );
->>>>>>> 4d88861adc5e165b193bbcae98e190900ca056d2
   }
 
   update() {
