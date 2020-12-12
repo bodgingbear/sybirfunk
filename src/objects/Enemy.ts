@@ -17,12 +17,18 @@ export class Enemy {
     );
     scene.physics.world.enable(this.sprite);
 
+    this.sprite.setData('ref', this);
+
     this.body = this.sprite.body as Phaser.Physics.Arcade.Body;
 
     this.position = position;
 
     this.body.velocity.x = ENEMY_VELOCITY;
   }
+
+  public onHit = () => {
+    this.sprite.destroy();
+  };
 
   update() {}
 }
