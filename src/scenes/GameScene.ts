@@ -1,9 +1,13 @@
+import { Ivan } from 'objects/Ivan';
+
 export class GameScene extends Phaser.Scene {
   public constructor() {
     super({
       key: 'GameScene',
     });
   }
+
+  private ivan!: Ivan;
 
   public create(): void {
     this.lights.enable();
@@ -15,5 +19,17 @@ export class GameScene extends Phaser.Scene {
     this.lights
       .addLight(1280 / 2 + 50, 720 / 2 + 100, 600, 0x111111)
       .setIntensity(2);
+
+    const keys = this.input.keyboard.createCursorKeys();
+
+    this.ivan = new Ivan(
+      this,
+      new Phaser.Math.Vector2(1270 / 2, 720 / 2),
+      keys
+    );
+  }
+
+  update() {
+    this.ivan.update();
   }
 }
