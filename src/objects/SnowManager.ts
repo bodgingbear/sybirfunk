@@ -1,5 +1,7 @@
 import { GameScene } from 'scenes/GameScene';
 
+const MIN_SPEED = 30;
+
 export class SnowManager {
   scene: GameScene;
 
@@ -16,7 +18,7 @@ export class SnowManager {
 
     this.createEmitters(this.snow1);
     this.createEmitters(this.snow2);
-    this.addSnow(100);
+    this.addSnow(200);
   }
 
   createEmitters(
@@ -26,12 +28,12 @@ export class SnowManager {
       x: { min: 0, max: 1280 },
       y: -1,
       speedX: -10,
-      speedY: { min: 30, max: 40 },
+      speedY: { min: MIN_SPEED, max: 40 },
       frequency: 200,
     });
     emitter.setScale(2);
     emitter.setBlendMode(Phaser.BlendModes.ADD);
-    emitter.setLifespan(Infinity);
+    emitter.setLifespan((720 / MIN_SPEED) * 1000);
     emitter.setAlpha(0.3);
     this.emitters.push(emitter);
   }
