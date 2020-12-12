@@ -47,7 +47,6 @@ export class Enemy {
 
       new FlyingCorpse(this.scene, this.body.position);
       new Reward(this.scene, this.body.position);
-      // @TODO tween --> delete
 
       deathCb();
     }
