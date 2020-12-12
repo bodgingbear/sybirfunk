@@ -30,6 +30,8 @@ export class LoadingScene extends Phaser.Scene {
       true
     );
 
+    this.load.image('snow1', 'images/snowflake1.png');
+    this.load.image('snow2', 'images/snowflake2.png');
     this.load.spritesheet('ivan', loadAsset('images/iwan.png'), {
       frameWidth: 11,
       frameHeight: 18,
