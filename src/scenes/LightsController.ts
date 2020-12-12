@@ -18,6 +18,8 @@ export class LightsController {
       0.5
     );
 
+    this.scene.lights.addLight(1270 - 250, 720 / 2 - 30, 200, 0xffffff, 0.5);
+
     this.scene.tweens.addCounter({
       from: 0,
       to: 1,

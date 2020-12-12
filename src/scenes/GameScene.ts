@@ -30,7 +30,7 @@ export class GameScene extends Phaser.Scene {
     this.physics.world.setBounds(0, 350, 1200, 720 - 350);
 
     new LightsController(this);
-    new Flag(this, new Phaser.Math.Vector2(1270 - 120, 720 / 2 - 30));
+    new Flag(this, new Phaser.Math.Vector2(1270 - 250, 720 / 2 - 30));
 
     new SnowManager(this);
 
