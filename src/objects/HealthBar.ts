@@ -49,7 +49,7 @@ export class HealthBar {
     this.moneyText = this.scene.add.text(
       MONEY_X + money.displayWidth / 2 + TEXT_OFFSET_X,
       TOP_LINE_Y,
-      String(this.inventory.accountBallance),
+      String(this.inventory.accountBalance),
       {
         fontSize: 24,
       }
@@ -77,7 +77,7 @@ export class HealthBar {
   }
 
   public onChange = () => {
-    this.moneyText.setText(String(this.inventory.accountBallance));
+    this.moneyText.setText(String(this.inventory.accountBalance));
     this.ammoText.setText(String(this.inventory.ammo));
   };
 

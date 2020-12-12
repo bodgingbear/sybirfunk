@@ -56,9 +56,9 @@ export class GameScene extends Phaser.Scene {
       keys,
       this.bullets
     );
+    this.ivan.sprite.setDepth(2);
 
     this.table = new Table(this);
-    this.ivan.sprite.setDepth(2);
 
     this.enemies = this.add.group();
 
