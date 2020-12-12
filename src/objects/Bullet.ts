@@ -6,7 +6,7 @@ export class Bullet {
   sprite: Phaser.GameObjects.GameObject;
 
   constructor(private scene: Phaser.Scene, position: Phaser.Math.Vector2) {
-    this.sprite = this.scene.add.circle(position.x, position.y, 2, 0xd9c078);
+    this.sprite = this.scene.add.sprite(position.x, position.y, 'bullet');
     this.scene.physics.world.enable(this.sprite);
 
     this.body = this.sprite.body as Phaser.Physics.Arcade.Body;

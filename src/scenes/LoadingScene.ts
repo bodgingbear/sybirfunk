@@ -21,7 +21,10 @@ export class LoadingScene extends Phaser.Scene {
       loadAsset('images/NormalMap.png'),
     ]);
 
-    this.load.image('blood', loadAsset('images/blood.png'));
+    this.load.image('blood', [
+      loadAsset('images/blood.png'),
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
     // Assets go here
     this.load.video(
       'demo',
@@ -38,15 +41,29 @@ export class LoadingScene extends Phaser.Scene {
       frameHeight: 18,
     });
 
-    this.load.spritesheet('guy1', loadAsset('images/guy1.png'), {
-      frameWidth: 8,
-      frameHeight: 18,
-    });
+    this.load.image('bullet', [
+      loadAsset('images/bullet.png'),
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
 
-    this.load.spritesheet('flag', loadAsset('images/flag.png'), {
-      frameWidth: 16,
-      frameHeight: 36,
-    });
+    this.load.image('guy1-0', [
+      loadAsset('images/guy1-0.png'),
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
+
+    this.load.image('guy1-1', [
+      loadAsset('images/guy1-1.png'),
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
+
+    this.load.image('flag-0', [
+      loadAsset('images/flag-0.png'),
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
+    this.load.image('flag-1', [
+      loadAsset('images/flag-1.png'),
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
     this.load.spritesheet('sasha', loadAsset('images/sasha.png'), {
       frameWidth: 14,
       frameHeight: 17,
@@ -74,10 +91,7 @@ export class LoadingScene extends Phaser.Scene {
     });
     this.anims.create({
       key: 'guy1-walk',
-      frames: this.anims.generateFrameNumbers('guy1', {
-        start: 0,
-        end: -1,
-      }),
+      frames: [{ key: 'guy1-0' }, { key: 'guy1-1' }],
       frameRate: 6,
       repeat: -1,
     });
@@ -94,10 +108,7 @@ export class LoadingScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'flag-wave',
-      frames: this.anims.generateFrameNumbers('flag', {
-        start: 0,
-        end: -1,
-      }),
+      frames: [{ key: 'flag-0' }, { key: 'flag-1' }],
       frameRate: 6,
       repeat: -1,
     });

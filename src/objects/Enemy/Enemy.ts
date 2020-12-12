@@ -20,8 +20,9 @@ export class Enemy {
     private money: Money
   ) {
     this.sprite = this.scene.add
-      .sprite(position.x, position.y, 'guy1')
-      .setScale(5);
+      .sprite(position.x, position.y, 'guy1-0')
+      .setScale(5)
+      .setPipeline('Light2D');
     scene.physics.world.enable(this.sprite);
 
     this.sprite.setData('ref', this);
