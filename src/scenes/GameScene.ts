@@ -1,5 +1,7 @@
 import { Enemy } from 'objects/Enemy';
 import { Ivan } from 'objects/Ivan';
+import { Commerade } from 'objects/Turrets/Commerade';
+import { CommeradesController } from 'objects/Turrets/CommeradesController';
 
 export class GameScene extends Phaser.Scene {
   public constructor() {
@@ -9,6 +11,12 @@ export class GameScene extends Phaser.Scene {
   }
 
   private ivan!: Ivan;
+
+  private commerades!: Phaser.GameObjects.Group;
+
+  private commeradesController!: CommeradesController;
+
+  enemies!: Phaser.GameObjects.Group;
 
   public create(): void {
     this.lights.enable();
@@ -32,18 +40,35 @@ export class GameScene extends Phaser.Scene {
       bullets
     );
 
-    const enemies = this.add.group();
+    this.enemies = this.add.group();
 
-    enemies.add(new Enemy(this, new Phaser.Math.Vector2(0, 200)).sprite);
-    enemies.add(new Enemy(this, new Phaser.Math.Vector2(50, 400)).sprite);
-    enemies.add(new Enemy(this, new Phaser.Math.Vector2(-100, 500)).sprite);
+    this.enemies.add(new Enemy(this, new Phaser.Math.Vector2(0, 200)).sprite);
+    this.enemies.add(new Enemy(this, new Phaser.Math.Vector2(50, 400)).sprite);
+    this.enemies.add(
+      new Enemy(this, new Phaser.Math.Vector2(-100, 500)).sprite
+    );
 
-    this.physics.add.collider(enemies, bullets, () => {
+    this.commerades = this.add.group();
+
+    this.commerades.add(
+      new Commerade(this, new Phaser.Math.Vector2(50, 600)).sprite
+    );
+
+    this.physics.add.collider(this.enemies, bullets, () => {
       console.log('bang');
     });
+
+    this.commeradesController = new CommeradesController(
+      this.commerades,
+      this.enemies
+    );
   }
 
   update() {
     this.ivan.update();
+    this.commerades.children
+      .getArray()
+      .forEach((obj) => obj.getData('ref').update());
+    this.commeradesController.update();
   }
 }
