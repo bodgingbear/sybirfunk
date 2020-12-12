@@ -53,7 +53,7 @@ export class GameScene extends Phaser.Scene {
       new Commerade(this, new Phaser.Math.Vector2(1000, 600), bullets).sprite
     );
 
-    const money = new Money(this, new Phaser.Math.Vector2(100, 100));
+    const money = new Money(this, new Phaser.Math.Vector2(100, 200));
 
     const tourManager = new TourManager(this, this.enemies, money);
 

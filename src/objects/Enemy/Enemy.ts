@@ -1,6 +1,7 @@
 import { Money } from 'objects/Money';
 import { FlyingCorpse } from './FlyingCorpse';
 import { Blood } from './Blood';
+import { Reward } from './Reward';
 
 const ENEMY_VELOCITY = 110;
 
@@ -45,6 +46,8 @@ export class Enemy {
       this.sprite.destroy();
 
       new FlyingCorpse(this.scene, this.body.position);
+      new Reward(this.scene, this.body.position);
+      // @TODO tween --> delete
 
       deathCb();
     }
