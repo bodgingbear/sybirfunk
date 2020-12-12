@@ -1,4 +1,5 @@
-import { Bullet } from './Bullet';
+import { Bullet } from '../Bullet';
+import { Gun } from './Gun';
 
 const PLAYER_VELOCITY = 300;
 
@@ -10,6 +11,8 @@ export class Ivan {
   sprite: Phaser.GameObjects.Sprite;
 
   light: Phaser.GameObjects.Light;
+
+  gun: Gun;
 
   constructor(
     private scene: Phaser.Scene,
@@ -26,14 +29,9 @@ export class Ivan {
     this.body.collideWorldBounds = true;
     this.body.immovable = true;
 
-    keys.space?.on('down', () => {
-      this.bullets.add(
-        new Bullet(
-          scene,
-          this.body.position.add(new Phaser.Math.Vector2(-10, 37))
-        ).sprite
-      );
-    });
+    this.gun = new Gun(this.scene, this.body, this.keys, this.bullets);
+
+    this.gun.setBullets(20);
 
     this.sprite.anims.play('ivan-walk');
 

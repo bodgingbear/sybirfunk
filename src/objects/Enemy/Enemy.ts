@@ -31,7 +31,7 @@ export class Enemy {
     this.sprite.anims.play('guy1-walk');
   }
 
-  public onHit = () => {
+  public onHit = (deathCb: () => void) => {
     this.hp--;
 
     if (this.hp > 0) {
@@ -40,6 +40,8 @@ export class Enemy {
       this.sprite.destroy();
 
       new FlyingCorpse(this.scene, this.body.position);
+
+      deathCb();
     }
   };
 

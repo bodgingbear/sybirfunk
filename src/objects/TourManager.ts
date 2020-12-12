@@ -16,7 +16,7 @@ export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
     this.spawnEnemies();
   }
 
-  public onEnemyKill() {
+  public onEnemyKill = () => {
     this.enemiesCount--;
 
     if (this.enemiesCount !== 0) {
@@ -38,7 +38,7 @@ export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
         }
       },
     });
-  }
+  };
 
   private onRoundStart() {
     this.text.setText('');

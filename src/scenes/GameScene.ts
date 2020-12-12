@@ -1,4 +1,4 @@
-import { Ivan } from 'objects/Ivan';
+import { Ivan } from 'objects/Ivan/Ivan';
 import { HealthBar } from 'objects/HealthBar';
 import { Money } from 'objects/Money';
 import { SnowManager } from 'objects/SnowManager';
@@ -56,9 +56,8 @@ export class GameScene extends Phaser.Scene {
     const tourManager = new TourManager(this, this.enemies);
 
     this.physics.add.collider(this.enemies, bullets, (enemyObj, bulletObj) => {
-      enemyObj.getData('ref').onHit();
+      enemyObj.getData('ref').onHit(tourManager.onEnemyKill);
       bulletObj.destroy();
-      tourManager.onEnemyKill();
     });
 
     // KUBA
