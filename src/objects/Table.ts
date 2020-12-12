@@ -1,7 +1,7 @@
 import { EventEmitter } from 'packages/utils';
 
 export class Table extends EventEmitter<
-  'buy-ammo' | 'buy-sasha' | 'buy-boris' | 'buy-vodka'
+  'buy-ammo' | 'buy-sasha' | 'buy-boris' | 'buy-vodka' | 'drink-vodka'
 > {
   sprite: Phaser.GameObjects.Sprite;
 
@@ -21,7 +21,7 @@ export class Table extends EventEmitter<
 
   uiContainer: Phaser.GameObjects.Container;
 
-  vodkaLabel: Phaser.GameObjects.Rectangle;
+  vodkaLabel: Phaser.GameObjects.Text;
 
   constructor(private scene: Phaser.Scene) {
     super();
@@ -48,7 +48,7 @@ export class Table extends EventEmitter<
     this.uiContainer.setVisible(false).setScale(0.75);
 
     this.vodkaLabel = this.scene.add
-      .rectangle(1280 / 2 - 100, 100, 400, 100, 0x00ff00, 0.2)
+      .text(1280 / 2 - 180, 200, 'Press D to dring vodka')
       .setVisible(false);
 
     this.scene.input.keyboard.on(`keydown-ONE`, () => {
@@ -62,6 +62,9 @@ export class Table extends EventEmitter<
     });
     this.scene.input.keyboard.on('keyup-FOUR', () => {
       this.emit('buy-vodka');
+    });
+    this.scene.input.keyboard.on('keyup-D', () => {
+      this.emit('drink-vodka');
     });
   }
 
