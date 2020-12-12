@@ -18,6 +18,8 @@ export class Commerade {
 
   shootingEvent: Phaser.Time.TimerEvent | undefined;
 
+  light: Phaser.GameObjects.Light;
+
   constructor(
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
@@ -40,6 +42,14 @@ export class Commerade {
     this.sprite.setData('ref', this);
 
     this.body.setVelocityY(SPEED);
+
+    this.light = this.scene.lights.addLight(
+      position.x,
+      position.y,
+      135,
+      0xffffff,
+      0.4
+    );
   }
 
   foundEnemy() {
@@ -83,5 +93,7 @@ export class Commerade {
     } else if (this.body.y >= BOTTOM) {
       this.body.setVelocityY(-SPEED);
     }
+
+    this.light.setPosition(this.sprite.x, this.sprite.y);
   }
 }
