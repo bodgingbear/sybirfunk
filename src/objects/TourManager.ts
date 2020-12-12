@@ -15,7 +15,7 @@ export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
     super();
 
     this.text = this.scene.add.text(1280 - 100, 50, '');
-    this.spawnEnemies();
+    this.onRoundStart();
   }
 
   public onEnemyKill = () => {

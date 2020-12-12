@@ -35,6 +35,7 @@ export class LoadingScene extends Phaser.Scene {
       true
     );
 
+    this.load.image('stolik', 'images/stolik.png');
     this.load.image('snow1', [
       'images/snowflake1.png',
       loadAsset('images/defaultNormalMap.png'),
@@ -47,6 +48,8 @@ export class LoadingScene extends Phaser.Scene {
       frameWidth: 11,
       frameHeight: 18,
     });
+
+    this.load.image('moon', loadAsset('images/moon.png'));
 
     this.load.image('guy1-0', [
       loadAsset('images/guy1-0.png'),
@@ -69,6 +72,17 @@ export class LoadingScene extends Phaser.Scene {
     this.load.spritesheet('sasha', loadAsset('images/sasha.png'), {
       frameWidth: 14,
       frameHeight: 17,
+    });
+
+    this.load.image('ammo-on', loadAsset('images/ammo-on.png'));
+    this.load.image('boris-on', loadAsset('images/boris-on.png'));
+    this.load.image('knife-on', loadAsset('images/knife-on.png'));
+    this.load.image('molotov-on', loadAsset('images/molotov-on.png'));
+    this.load.image('sasha-on', loadAsset('images/sasha-on.png'));
+    this.load.image('vodka-on', loadAsset('images/vodka-on.png'));
+    this.load.spritesheet('boris', loadAsset('images/boris.png'), {
+      frameWidth: 21,
+      frameHeight: 20,
     });
   }
 
@@ -111,6 +125,16 @@ export class LoadingScene extends Phaser.Scene {
     this.anims.create({
       key: 'flag-wave',
       frames: [{ key: 'flag-0' }, { key: 'flag-1' }],
+      frameRate: 3,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'boris-walk',
+      frames: this.anims.generateFrameNumbers('boris', {
+        start: 0,
+        end: -1,
+      }),
       frameRate: 6,
       repeat: -1,
     });
