@@ -1,4 +1,3 @@
-import { Enemy } from 'objects/Enemy';
 import { Bullet } from 'objects/Bullet';
 
 const SPEED = 100;
@@ -36,7 +35,6 @@ export class Commerade {
 
     this.body = this.sprite.body as Phaser.Physics.Arcade.Body;
     this.body.setCollideWorldBounds(true);
-    this.body.setImmovable(true);
     this.position = position;
 
     this.sprite.setData('ref', this);
@@ -83,6 +81,12 @@ export class Commerade {
     this.state = 'searching';
     this.shootingEvent?.destroy();
     this.body.setVelocityY(getRandomInt(2) === 0 ? SPEED : -SPEED);
+  }
+
+  public gotHit() {
+    this.light.intensity = 0;
+    this.sprite.destroy();
+    this.shootingEvent?.destroy();
   }
 
   update() {

@@ -44,7 +44,10 @@ export class LoadingScene extends Phaser.Scene {
       frameHeight: 18,
     });
 
-    this.load.image('flag', loadAsset('images/background.png'));
+    this.load.spritesheet('flag', loadAsset('images/flag.png'), {
+      frameWidth: 16,
+      frameHeight: 36,
+    });
     this.load.spritesheet('sasha', loadAsset('images/sasha.png'), {
       frameWidth: 14,
       frameHeight: 17,
@@ -90,6 +93,16 @@ export class LoadingScene extends Phaser.Scene {
     this.anims.create({
       key: 'sasha-walk',
       frames: this.anims.generateFrameNumbers('sasha', {
+        start: 0,
+        end: -1,
+      }),
+      frameRate: 6,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'flag-wave',
+      frames: this.anims.generateFrameNumbers('flag', {
         start: 0,
         end: -1,
       }),

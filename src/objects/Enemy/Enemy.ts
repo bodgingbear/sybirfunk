@@ -1,4 +1,6 @@
+import { Money } from 'objects/Money';
 import { FlyingCorpse } from './FlyingCorpse';
+import { Blood } from './Blood';
 
 const ENEMY_VELOCITY = 110;
 
@@ -9,7 +11,13 @@ export class Enemy {
 
   sprite: Phaser.GameObjects.Sprite;
 
-  constructor(private scene: Phaser.Scene, position: Phaser.Math.Vector2) {
+  hp = 2;
+
+  constructor(
+    private scene: Phaser.Scene,
+    position: Phaser.Math.Vector2,
+    private money: Money
+  ) {
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'guy1')
       .setScale(5);
@@ -18,18 +26,34 @@ export class Enemy {
     this.sprite.setData('ref', this);
 
     this.body = this.sprite.body as Phaser.Physics.Arcade.Body;
+    this.body.setImmovable(true);
 
     this.position = position;
 
     this.body.velocity.x = ENEMY_VELOCITY;
 
+    this.body.immovable = true;
     this.sprite.anims.play('guy1-walk');
   }
 
-  public onHit = () => {
-    this.sprite.destroy();
+  public onHit = (deathCb: () => void) => {
+    this.hp--;
 
-    new FlyingCorpse(this.scene, this.body.position);
+    if (this.hp > 0) {
+      new Blood(this.scene, this.body.position, 100, 50, 50);
+    } else {
+      this.sprite.destroy();
+
+      new FlyingCorpse(this.scene, this.body.position);
+
+      deathCb();
+    }
+
+    this.money.onHit();
+  };
+
+  public onCommeradeTouch = () => {
+    this.body.velocity.x -= 20;
   };
 
   update() {}
