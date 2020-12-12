@@ -46,9 +46,9 @@ export class Ivan {
     this.light = this.scene.lights.addLight(
       position.x,
       position.y,
-      300,
+      200,
       0xffffff,
-      0.6
+      0.2
     );
   }
 
