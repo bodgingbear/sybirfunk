@@ -1,3 +1,4 @@
+import { Money } from 'objects/Money';
 import { FlyingCorpse } from './FlyingCorpse';
 
 const ENEMY_VELOCITY = 110;
@@ -9,7 +10,11 @@ export class Enemy {
 
   sprite: Phaser.GameObjects.Sprite;
 
-  constructor(private scene: Phaser.Scene, position: Phaser.Math.Vector2) {
+  constructor(
+    private scene: Phaser.Scene,
+    position: Phaser.Math.Vector2,
+    private money: Money
+  ) {
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'guy1')
       .setScale(5);
@@ -30,8 +35,9 @@ export class Enemy {
 
   public onHit = () => {
     this.sprite.destroy();
-
     new FlyingCorpse(this.scene, this.body.position);
+
+    this.money.onHit();
   };
 
   public onCommeradeTouch = () => {

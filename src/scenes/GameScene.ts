@@ -53,7 +53,9 @@ export class GameScene extends Phaser.Scene {
       new Commerade(this, new Phaser.Math.Vector2(1000, 600), bullets).sprite
     );
 
-    const tourManager = new TourManager(this, this.enemies);
+    const money = new Money(this, new Phaser.Math.Vector2(100, 100));
+
+    const tourManager = new TourManager(this, this.enemies, money);
 
     this.physics.add.collider(this.enemies, bullets, (enemyObj, bulletObj) => {
       enemyObj.getData('ref').onHit();
@@ -67,8 +69,6 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
       healthBar.shrink();
     });
-
-    const money = new Money(this, new Phaser.Math.Vector2(100, 100));
 
     // END KUBA
 

@@ -1,12 +1,19 @@
 export class Money {
   rubles = 1000;
 
+  text: Phaser.GameObjects.Text;
+
   constructor(private scene: Phaser.Scene, position: Phaser.Math.Vector2) {
-    const money = this.scene.add.text(
+    this.text = this.scene.add.text(
       position.x,
       position.y,
-      `${this.rubles} рб`
+      `${this.rubles} rb` // dać zamiast tego potem po prostu ikonkę rubli
     );
+  }
+
+  public onHit() {
+    this.rubles += 10;
+    this.text.setText(`${this.rubles} rb`);
   }
 
   update() {}
