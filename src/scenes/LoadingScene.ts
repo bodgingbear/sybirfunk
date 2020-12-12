@@ -48,6 +48,8 @@ export class LoadingScene extends Phaser.Scene {
       frameHeight: 18,
     });
 
+    this.load.image('moon', loadAsset('images/moon.png'));
+
     this.load.image('guy1-0', [
       loadAsset('images/guy1-0.png'),
       loadAsset('images/defaultNormalMap.png'),
@@ -118,7 +120,7 @@ export class LoadingScene extends Phaser.Scene {
     this.anims.create({
       key: 'flag-wave',
       frames: [{ key: 'flag-0' }, { key: 'flag-1' }],
-      frameRate: 6,
+      frameRate: 3,
       repeat: -1,
     });
   }

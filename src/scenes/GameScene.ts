@@ -76,7 +76,7 @@ export class GameScene extends Phaser.Scene {
     );
 
     // KUBA
-    const healthBar = new HealthBar(this, new Phaser.Math.Vector2(1000, 100));
+    const healthBar = new HealthBar(this, new Phaser.Math.Vector2(900, 100));
 
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
       healthBar.shrink();
