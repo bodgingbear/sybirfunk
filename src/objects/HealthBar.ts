@@ -21,11 +21,9 @@ export class HealthBar {
     );
 
     this.barShrinking.setOrigin(0, 0.5);
-
-    // this.health = 100;
   }
 
-  shrink() {
+  public shrink() {
     if (this.hasCooledDown === false) {
       return;
     }

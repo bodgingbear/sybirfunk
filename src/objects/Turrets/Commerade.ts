@@ -63,14 +63,14 @@ export class Commerade {
   }
 
   shoot = (y: number) => {
-    // this.bullets.add(
-    //   new Bullet(
-    //     this.scene,
-    //     new Phaser.Math.Vector2(this.body.position.x, y).add(
-    //       new Phaser.Math.Vector2(-10, 37)
-    //     )
-    //   ).sprite
-    // );
+    this.bullets.add(
+      new Bullet(
+        this.scene,
+        new Phaser.Math.Vector2(this.body.position.x, y).add(
+          new Phaser.Math.Vector2(-10, 37)
+        )
+      ).sprite
+    );
   };
 
   finishShooting() {
