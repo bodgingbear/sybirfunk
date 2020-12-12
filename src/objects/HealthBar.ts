@@ -4,20 +4,17 @@ export class HealthBar {
   hasCooledDown = true;
 
   constructor(private scene: Phaser.Scene, position: Phaser.Math.Vector2) {
-    const bar = this.scene.add.rectangle(
-      position.x,
-      position.y,
-      270,
-      30,
-      0xffffff
-    );
+    const bar = this.scene.add
+      .sprite(position.x, position.y, 'health-bar')
+      .setScale(5)
+      .setDepth(11);
 
     this.barShrinking = this.scene.add.rectangle(
-      position.x - 130,
-      position.y,
-      260,
-      25,
-      0xff0000
+      bar.x - bar.displayWidth / 2,
+      bar.y,
+      bar.displayWidth,
+      bar.displayHeight - 2,
+      0xc20c0c
     );
 
     this.barShrinking.setOrigin(0, 0.5);

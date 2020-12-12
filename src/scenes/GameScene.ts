@@ -94,13 +94,11 @@ export class GameScene extends Phaser.Scene {
     this.boris.activate();
 
     // KUBA
-    const healthBar = new HealthBar(this, new Phaser.Math.Vector2(900, 100));
+    const healthBar = new HealthBar(this, new Phaser.Math.Vector2(865, 105));
 
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
       healthBar.shrink();
     });
-
-    // END KUBA
 
     this.commeradesController = new CommeradesController(
       this.commerades,
