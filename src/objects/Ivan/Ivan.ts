@@ -25,6 +25,8 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
 
   previouslyHitAt = 0;
 
+  callBoris: () => void;
+
   constructor(
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
@@ -32,10 +34,12 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
     private bullets: Phaser.GameObjects.Group,
     weapon: 'gun' | 'knife' = 'gun',
     inventory: Inventory,
+    callBoris: () => void,
     private hp: number = PLAYER_MAX_HP,
     private state: 'idle' | 'drinking' = 'idle'
   ) {
     super();
+    this.callBoris = callBoris;
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'ivan')
       .setScale(5);
@@ -69,6 +73,10 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
       0xffffff,
       0.2
     );
+
+    this.scene.input.keyboard.on('keyup-Q', () => {
+      this.callBoris();
+    });
   }
 
   getState(): 'idle' | 'drinking' {

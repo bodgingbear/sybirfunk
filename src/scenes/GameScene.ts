@@ -77,7 +77,10 @@ export class GameScene extends Phaser.Scene {
       keys,
       this.bullets,
       'gun',
-      this.inventory
+      this.inventory,
+      () => {
+        this.boris?.activate();
+      }
     );
 
     this.observeTableEvents();
