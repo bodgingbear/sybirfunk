@@ -42,7 +42,7 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
     this.body.collideWorldBounds = true;
     this.body.immovable = true;
     this.body.setBoundsRectangle(
-      new Phaser.Geom.Rectangle(1280 / 2, 720 / 2, 1280 / 2 - 30, 720)
+      new Phaser.Geom.Rectangle(1280 / 2, 720 / 2, 1280 / 2 - 30, 720 / 2)
     );
 
     this.gun = new Gun(this.scene, this.body, this.bullets, inventory);
