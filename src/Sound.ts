@@ -6,4 +6,5 @@ export const Sound = {
   ivanHit1: 'ivan-hit-1',
   ivanHit2: 'ivan-hit-2',
   ivanHit3: 'ivan-hit-3',
+  ivanDrinks: 'ivan-drinks',
 };
