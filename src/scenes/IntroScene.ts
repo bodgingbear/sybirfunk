@@ -35,7 +35,7 @@ export class IntroScene extends Phaser.Scene {
         anim3.play('intro3');
 
         anim3.on('animationcomplete', () => {
-          this.scene.start('GameScene');
+          this.scene.start('MainMenuScene');
         });
       });
     });

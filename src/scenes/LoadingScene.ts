@@ -309,7 +309,7 @@ export class LoadingScene extends Phaser.Scene {
   };
 
   private changeScene = () => {
-    this.scene.start('IntroScene');
-    // this.scene.start('GameScene');
+    // this.scene.start('IntroScene');
+    this.scene.start('MainMenuScene');
   };
 }
