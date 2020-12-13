@@ -16,6 +16,8 @@ export class GameScene extends Phaser.Scene {
 
   bullets!: Phaser.GameObjects.Group;
 
+  inventory!: Inventory;
+
   public constructor() {
     super({
       key: 'GameScene',
@@ -46,9 +48,19 @@ export class GameScene extends Phaser.Scene {
     new SnowManager(this);
     const keys = this.input.keyboard.createCursorKeys();
 
-    const inventory = new Inventory();
-
-    this.bullets = this.add.group();
+    this.inventory = new Inventory();
+    this.table.on('buy-ammo', () => {
+      this.inventory.buyAmmo();
+    });
+    this.table.on('buy-sasha', () => {
+      this.inventory.buySasha();
+    });
+    this.table.on('buy-boris', () => {
+      this.inventory.buyBoris();
+    });
+    this.table.on('buy-vodka', () => {
+      this.inventory.buyVodka();
+    });
 
     this.ivan = new Ivan(
       this,
@@ -98,8 +110,8 @@ export class GameScene extends Phaser.Scene {
     );
     this.boris.activate();
 
-    const healthBar = new HealthBar(this, inventory);
-    inventory.on('change', healthBar.onChange);
+    const healthBar = new HealthBar(this, this.inventory);
+    this.inventory.on('change', healthBar.onChange);
 
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
       healthBar.shrink();
