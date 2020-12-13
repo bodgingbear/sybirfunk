@@ -2,7 +2,7 @@ import { Inventory } from 'objects/Inventory';
 import { bound, EventEmitter } from 'packages/utils';
 import { Gun } from './Gun';
 
-const PLAYER_VELOCITY = 300;
+const PLAYER_VELOCITY = 120;
 export const PLAYER_MAX_HP = 100;
 
 type EventHandlers = {
@@ -61,7 +61,7 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
       }
     });
 
-    this.gun.setBullets(20);
+    this.gun.setBullets(30);
 
     this.sprite.anims.play('ivan-walk');
 
@@ -83,7 +83,7 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
   }
 
   update() {
-    const velocity = new Phaser.Math.Vector2(0, 0);
+    let velocity = new Phaser.Math.Vector2(0, 0);
 
     if (this.keys.up?.isDown) {
       velocity.subtract(new Phaser.Math.Vector2(0, PLAYER_VELOCITY * 1.5));
@@ -99,6 +99,10 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
 
     if (this.keys.right?.isDown) {
       velocity.add(new Phaser.Math.Vector2(PLAYER_VELOCITY, 0));
+    }
+
+    if (velocity.x !== 0 && velocity.y !== 0) {
+      velocity = velocity.normalize().scale(PLAYER_VELOCITY);
     }
 
     this.body.setVelocity(velocity.x, velocity.y);

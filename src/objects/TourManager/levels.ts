@@ -10,6 +10,8 @@ const level1: Level = [
   { time: 2500, position: new Phaser.Math.Vector2(0, 400), type: 'ordinary' },
 ];
 
+// HAJS AFTER 1: 70
+
 const level2: Level = [
   { time: 200, position: new Phaser.Math.Vector2(0, 400), type: 'ordinary' },
   { time: 500, position: new Phaser.Math.Vector2(0, 460), type: 'ordinary' },
@@ -19,6 +21,8 @@ const level2: Level = [
   { time: 5000, position: new Phaser.Math.Vector2(0, 600), type: 'boombox' },
   { time: 5500, position: new Phaser.Math.Vector2(0, 600), type: 'ordinary' },
 ];
+
+// HAJS AFTER 2: 110
 
 const level3: Level = [
   { time: 1500, position: new Phaser.Math.Vector2(0, 500), type: 'ordinary' },
@@ -32,6 +36,8 @@ const level3: Level = [
   { time: 9000, position: new Phaser.Math.Vector2(0, 600), type: 'boombox' },
   { time: 9500, position: new Phaser.Math.Vector2(0, 600), type: 'ordinary' },
 ];
+
+// HAJS AFTER 3: 190
 
 const level4: Level = [
   // BOOMBOX SQUAD 1
@@ -53,6 +59,8 @@ const level4: Level = [
   { time: 6000, position: new Phaser.Math.Vector2(0, 490), type: 'ordinary' },
   { time: 6000, position: new Phaser.Math.Vector2(0, 550), type: 'ordinary' },
 ];
+
+// HAJS AFTER 2: 180
 
 const level5: Level = [
   // ORDINARY SQUAD 1
@@ -131,6 +139,39 @@ const level5: Level = [
     position: new Phaser.Math.Vector2(0, 500),
     type: 'ordinary',
   },
+
+  {
+    time: 11000,
+    position: new Phaser.Math.Vector2(0, 400),
+    type: 'ordinary',
+  },
+  {
+    time: 11000,
+    position: new Phaser.Math.Vector2(0, 500),
+    type: 'ordinary',
+  },
+  {
+    time: 11000,
+    position: new Phaser.Math.Vector2(0, 600),
+    type: 'ordinary',
+  },
+  {
+    time: 11700,
+    position: new Phaser.Math.Vector2(0, 450),
+    type: 'ordinary',
+  },
+  {
+    time: 11700,
+    position: new Phaser.Math.Vector2(0, 550),
+    type: 'ordinary',
+  },
+  {
+    time: 11700,
+    position: new Phaser.Math.Vector2(0, 650),
+    type: 'ordinary',
+  },
 ];
+
+// HAJS AFTER 5: 280
 
 export const levels = [level1, level2, level3, level4, level5];

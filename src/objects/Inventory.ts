@@ -1,7 +1,7 @@
 import { EventEmitter } from 'packages/utils';
 
 export class Inventory extends EventEmitter<'change'> {
-  accountBalance: number = 1000;
+  accountBalance: number = 0;
 
   sashaCounter: number = 0;
 

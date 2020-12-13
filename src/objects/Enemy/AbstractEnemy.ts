@@ -22,7 +22,8 @@ export class AbstractEnemy {
     protected scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
     private inventory: Inventory,
-    texture: 'guy1' | 'guy2' | 'pop'
+    texture: 'guy1' | 'guy2' | 'pop',
+    private reward: number = 10
   ) {
     this.spriteName = texture;
 
@@ -55,11 +56,10 @@ export class AbstractEnemy {
 
       new FlyingCorpse(this.scene, this.body.position);
       new Reward(this.scene, this.body.position);
+      this.inventory.increaseAccountBalance(this.reward);
 
       deathCb();
     }
-
-    this.inventory.increaseAccountBalance(10);
   }
 
   public onWin() {

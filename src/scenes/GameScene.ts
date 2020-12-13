@@ -15,8 +15,8 @@ const SCENE_CENTER_X = 1280 / 2;
 const SCENE_CENTER_Y = 720 / 2;
 
 const PRICES = {
-  ammo: 100,
-  sasha: 300,
+  ammo: 30,
+  sasha: 200,
   boris: 500,
   vodka: 200,
 };

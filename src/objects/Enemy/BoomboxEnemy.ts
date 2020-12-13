@@ -15,7 +15,7 @@ export class BoomboxEnemy extends AbstractEnemy {
     position: Phaser.Math.Vector2,
     inventory: Inventory
   ) {
-    super(scene, position, inventory, 'guy2');
+    super(scene, position, inventory, 'guy2', 50);
     this.sprite.setData('ref', this);
 
     this.light = this.scene.lights.addLight(
