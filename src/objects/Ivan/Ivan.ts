@@ -41,6 +41,9 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
     this.body = this.sprite.body as Phaser.Physics.Arcade.Body;
     this.body.collideWorldBounds = true;
     this.body.immovable = true;
+    this.body.setBoundsRectangle(
+      new Phaser.Geom.Rectangle(1280 / 2, 0, 1280 / 2 - 30, 720)
+    );
 
     this.gun = new Gun(this.scene, this.body, this.bullets, inventory);
     keys.space?.on('down', () => {
