@@ -89,13 +89,6 @@ export class GameScene extends Phaser.Scene {
 
     this.commerades = this.add.group();
 
-    // this.boris = new Boris(
-    //   this,
-    //   new Phaser.Math.Vector2(1300, 600),
-    //   this.bullets
-    // );
-    // this.boris.activate();
-
     this.enemyWinController = new EnemyWinController(this, this.enemies);
 
     const tourManager = new TourManager(this, this.enemies, this.inventory);
@@ -175,15 +168,15 @@ export class GameScene extends Phaser.Scene {
       if (this.inventory.accountBalance < price) {
         return;
       }
-      this.handleSashaAdded(price);
+      this.handleSashaBought(price);
     });
     this.table.on('buy-boris', () => {
       const price = PRICES.boris;
 
-      if (this.inventory.accountBalance >= price) {
-        this.inventory.buyBoris();
-        this.inventory.decreaseAccountBalance(price);
+      if (this.inventory.accountBalance < price) {
+        return;
       }
+      this.handleBorisBought(price);
     });
     this.table.on('buy-vodka', () => {
       const price = PRICES.vodka;
@@ -195,7 +188,7 @@ export class GameScene extends Phaser.Scene {
     });
   };
 
-  handleSashaAdded = (price: number) => {
+  handleSashaBought = (price: number) => {
     this.inventory.buySasha();
     this.inventory.decreaseAccountBalance(price);
     const sashasCount = this.commerades.children.getArray().length;
@@ -205,6 +198,16 @@ export class GameScene extends Phaser.Scene {
         new Phaser.Math.Vector2(980 + sashasCount * 45, 600),
         this.bullets
       ).sprite
+    );
+  };
+
+  handleBorisBought = (price: number) => {
+    this.inventory.buyBoris();
+    this.inventory.decreaseAccountBalance(price);
+    this.boris = new Boris(
+      this,
+      new Phaser.Math.Vector2(1300, 640),
+      this.bullets
     );
   };
 
