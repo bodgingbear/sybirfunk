@@ -79,6 +79,7 @@ export class GameScene extends Phaser.Scene {
       this.inventory,
       () => {
         this.boris?.activate();
+        this.inventory.useBoris();
       }
     );
 

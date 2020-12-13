@@ -40,6 +40,11 @@ export class Inventory extends EventEmitter<'change'> {
     }
   }
 
+  useBoris() {
+    this.borisCounter = Math.max(this.borisCounter - 1, 0);
+    this.emit('change');
+  }
+
   buyVodka() {
     if (this.vodkaCounter < 3) {
       this.vodkaCounter += 1;

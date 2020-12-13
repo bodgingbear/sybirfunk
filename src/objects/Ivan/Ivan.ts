@@ -1,7 +1,6 @@
 import { Inventory } from 'objects/Inventory';
-import { EventEmitter } from 'packages/utils';
+import { bound, EventEmitter } from 'packages/utils';
 import { Gun } from './Gun';
-import { Knife } from './Knife';
 
 const PLAYER_VELOCITY = 300;
 export const PLAYER_MAX_HP = 100;
@@ -109,7 +108,7 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
 
   drinkVodka() {
     this.state = 'drinking';
-    this.hp = PLAYER_MAX_HP;
+    this.hp = bound(0, PLAYER_MAX_HP, this.hp + PLAYER_MAX_HP / 4);
     const anim = this.sprite.play('ivan-drink');
     anim.on('animationcomplete', () => {
       anim.off('animationcomplete');
