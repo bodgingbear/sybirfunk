@@ -100,7 +100,6 @@ export class GameScene extends Phaser.Scene {
       this.inventory
     );
 
-    this.table = new Table(this);
     this.observeTableEvents();
     this.ivan.sprite.setDepth(2);
 

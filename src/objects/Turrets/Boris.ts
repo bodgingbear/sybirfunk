@@ -101,7 +101,7 @@ export class Boris implements Ally {
       });
   }
 
-  private shoot = (y: number, hideLight = false) => {
+  private shoot = (y: number, hideLight = true) => {
     const vel = new Phaser.Math.Vector2(BULLET_VELOCITY, 0).rotate(
       this.sprite.rotation
     );

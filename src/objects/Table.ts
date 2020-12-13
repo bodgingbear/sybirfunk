@@ -52,19 +52,29 @@ export class Table extends EventEmitter<
       .setVisible(false);
 
     this.scene.input.keyboard.on(`keydown-ONE`, () => {
-      this.emit('buy-ammo');
+      if (this.uiContainer.visible) {
+        this.emit('buy-ammo');
+      }
     });
     this.scene.input.keyboard.on('keyup-TWO', () => {
-      this.emit('buy-sasha');
+      if (this.uiContainer.visible) {
+        this.emit('buy-sasha');
+      }
     });
     this.scene.input.keyboard.on('keyup-THREE', () => {
-      this.emit('buy-boris');
+      if (this.uiContainer.visible) {
+        this.emit('buy-boris');
+      }
     });
     this.scene.input.keyboard.on('keyup-FOUR', () => {
-      this.emit('buy-vodka');
+      if (this.uiContainer.visible) {
+        this.emit('buy-vodka');
+      }
     });
     this.scene.input.keyboard.on('keyup-D', () => {
-      this.emit('drink-vodka');
+      if (this.vodkaLabel.visible) {
+        this.emit('drink-vodka');
+      }
     });
   }
 
