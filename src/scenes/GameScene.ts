@@ -68,8 +68,6 @@ export class GameScene extends Phaser.Scene {
     new SnowManager(this);
     const keys = this.input.keyboard.createCursorKeys();
 
-    this.table = new Table(this, this.inventory);
-
     this.inventory = new Inventory();
     this.table = new Table(this, this.inventory);
 

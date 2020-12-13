@@ -45,7 +45,7 @@ export class Commerade implements Ally {
       position.y,
       135,
       0xffffff,
-      0.4
+      0.1
     );
   }
 
