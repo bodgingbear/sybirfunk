@@ -57,7 +57,11 @@ export class GameScene extends Phaser.Scene {
       .setPipeline('Light2D');
     bg.setScale(5);
 
-    this.physics.world.setBounds(0, 350, 1200, 720 - 350);
+    this.physics.world.setBounds(0, 350, 1200, 720);
+    this.add
+      .image(1280 / 2, 720 - 175, 'zasieki')
+      .setScale(5)
+      .setPipeline('Light2D');
 
     new Flag(this, new Phaser.Math.Vector2(1270 - 250, 720 / 2 - 30));
 
@@ -165,7 +169,7 @@ export class GameScene extends Phaser.Scene {
     this.table.on('buy-ammo', () => {
       const price = PRICES.ammo;
 
-      if (this.inventory.accountBalance > price) {
+      if (this.inventory.accountBalance >= price) {
         this.inventory.increaseAmmo();
         this.inventory.decreaseAccountBalance(price);
       }
@@ -173,7 +177,7 @@ export class GameScene extends Phaser.Scene {
     this.table.on('buy-sasha', () => {
       const price = PRICES.sasha;
 
-      if (this.inventory.accountBalance > price) {
+      if (this.inventory.accountBalance >= price) {
         this.inventory.buySasha();
         this.inventory.decreaseAccountBalance(price);
       }
@@ -181,7 +185,7 @@ export class GameScene extends Phaser.Scene {
     this.table.on('buy-boris', () => {
       const price = PRICES.boris;
 
-      if (this.inventory.accountBalance > price) {
+      if (this.inventory.accountBalance >= price) {
         this.inventory.buyBoris();
         this.inventory.decreaseAccountBalance(price);
       }
@@ -189,7 +193,7 @@ export class GameScene extends Phaser.Scene {
     this.table.on('buy-vodka', () => {
       const price = PRICES.vodka;
 
-      if (this.inventory.accountBalance > price) {
+      if (this.inventory.accountBalance >= price) {
         this.inventory.buyVodka();
         this.inventory.decreaseAccountBalance(price);
       }

@@ -26,7 +26,7 @@ export class Table extends EventEmitter<
 
   constructor(private scene: Phaser.Scene, private inventory: Inventory) {
     super();
-    this.sprite = this.scene.add.sprite(1150, 600, 'stolik').setScale(5);
+    this.sprite = this.scene.add.sprite(1150, 600, 'stolik').setScale(7);
     this.box = this.scene.add.rectangle(
       this.sprite.x,
       this.sprite.y + 15,
@@ -100,7 +100,7 @@ export class Table extends EventEmitter<
       this.uiContainer.setVisible(false);
       if (this.inventory.vodkaCounter === 0) {
         this.vodkaLabel
-          .setText("You're out of vodka, by more!")
+          .setText("You're out of vodka, buy more!")
           .setVisible(true);
         return;
       }

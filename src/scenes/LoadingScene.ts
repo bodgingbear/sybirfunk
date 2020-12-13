@@ -107,6 +107,10 @@ export class LoadingScene extends Phaser.Scene {
     this.load.image('molotov-on', loadAsset('images/molotov-on.png'));
     this.load.image('sasha-on', loadAsset('images/sasha-on.png'));
     this.load.image('vodka-on', loadAsset('images/vodka-on.png'));
+    this.load.image('zasieki', [
+      loadAsset('images/zasieki.png'),
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
     this.load.spritesheet('boris', loadAsset('images/boris.png'), {
       frameWidth: 21,
       frameHeight: 20,
