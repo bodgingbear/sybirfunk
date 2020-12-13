@@ -8,5 +8,6 @@ export class PriestEnemy extends AbstractEnemy {
     inventory: Inventory
   ) {
     super(scene, position, inventory, 'pop');
+    this.sprite.setData('ref', this);
   }
 }

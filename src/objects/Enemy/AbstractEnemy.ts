@@ -1,6 +1,5 @@
 import { Bullet } from 'objects/Bullet';
 import { Inventory } from 'objects/Inventory';
-import { Knife } from 'objects/Ivan/Knife';
 import { FlyingCorpse } from './FlyingCorpse';
 import { Blood } from './Blood';
 import { Reward } from './Reward';
@@ -52,7 +51,7 @@ export class AbstractEnemy {
     if (this.hp > 0) {
       new Blood(this.scene, this.body.position, 100, 50, 50);
     } else {
-      this.sprite.destroy();
+      this.destroy();
 
       new FlyingCorpse(this.scene, this.body.position);
       new Reward(this.scene, this.body.position);
@@ -69,6 +68,10 @@ export class AbstractEnemy {
   public onCommeradeTouch = () => {
     this.body.velocity.x -= 20;
   };
+
+  public destroy() {
+    this.sprite.destroy();
+  }
 
   update() {}
 }

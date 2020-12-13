@@ -9,6 +9,7 @@ import { TourManager } from 'objects/TourManager/TourManager';
 import { Boris } from 'objects/Turrets/Boris';
 import { Inventory } from 'objects/Inventory';
 import { EnemyWinController } from 'objects/EnemyWinController';
+import { AbstractEnemy } from 'objects/Enemy/AbstractEnemy';
 import { LightsController } from './LightsController';
 
 const SCENE_CENTER_X = 1280 / 2;
@@ -94,9 +95,10 @@ export class GameScene extends Phaser.Scene {
 
     const tourManager = new TourManager(this, this.enemies, this.inventory);
 
-    this.enemyWinController.on('enemy-win', () => {
-      this.ivan.hit(20, true);
-      // this.scene.start('GameOverScene');
+    this.enemyWinController.on('enemy-win', (enemy: AbstractEnemy) => {
+      this.ivan.hit(25, true);
+      enemy.destroy();
+      tourManager.onEnemyFinished();
     });
     tourManager.on('round-start', () => {
       this.table.setRoundOn(true);

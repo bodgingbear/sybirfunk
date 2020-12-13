@@ -60,4 +60,9 @@ export class BoomboxEnemy extends AbstractEnemy {
       this.sprite.body.position.y + LIGHT_OFFSET_Y
     );
   }
+
+  public destroy() {
+    super.destroy();
+    this.scene.lights.removeLight(this.light);
+  }
 }
