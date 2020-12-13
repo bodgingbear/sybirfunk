@@ -7,4 +7,5 @@ export const Sound = {
   ivanHit2: 'ivan-hit-2',
   ivanHit3: 'ivan-hit-3',
   ivanDrinks: 'ivan-drinks',
+  radioBackground: 'radio-background',
 };
