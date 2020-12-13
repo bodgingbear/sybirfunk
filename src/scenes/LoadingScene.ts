@@ -103,6 +103,21 @@ export class LoadingScene extends Phaser.Scene {
       frameHeight: 17,
     });
 
+    this.load.spritesheet('intro1-frames', loadAsset('images/intro1.png'), {
+      frameWidth: 256,
+      frameHeight: 144,
+    });
+
+    this.load.spritesheet('intro2-frames', loadAsset('images/intro2.png'), {
+      frameWidth: 50,
+      frameHeight: 29,
+    });
+
+    this.load.spritesheet('intro3-frames', loadAsset('images/intro3.png'), {
+      frameWidth: 258,
+      frameHeight: 146,
+    });
+
     this.load.image('ammo', loadAsset('images/ammo.png'));
     this.load.image('money', loadAsset('images/money.png'));
 
@@ -207,6 +222,36 @@ export class LoadingScene extends Phaser.Scene {
       frameRate: 6,
       repeat: -1,
     });
+
+    this.anims.create({
+      key: 'intro1',
+      frames: this.anims.generateFrameNumbers('intro1-frames', {
+        start: 0,
+        end: -1,
+      }),
+      frameRate: 2,
+      repeat: 0,
+    });
+
+    this.anims.create({
+      key: 'intro2',
+      frames: this.anims.generateFrameNumbers('intro2-frames', {
+        start: 0,
+        end: -1,
+      }),
+      frameRate: 2,
+      repeat: 0,
+    });
+
+    this.anims.create({
+      key: 'intro3',
+      frames: this.anims.generateFrameNumbers('intro3-frames', {
+        start: 0,
+        end: -1,
+      }),
+      frameRate: 2,
+      repeat: 0,
+    });
   }
 
   public update(): void {
@@ -264,6 +309,7 @@ export class LoadingScene extends Phaser.Scene {
   };
 
   private changeScene = () => {
-    this.scene.start('GameScene');
+    this.scene.start('IntroScene');
+    // this.scene.start('GameScene');
   };
 }

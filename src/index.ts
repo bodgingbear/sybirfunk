@@ -9,6 +9,7 @@ import { MainMenuScene } from './scenes/MainMenuScene';
 import { GameScene } from './scenes/GameScene';
 import { HowToPlayScene } from './scenes/HowToPlayScene';
 import { CreditsScene } from './scenes/CreditsScene';
+import { IntroScene } from './scenes/IntroScene';
 
 const game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -23,6 +24,7 @@ const game = new Phaser.Game({
     HowToPlayScene,
     CreditsScene,
     GameOverScene,
+    IntroScene,
   ],
   scale: {
     parent: 'app',
