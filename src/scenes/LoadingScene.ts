@@ -35,7 +35,10 @@ export class LoadingScene extends Phaser.Scene {
       true
     );
 
-    this.load.image('stolik', 'images/stolik.png');
+    this.load.spritesheet('stolik', 'images/stolik.png', {
+      frameWidth: 11,
+      frameHeight: 13,
+    });
     this.load.image('snow1', [
       'images/snowflake1.png',
       loadAsset('images/defaultNormalMap.png'),
