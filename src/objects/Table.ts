@@ -99,7 +99,7 @@ export class Table extends EventEmitter<
       .text(this.sasha.x + TEXT_X_OFFSET, this.sasha.y + TEXT_Y_OFFSET, '', {
         color: '#000000',
       })
-      .setStroke('#ffffff', 2 * 5)
+      .setStroke('#ffffff', 1 * 5)
       .setOrigin(0.5, 0.5);
     this.uiContainer.add(this.sashaText);
 
@@ -123,7 +123,7 @@ export class Table extends EventEmitter<
       .text(this.boris.x + TEXT_X_OFFSET, this.boris.y + TEXT_Y_OFFSET, '', {
         color: '#000000',
       })
-      .setStroke('#ffffff', 2 * 5)
+      .setStroke('#ffffff', 1 * 5)
       .setOrigin(0.5, 0.5);
     this.uiContainer.add(this.borisText);
 
@@ -147,7 +147,7 @@ export class Table extends EventEmitter<
       .text(this.vodka.x + TEXT_X_OFFSET, this.vodka.y + TEXT_Y_OFFSET, '', {
         color: '#000000',
       })
-      .setStroke('#ffffff', 2 * 5)
+      .setStroke('#ffffff', 1 * 5)
       .setOrigin(0.5, 0.5);
     this.uiContainer.add(this.vodkaText);
 
@@ -163,8 +163,6 @@ export class Table extends EventEmitter<
       .setStroke('#ffffff', 1 * 5)
       .setOrigin(0.5, 0.5);
     this.uiContainer.add(this.vodkaPrice);
-
-    // this.uiContainer.setVisible(false).setScale(0.75);
 
     this.vodkaLabel = this.scene.add
       .text(1280 / 2 - 180, 200, '')

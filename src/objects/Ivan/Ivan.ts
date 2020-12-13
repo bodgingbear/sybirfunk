@@ -3,7 +3,7 @@ import { bound, EventEmitter } from 'packages/utils';
 import { Sound } from 'Sound';
 import { Gun } from './Gun';
 
-const PLAYER_VELOCITY = 1200;
+const PLAYER_VELOCITY = process.env.BALANCING_MODE !== 'false' ? 120 : 1200;
 export const PLAYER_MAX_HP = 100;
 
 type EventHandlers = {
@@ -44,6 +44,7 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
   ) {
     super();
     this.painVoices.forEach((v) => this.scene.sound.add(v));
+    this.scene.sound.add(Sound.ivanDrinks);
     this.callBoris = callBoris;
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'ivan')
@@ -117,6 +118,7 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
   }
 
   drinkVodka() {
+    this.scene.sound.play(Sound.ivanDrinks);
     this.state = 'drinking';
     this.hp = bound(0, PLAYER_MAX_HP, this.hp + PLAYER_MAX_HP / 4);
     const anim = this.sprite.play('ivan-drink');

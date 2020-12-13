@@ -18,6 +18,8 @@ export class Boris implements Ally {
 
   finishedDuty: () => void;
 
+  shootSound: Phaser.Sound.BaseSound;
+
   constructor(
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
@@ -25,7 +27,7 @@ export class Boris implements Ally {
     finishedDuty: () => void,
     private state: 'awaiting' | 'running' | 'shooting' | 'finish' = 'awaiting'
   ) {
-    this.scene.sound.add(Sound.ppsh40);
+    this.shootSound = this.scene.sound.add(Sound.ppsh40, { volume: 0.2 });
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'boris')
       .setScale(5);
@@ -72,7 +74,7 @@ export class Boris implements Ally {
       callback: () => this.shoot(this.body.y - 10),
     });
 
-    this.scene.sound.play(Sound.ppsh40);
+    this.shootSound.play();
 
     this.scene.tweens
       .addCounter({

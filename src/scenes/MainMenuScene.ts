@@ -9,17 +9,19 @@ export class MainMenuScene extends Phaser.Scene {
   }
 
   public create(): void {
-    const vid = this.add.video(1280 / 2, 720 / 2, 'demo');
+    const vid = this.add.video(1280 / 2, 720 / 2 - 45, 'demo');
     vid.play(true);
-    vid.setScale(0.9);
+    vid.setScale(0.35);
     vid.setAlpha(0.75);
 
-    const text = this.add.text(1280 / 2, 64, 'Phaser 3 Template', {
-      fontSize: '48px',
-      fill: '#fff',
-      align: 'center',
-      lineSpacing: 10,
-    });
+    const text = this.add
+      .text(1280 / 2, 64, 'Sybirfunk 1943', {
+        fontSize: '48px',
+        fill: '#fff',
+        align: 'center',
+        lineSpacing: 10,
+      })
+      .setStroke('#000', 24);
 
     centerElement(text);
 

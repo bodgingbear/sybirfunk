@@ -6,4 +6,9 @@ export const Sound = {
   ivanHit1: 'ivan-hit-1',
   ivanHit2: 'ivan-hit-2',
   ivanHit3: 'ivan-hit-3',
+  ivanDrinks: 'ivan-drinks',
+  radioBackground: 'radio-background',
+  getDownOnIt: 'get-down-on-it',
+  higherGround: 'higher-ground',
+  sexMachine: 'sex-machine',
 };

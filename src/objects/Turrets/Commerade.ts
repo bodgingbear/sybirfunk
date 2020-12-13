@@ -20,13 +20,15 @@ export class Commerade implements Ally {
 
   speed = getRandomInt(80) + 20;
 
+  shootSound: Phaser.Sound.BaseSound;
+
   constructor(
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
     private bullets: Phaser.GameObjects.Group,
     private state: 'searching' | 'shooting' = 'searching'
   ) {
-    this.scene.sound.add(Sound.mosinShoot);
+    this.shootSound = this.scene.sound.add(Sound.mosinShoot, { volume: 0.35 });
     this.scene.sound.add(Sound.sashaDying);
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'sasha')
@@ -67,7 +69,7 @@ export class Commerade implements Ally {
   }
 
   shoot = (y: number) => {
-    this.scene.sound.play(Sound.mosinShoot);
+    this.shootSound.play();
     this.bullets.add(
       new Bullet(
         this.scene,
