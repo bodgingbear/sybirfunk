@@ -24,8 +24,6 @@ export class Table extends EventEmitter<
 
   vodkaLabel: Phaser.GameObjects.Text;
 
-  outOfVodkaLabel: Phaser.GameObjects.Text;
-
   constructor(private scene: Phaser.Scene, private inventory: Inventory) {
     super();
     this.sprite = this.scene.add.sprite(1150, 600, 'stolik').setScale(5);
@@ -51,11 +49,7 @@ export class Table extends EventEmitter<
     this.uiContainer.setVisible(false).setScale(0.75);
 
     this.vodkaLabel = this.scene.add
-      .text(1280 / 2 - 180, 200, 'Press D to dring vodka')
-      .setVisible(false);
-
-    this.outOfVodkaLabel = this.scene.add
-      .text(1280 / 2 - 180, 200, 'You run out of vodka. Buy more!')
+      .text(1280 / 2 - 180, 200, '')
       .setVisible(false);
 
     this.scene.input.keyboard.on(`keydown-ONE`, () => {
@@ -102,14 +96,15 @@ export class Table extends EventEmitter<
       return;
     }
 
-    this.vodkaLabel.setVisible(true);
-
     if (this.isRoundOn) {
       this.uiContainer.setVisible(false);
       if (this.inventory.vodkaCounter === 0) {
-        this.outOfVodkaLabel.setVisible(true);
+        this.vodkaLabel
+          .setText("You're out of vodka, by more!")
+          .setVisible(true);
         return;
       }
+      this.vodkaLabel.setText("Press 'D' to drink vodka");
       this.vodkaLabel.setVisible(true);
       return;
     }

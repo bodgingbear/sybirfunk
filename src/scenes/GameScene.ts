@@ -113,6 +113,7 @@ export class GameScene extends Phaser.Scene {
     this.inventory.on('change', () => {
       healthBar.onChange();
       this.table.updateVodkaSprite();
+      this.table.displayUI();
     });
 
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
