@@ -1,12 +1,17 @@
 import { Inventory } from 'objects/Inventory';
+import { EventEmitter } from 'packages/utils';
 import { Gun } from './Gun';
 
 const PLAYER_VELOCITY = 300;
-const PLAYER_MAX_HP = 100;
+export const PLAYER_MAX_HP = 100;
+
+type EventHandlers = {
+  changeHealth: (health: number) => void;
+};
 
 /** Player
  */
-export class Ivan {
+export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
   body: Phaser.Physics.Arcade.Body;
 
   sprite: Phaser.GameObjects.Sprite;
@@ -14,6 +19,8 @@ export class Ivan {
   light: Phaser.GameObjects.Light;
 
   gun: Gun;
+
+  previouslyHitAt = 0;
 
   constructor(
     private scene: Phaser.Scene,
@@ -24,6 +31,7 @@ export class Ivan {
     inventory: Inventory,
     private hp: number = PLAYER_MAX_HP
   ) {
+    super();
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'ivan')
       .setScale(5);
@@ -81,5 +89,16 @@ export class Ivan {
 
   drinkVodka() {
     this.hp = PLAYER_MAX_HP;
+    this.emit('changeHealth', this.hp);
+  }
+
+  hit(damage: number) {
+    if (this.scene.time.now - this.previouslyHitAt <= 1000) {
+      return;
+    }
+
+    this.hp = Math.max(this.hp - damage, 0);
+    this.previouslyHitAt = this.scene.time.now;
+    this.emit('changeHealth', this.hp);
   }
 }

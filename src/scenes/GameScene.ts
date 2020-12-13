@@ -144,8 +144,9 @@ export class GameScene extends Phaser.Scene {
     this.inventory.on('change', healthBar.onChange);
 
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
-      healthBar.shrink();
+      this.ivan.hit(10);
     });
+    this.ivan.on('changeHealth', healthBar.onHealthChange);
 
     this.commeradesController = new CommeradesController(
       this.commerades,
@@ -205,7 +206,7 @@ export class GameScene extends Phaser.Scene {
               from: 0,
               to: 1,
               duration: 1500,
-              onUpdate: (tween) => {
+              onUpdate: () => {
                 this.cameras.main.centerOn(1280 / 2, 720 / 2);
               },
             });
@@ -215,6 +216,3 @@ export class GameScene extends Phaser.Scene {
     });
   };
 }
-
-// fade
-// flasg
