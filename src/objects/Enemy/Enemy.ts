@@ -15,13 +15,17 @@ export class Enemy {
 
   hp = 2;
 
+  spriteName: string;
+
   constructor(
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
     private inventory: Inventory
   ) {
+    this.spriteName = Phaser.Math.RND.pick(['guy1', 'guy2', 'pop']);
+
     this.sprite = this.scene.add
-      .sprite(position.x, position.y, 'guy1-0')
+      .sprite(position.x, position.y, `${this.spriteName}-0`)
       .setScale(5)
       .setPipeline('Light2D');
     scene.physics.world.enable(this.sprite);
@@ -36,7 +40,7 @@ export class Enemy {
     this.body.velocity.x = ENEMY_VELOCITY;
 
     this.body.immovable = true;
-    this.sprite.anims.play('guy1-walk');
+    this.sprite.anims.play(`${this.spriteName}-walk`);
   }
 
   public onHit = (bullet: Bullet, deathCb: () => void) => {

@@ -89,6 +89,12 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
 
   drinkVodka() {
     this.hp = PLAYER_MAX_HP;
+    const anim = this.sprite.play('ivan-drink');
+    anim.on('animationcomplete', () => {
+      anim.off('animationcomplete');
+      this.sprite.anims.play('ivan-walk');
+    });
+
     this.emit('changeHealth', this.hp);
   }
 
