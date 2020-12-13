@@ -9,10 +9,8 @@ export class EnemyWinController extends EventEmitter<
   'enemy-win',
   EventHandlers
 > {
-  constructor(
-    private scene: Phaser.Scene,
-    private enemies: Phaser.GameObjects.Group
-  ) {
+  // @ts-ignore
+  constructor(scene: Phaser.Scene, private enemies: Phaser.GameObjects.Group) {
     super();
   }
 
