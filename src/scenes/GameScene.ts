@@ -72,6 +72,9 @@ export class GameScene extends Phaser.Scene {
       undefined,
       this.inventory
     );
+
+    this.table = new Table(this);
+    this.observeTableEvents();
     this.ivan.sprite.setDepth(2);
 
     this.enemies = this.add.group();
@@ -140,4 +143,51 @@ export class GameScene extends Phaser.Scene {
     );
     this.bullets?.getChildren().forEach((b) => b.getData('ref').update());
   }
+
+  observeTableEvents = () => {
+    this.table.on('drink-vodka', this.handleVodkaDrinked);
+  };
+
+  handleVodkaDrinked = () => {
+    this.ivan.drinkVodka();
+    this.cameras.main.startFollow(this.ivan.sprite).setLerp(0.1, 0.1);
+    this.tweens.addCounter({
+      from: 0,
+      to: 1,
+      duration: 1500,
+      onUpdate: (tween) => {
+        this.cameras.main.setRotation(
+          Phaser.Math.DegToRad(0 + 5 * tween.getValue())
+        );
+        this.cameras.main.setZoom(1 + 5 * tween.getValue());
+      },
+      onComplete: () => {
+        this.tweens.addCounter({
+          from: 0,
+          to: 1,
+          duration: 1500,
+          onUpdate: (tween) => {
+            this.cameras.main.setRotation(
+              Phaser.Math.DegToRad(6 - 6 * tween.getValue())
+            );
+            this.cameras.main.setZoom(6 - 5 * tween.getValue());
+          },
+          onComplete: () => {
+            this.cameras.main.stopFollow();
+            this.tweens.addCounter({
+              from: 0,
+              to: 1,
+              duration: 1500,
+              onUpdate: (tween) => {
+                this.cameras.main.centerOn(1280 / 2, 720 / 2);
+              },
+            });
+          },
+        });
+      },
+    });
+  };
 }
+
+// fade
+// flasg

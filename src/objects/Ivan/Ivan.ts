@@ -2,6 +2,7 @@ import { Inventory } from 'objects/Inventory';
 import { Gun } from './Gun';
 
 const PLAYER_VELOCITY = 300;
+const PLAYER_MAX_HP = 100;
 
 /** Player
  */
@@ -20,7 +21,8 @@ export class Ivan {
     private keys: Phaser.Types.Input.Keyboard.CursorKeys,
     private bullets: Phaser.GameObjects.Group,
     weapon: 'gun' | 'knife' = 'gun',
-    inventory: Inventory
+    inventory: Inventory,
+    private hp: number = PLAYER_MAX_HP
   ) {
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'ivan')
@@ -75,5 +77,9 @@ export class Ivan {
     this.body.setVelocity(velocity.x, velocity.y);
 
     this.light.setPosition(this.sprite.x, this.sprite.y);
+  }
+
+  drinkVodka() {
+    this.hp = PLAYER_MAX_HP;
   }
 }
