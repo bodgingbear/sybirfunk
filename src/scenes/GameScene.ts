@@ -10,6 +10,13 @@ import { Boris } from 'objects/Turrets/Boris';
 import { Inventory } from 'objects/Inventory';
 import { LightsController } from './LightsController';
 
+const PRICES = {
+  ammo: 100,
+  sasha: 300,
+  boris: 500,
+  vodka: 200,
+};
+
 export class GameScene extends Phaser.Scene {
   table!: Table;
 
@@ -52,16 +59,36 @@ export class GameScene extends Phaser.Scene {
 
     this.inventory = new Inventory();
     this.table.on('buy-ammo', () => {
-      this.inventory.buyAmmo();
+      const price = PRICES.ammo;
+
+      if (this.inventory.accountBalance > price) {
+        this.inventory.increaseAmmo();
+        this.inventory.decreaseAccountBalance(price);
+      }
     });
     this.table.on('buy-sasha', () => {
-      this.inventory.buySasha();
+      const price = PRICES.sasha;
+
+      if (this.inventory.accountBalance > price) {
+        this.inventory.buySasha();
+        this.inventory.decreaseAccountBalance(price);
+      }
     });
     this.table.on('buy-boris', () => {
-      this.inventory.buyBoris();
+      const price = PRICES.boris;
+
+      if (this.inventory.accountBalance > price) {
+        this.inventory.buyBoris();
+        this.inventory.decreaseAccountBalance(price);
+      }
     });
     this.table.on('buy-vodka', () => {
-      this.inventory.buyVodka();
+      const price = PRICES.vodka;
+
+      if (this.inventory.accountBalance > price) {
+        this.inventory.buyVodka();
+        this.inventory.decreaseAccountBalance(price);
+      }
     });
 
     this.ivan = new Ivan(

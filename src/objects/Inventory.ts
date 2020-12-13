@@ -21,16 +21,14 @@ export class Inventory extends EventEmitter<'change'> {
     this.emit('change');
   }
 
-  buyAmmo() {
+  increaseAmmo() {
     this.ammo += 10;
-    this.decreaseAccountBalance(100);
     this.emit('change');
   }
 
   buySasha() {
     if (this.sashaCounter < 3) {
       this.sashaCounter += 1;
-      this.decreaseAccountBalance(300);
       this.emit('change');
     }
   }
@@ -38,7 +36,6 @@ export class Inventory extends EventEmitter<'change'> {
   buyBoris() {
     if (this.borisCounter < 2) {
       this.borisCounter += 1;
-      this.decreaseAccountBalance(500);
       this.emit('change');
     }
   }
@@ -46,7 +43,6 @@ export class Inventory extends EventEmitter<'change'> {
   buyVodka() {
     if (this.vodkaCounter < 3) {
       this.vodkaCounter += 1;
-      this.decreaseAccountBalance(200);
       this.emit('change');
     }
   }
