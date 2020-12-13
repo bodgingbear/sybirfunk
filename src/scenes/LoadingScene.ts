@@ -114,8 +114,8 @@ export class LoadingScene extends Phaser.Scene {
     });
 
     this.load.spritesheet('intro3-frames', loadAsset('images/intro3.png'), {
-      frameWidth: 258,
-      frameHeight: 146,
+      frameWidth: 256,
+      frameHeight: 144,
     });
 
     this.load.image('ammo', loadAsset('images/ammo.png'));
