@@ -53,7 +53,7 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
 
     this.gun = new Gun(this.scene, this.body, this.bullets, inventory);
     // this.knife = new Knife(this.scene, position);
-    keys.space?.on('down', () => {
+    this.scene.input.keyboard.on('keydown-SPACE', () => {
       if (weapon === 'gun') {
         this.gun.shoot();
       } else {
