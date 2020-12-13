@@ -18,9 +18,9 @@ const SCENE_CENTER_Y = 720 / 2;
 
 export const PRICES = {
   ammo: 30,
-  sasha: 200,
-  boris: 500,
-  vodka: 100,
+  sasha: 100,
+  boris: 150,
+  vodka: 50,
 };
 
 export class GameScene extends Phaser.Scene {

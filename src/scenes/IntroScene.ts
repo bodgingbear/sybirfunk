@@ -1,3 +1,5 @@
+import { Sound } from 'Sound';
+
 export class IntroScene extends Phaser.Scene {
   public constructor() {
     super({
@@ -23,11 +25,20 @@ export class IntroScene extends Phaser.Scene {
       .setDepth(100)
       .setVisible(false);
 
+    const funk = this.sound.add(Sound.getDownOnIt);
+
     anim1.play('intro1');
     anim1.on('animationcomplete', () => {
       anim1.setVisible(false);
       anim2.setVisible(true);
       anim2.play('intro2');
+
+      this.time.addEvent({
+        delay: 3000,
+        callback: () => {
+          funk.play();
+        },
+      });
 
       anim2.on('animationcomplete', () => {
         anim2.setVisible(false);
@@ -35,6 +46,7 @@ export class IntroScene extends Phaser.Scene {
         anim3.play('intro3');
 
         anim3.on('animationcomplete', () => {
+          funk.stop();
           this.scene.start('MainMenuScene');
         });
       });
