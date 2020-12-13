@@ -1,13 +1,12 @@
 import { Bullet } from 'objects/Bullet';
 import { Ally } from './Ally';
 
-const SPEED = 100;
-const TOP = 350;
-const BOTTOM = 635;
-
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * Math.floor(max));
 }
+
+const TOP = 350;
+const BOTTOM = 635;
 
 export class Commerade implements Ally {
   body: Phaser.Physics.Arcade.Body;
@@ -17,6 +16,8 @@ export class Commerade implements Ally {
   shootingEvent: Phaser.Time.TimerEvent | undefined;
 
   light: Phaser.GameObjects.Light;
+
+  speed = getRandomInt(80) + 20;
 
   constructor(
     private scene: Phaser.Scene,
@@ -37,7 +38,7 @@ export class Commerade implements Ally {
 
     this.sprite.setData('ref', this);
 
-    this.body.setVelocityY(SPEED);
+    this.body.setVelocityY(this.speed);
 
     this.light = this.scene.lights.addLight(
       position.x,
@@ -81,7 +82,7 @@ export class Commerade implements Ally {
 
     this.state = 'searching';
     this.shootingEvent?.destroy();
-    this.body.setVelocityY(getRandomInt(2) === 0 ? SPEED : -SPEED);
+    this.body.setVelocityY(getRandomInt(2) === 0 ? this.speed : -this.speed);
   }
 
   public gotHit() {
@@ -94,9 +95,9 @@ export class Commerade implements Ally {
     if (this.state !== 'searching') {
       this.body.setVelocityY(0);
     } else if (this.body.y <= TOP) {
-      this.body.setVelocityY(SPEED);
+      this.body.setVelocityY(this.speed);
     } else if (this.body.y >= BOTTOM) {
-      this.body.setVelocityY(-SPEED);
+      this.body.setVelocityY(-this.speed);
     }
 
     this.light.setPosition(this.sprite.x, this.sprite.y);

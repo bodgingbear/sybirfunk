@@ -89,10 +89,12 @@ export class GameScene extends Phaser.Scene {
 
     this.commerades = this.add.group();
 
-    this.commerades.add(
-      new Commerade(this, new Phaser.Math.Vector2(1000, 600), this.bullets)
-        .sprite
-    );
+    // this.boris = new Boris(
+    //   this,
+    //   new Phaser.Math.Vector2(1300, 600),
+    //   this.bullets
+    // );
+    // this.boris.activate();
 
     this.enemyWinController = new EnemyWinController(this, this.enemies);
 
@@ -120,12 +122,6 @@ export class GameScene extends Phaser.Scene {
         bulletObj.getData('ref').destroy();
       }
     );
-    this.boris = new Boris(
-      this,
-      new Phaser.Math.Vector2(1300, 600),
-      this.bullets
-    );
-    this.boris.activate();
 
     const healthBar = new HealthBar(this, this.inventory);
     this.inventory.on('change', () => {
@@ -176,11 +172,10 @@ export class GameScene extends Phaser.Scene {
     });
     this.table.on('buy-sasha', () => {
       const price = PRICES.sasha;
-
-      if (this.inventory.accountBalance >= price) {
-        this.inventory.buySasha();
-        this.inventory.decreaseAccountBalance(price);
+      if (this.inventory.accountBalance < price) {
+        return;
       }
+      this.handleSashaAdded(price);
     });
     this.table.on('buy-boris', () => {
       const price = PRICES.boris;
@@ -198,6 +193,19 @@ export class GameScene extends Phaser.Scene {
         this.inventory.decreaseAccountBalance(price);
       }
     });
+  };
+
+  handleSashaAdded = (price: number) => {
+    this.inventory.buySasha();
+    this.inventory.decreaseAccountBalance(price);
+    const sashasCount = this.commerades.children.getArray().length;
+    this.commerades.add(
+      new Commerade(
+        this,
+        new Phaser.Math.Vector2(980 + sashasCount * 45, 600),
+        this.bullets
+      ).sprite
+    );
   };
 
   handleVodkaDrinked = () => {
