@@ -142,6 +142,9 @@ export class GameScene extends Phaser.Scene {
       this.enemies,
       this.physics
     );
+    this.commeradesController.on('rip-sasha', () => {
+      this.inventory.sashaCounter -= 1;
+    });
   }
 
   update() {
