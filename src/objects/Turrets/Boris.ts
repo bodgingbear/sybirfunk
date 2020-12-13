@@ -1,3 +1,4 @@
+import { Sound } from 'Sound';
 import { Ally } from './Ally';
 import { Bullet, BULLET_VELOCITY } from '../Bullet';
 
@@ -24,6 +25,7 @@ export class Boris implements Ally {
     finishedDuty: () => void,
     private state: 'awaiting' | 'running' | 'shooting' | 'finish' = 'awaiting'
   ) {
+    this.scene.sound.add(Sound.ppsh40);
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'boris')
       .setScale(5);
@@ -70,11 +72,13 @@ export class Boris implements Ally {
       callback: () => this.shoot(this.body.y - 10),
     });
 
+    this.scene.sound.play(Sound.ppsh40);
+
     this.scene.tweens
       .addCounter({
         from: 0,
         to: 1,
-        duration: 1500,
+        duration: 2000,
         onUpdate: (tween) => {
           this.sprite.angle = -30 * tween.getValue();
         },
@@ -84,7 +88,7 @@ export class Boris implements Ally {
           .addCounter({
             from: 0,
             to: 1,
-            duration: 3000,
+            duration: 4000,
             onUpdate: (tween) => {
               this.sprite.angle = -30 + 60 * tween.getValue();
             },
@@ -94,7 +98,7 @@ export class Boris implements Ally {
               .addCounter({
                 from: 0,
                 to: 1,
-                duration: 1500,
+                duration: 2000,
                 onUpdate: (tween) => {
                   this.sprite.angle = 30 - 30 * tween.getValue();
                 },
