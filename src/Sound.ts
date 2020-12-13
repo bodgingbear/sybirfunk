@@ -8,4 +8,7 @@ export const Sound = {
   ivanHit3: 'ivan-hit-3',
   ivanDrinks: 'ivan-drinks',
   radioBackground: 'radio-background',
+  getDownOnIt: 'get-down-on-it',
+  higherGround: 'higher-ground',
+  sexMachine: 'sex-machine',
 };

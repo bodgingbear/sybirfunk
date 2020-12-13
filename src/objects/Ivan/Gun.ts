@@ -3,13 +3,17 @@ import { Inventory } from 'objects/Inventory';
 import { Sound } from 'Sound';
 
 export class Gun {
+  private sound: Phaser.Sound.BaseSound;
+
   constructor(
     private scene: Phaser.Scene,
     private parentBody: Phaser.Physics.Arcade.Body,
     private bullets: Phaser.GameObjects.Group,
     private inventory: Inventory
   ) {
-    this.scene.sound.add(Sound.ppsh40SingleShot);
+    this.sound = this.scene.sound.add(Sound.ppsh40SingleShot, {
+      volume: 0.1,
+    });
   }
 
   public shoot = () => {
@@ -18,7 +22,7 @@ export class Gun {
     }
 
     this.inventory.useAmmo(1);
-    this.scene.sound.play(Sound.ppsh40SingleShot);
+    this.sound.play();
     this.bullets.add(
       new Bullet(
         this.scene,

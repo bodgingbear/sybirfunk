@@ -10,6 +10,7 @@ import { Boris } from 'objects/Turrets/Boris';
 import { Inventory } from 'objects/Inventory';
 import { EnemyWinController } from 'objects/EnemyWinController';
 import { AbstractEnemy } from 'objects/Enemy/AbstractEnemy';
+import { Sound } from 'Sound';
 import { LightsController } from './LightsController';
 
 const SCENE_CENTER_X = 1280 / 2;
@@ -48,6 +49,12 @@ export class GameScene extends Phaser.Scene {
   enemyWinController!: EnemyWinController;
 
   public create(): void {
+    const funkMusic = [
+      this.sound.add(Sound.getDownOnIt),
+      this.sound.add(Sound.higherGround),
+      this.sound.add(Sound.sexMachine),
+    ];
+
     this.bullets = this.add.group();
     const lightsController = new LightsController(this);
     lightsController.startAlarm();
@@ -100,13 +107,20 @@ export class GameScene extends Phaser.Scene {
       enemy.destroy();
       tourManager.onEnemyFinished();
     });
+
+    let currentFunk: Phaser.Sound.BaseSound | null = null;
+    currentFunk = funkMusic[Math.floor(Math.random() * 3)];
+    currentFunk?.play();
     tourManager.on('round-start', () => {
       this.table.setRoundOn(true);
       lightsController.startAlarm();
+      currentFunk = funkMusic[Math.floor(Math.random() * 3)];
+      currentFunk?.play();
     });
     tourManager.on('round-end', () => {
       this.table.setRoundOn(false);
       lightsController.stopAlarm();
+      currentFunk?.stop();
     });
 
     this.physics.add.collider(
@@ -133,6 +147,7 @@ export class GameScene extends Phaser.Scene {
     this.ivan.on('changeHealth', (health: number) => {
       healthBar.onHealthChange(health);
       if (health <= 0) {
+        currentFunk?.stop();
         this.scene.start('GameOverScene');
       }
     });
