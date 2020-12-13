@@ -46,6 +46,9 @@ export class Boris implements Ally {
   }
 
   activate(): void {
+    if (this.state !== 'awaiting') {
+      return;
+    }
     this.state = 'running';
   }
 

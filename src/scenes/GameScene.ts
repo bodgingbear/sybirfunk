@@ -68,8 +68,6 @@ export class GameScene extends Phaser.Scene {
     new SnowManager(this);
     const keys = this.input.keyboard.createCursorKeys();
 
-    this.table = new Table(this, this.inventory);
-
     this.inventory = new Inventory();
     this.table = new Table(this, this.inventory);
 
@@ -79,7 +77,10 @@ export class GameScene extends Phaser.Scene {
       keys,
       this.bullets,
       'gun',
-      this.inventory
+      this.inventory,
+      () => {
+        this.boris?.activate();
+      }
     );
 
     this.observeTableEvents();
@@ -89,17 +90,12 @@ export class GameScene extends Phaser.Scene {
 
     this.commerades = this.add.group();
 
-    this.commerades.add(
-      new Commerade(this, new Phaser.Math.Vector2(1000, 600), this.bullets)
-        .sprite
-    );
-
     this.enemyWinController = new EnemyWinController(this, this.enemies);
 
     const tourManager = new TourManager(this, this.enemies, this.inventory);
 
     this.enemyWinController.on('enemy-win', () => {
-      tourManager.onEnemyFinished();
+      this.scene.start('GameOverScene');
     });
     tourManager.on('round-start', () => {
       this.table.setRoundOn(true);
@@ -120,12 +116,6 @@ export class GameScene extends Phaser.Scene {
         bulletObj.getData('ref').destroy();
       }
     );
-    this.boris = new Boris(
-      this,
-      new Phaser.Math.Vector2(1300, 600),
-      this.bullets
-    );
-    this.boris.activate();
 
     const healthBar = new HealthBar(this, this.inventory);
     this.inventory.on('change', () => {
@@ -179,19 +169,18 @@ export class GameScene extends Phaser.Scene {
     });
     this.table.on('buy-sasha', () => {
       const price = PRICES.sasha;
-
-      if (this.inventory.accountBalance >= price) {
-        this.inventory.buySasha();
-        this.inventory.decreaseAccountBalance(price);
+      if (this.inventory.accountBalance < price) {
+        return;
       }
+      this.handleSashaBought(price);
     });
     this.table.on('buy-boris', () => {
       const price = PRICES.boris;
 
-      if (this.inventory.accountBalance >= price) {
-        this.inventory.buyBoris();
-        this.inventory.decreaseAccountBalance(price);
+      if (this.inventory.accountBalance < price) {
+        return;
       }
+      this.handleBorisBought(price);
     });
     this.table.on('buy-vodka', () => {
       const price = PRICES.vodka;
@@ -201,6 +190,29 @@ export class GameScene extends Phaser.Scene {
         this.inventory.decreaseAccountBalance(price);
       }
     });
+  };
+
+  handleSashaBought = (price: number) => {
+    this.inventory.buySasha();
+    this.inventory.decreaseAccountBalance(price);
+    const sashasCount = this.commerades.children.getArray().length;
+    this.commerades.add(
+      new Commerade(
+        this,
+        new Phaser.Math.Vector2(980 + sashasCount * 45, 600),
+        this.bullets
+      ).sprite
+    );
+  };
+
+  handleBorisBought = (price: number) => {
+    this.inventory.buyBoris();
+    this.inventory.decreaseAccountBalance(price);
+    this.boris = new Boris(
+      this,
+      new Phaser.Math.Vector2(1300, 640),
+      this.bullets
+    );
   };
 
   handleVodkaDrinked = () => {
