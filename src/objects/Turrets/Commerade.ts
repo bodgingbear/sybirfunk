@@ -28,7 +28,7 @@ export class Commerade implements Ally {
     private bullets: Phaser.GameObjects.Group,
     private state: 'searching' | 'shooting' = 'searching'
   ) {
-    this.shootSound = this.scene.sound.add(Sound.mosinShoot, { volume: 0.2 });
+    this.shootSound = this.scene.sound.add(Sound.mosinShoot, { volume: 0.35 });
     this.scene.sound.add(Sound.sashaDying);
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'sasha')
