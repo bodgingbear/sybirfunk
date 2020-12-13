@@ -10,4 +10,4 @@ const level1: Level = [
   { time: 2500, position: new Phaser.Math.Vector2(0, 400), type: 'ordinary' },
 ];
 
-export const levels = [level1];
+export const levels = [level1, level1, level1, level1];

@@ -152,6 +152,9 @@ export class GameScene extends Phaser.Scene {
     this.commerades.children
       .getArray()
       .forEach((obj) => obj.getData('ref').update());
+    this.enemies.children
+      .getArray()
+      .forEach((obj) => obj.getData('ref').update());
     this.commeradesController.update();
 
     this.table.setTableEntered(
