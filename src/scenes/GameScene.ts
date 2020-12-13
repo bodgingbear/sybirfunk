@@ -58,38 +58,6 @@ export class GameScene extends Phaser.Scene {
     this.table = new Table(this);
 
     this.inventory = new Inventory();
-    this.table.on('buy-ammo', () => {
-      const price = PRICES.ammo;
-
-      if (this.inventory.accountBalance > price) {
-        this.inventory.increaseAmmo();
-        this.inventory.decreaseAccountBalance(price);
-      }
-    });
-    this.table.on('buy-sasha', () => {
-      const price = PRICES.sasha;
-
-      if (this.inventory.accountBalance > price) {
-        this.inventory.buySasha();
-        this.inventory.decreaseAccountBalance(price);
-      }
-    });
-    this.table.on('buy-boris', () => {
-      const price = PRICES.boris;
-
-      if (this.inventory.accountBalance > price) {
-        this.inventory.buyBoris();
-        this.inventory.decreaseAccountBalance(price);
-      }
-    });
-    this.table.on('buy-vodka', () => {
-      const price = PRICES.vodka;
-
-      if (this.inventory.accountBalance > price) {
-        this.inventory.buyVodka();
-        this.inventory.decreaseAccountBalance(price);
-      }
-    });
 
     this.ivan = new Ivan(
       this,
@@ -173,45 +141,79 @@ export class GameScene extends Phaser.Scene {
 
   observeTableEvents = () => {
     this.table.on('drink-vodka', this.handleVodkaDrinked);
+    this.table.on('buy-ammo', () => {
+      const price = PRICES.ammo;
+
+      if (this.inventory.accountBalance > price) {
+        this.inventory.increaseAmmo();
+        this.inventory.decreaseAccountBalance(price);
+      }
+    });
+    this.table.on('buy-sasha', () => {
+      const price = PRICES.sasha;
+
+      if (this.inventory.accountBalance > price) {
+        this.inventory.buySasha();
+        this.inventory.decreaseAccountBalance(price);
+      }
+    });
+    this.table.on('buy-boris', () => {
+      const price = PRICES.boris;
+
+      if (this.inventory.accountBalance > price) {
+        this.inventory.buyBoris();
+        this.inventory.decreaseAccountBalance(price);
+      }
+    });
+    this.table.on('buy-vodka', () => {
+      const price = PRICES.vodka;
+
+      if (this.inventory.accountBalance > price) {
+        this.inventory.buyVodka();
+        this.inventory.decreaseAccountBalance(price);
+      }
+    });
   };
 
   handleVodkaDrinked = () => {
-    this.ivan.drinkVodka();
-    this.cameras.main.startFollow(this.ivan.sprite).setLerp(0.1, 0.1);
-    this.tweens.addCounter({
-      from: 0,
-      to: 1,
-      duration: 1500,
-      onUpdate: (tween) => {
-        this.cameras.main.setRotation(
-          Phaser.Math.DegToRad(0 + 5 * tween.getValue())
-        );
-        this.cameras.main.setZoom(1 + 5 * tween.getValue());
-      },
-      onComplete: () => {
-        this.tweens.addCounter({
-          from: 0,
-          to: 1,
-          duration: 1500,
-          onUpdate: (tween) => {
-            this.cameras.main.setRotation(
-              Phaser.Math.DegToRad(6 - 6 * tween.getValue())
-            );
-            this.cameras.main.setZoom(6 - 5 * tween.getValue());
-          },
-          onComplete: () => {
-            this.cameras.main.stopFollow();
-            this.tweens.addCounter({
-              from: 0,
-              to: 1,
-              duration: 1500,
-              onUpdate: () => {
-                this.cameras.main.centerOn(1280 / 2, 720 / 2);
-              },
-            });
-          },
-        });
-      },
-    });
+    if (this.inventory.vodkaCounter > 0) {
+      this.ivan.drinkVodka();
+      this.cameras.main.startFollow(this.ivan.sprite).setLerp(0.1, 0.1);
+      this.tweens.addCounter({
+        from: 0,
+        to: 1,
+        duration: 1500,
+        onUpdate: (tween) => {
+          this.cameras.main.setRotation(
+            Phaser.Math.DegToRad(0 + 5 * tween.getValue())
+          );
+          this.cameras.main.setZoom(1 + 5 * tween.getValue());
+        },
+        onComplete: () => {
+          this.tweens.addCounter({
+            from: 0,
+            to: 1,
+            duration: 1500,
+            onUpdate: (tween) => {
+              this.cameras.main.setRotation(
+                Phaser.Math.DegToRad(6 - 6 * tween.getValue())
+              );
+              this.cameras.main.setZoom(6 - 5 * tween.getValue());
+            },
+            onComplete: () => {
+              this.cameras.main.stopFollow();
+              this.tweens.addCounter({
+                from: 0,
+                to: 1,
+                duration: 1500,
+                onUpdate: () => {
+                  this.cameras.main.centerOn(1280 / 2, 720 / 2);
+                },
+              });
+            },
+          });
+        },
+      });
+    }
   };
 }
