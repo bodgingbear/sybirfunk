@@ -1,4 +1,5 @@
 import { EventEmitter } from 'packages/utils';
+import { Inventory } from './Inventory';
 
 export class Table extends EventEmitter<
   'buy-ammo' | 'buy-sasha' | 'buy-boris' | 'buy-vodka' | 'drink-vodka'
@@ -23,7 +24,7 @@ export class Table extends EventEmitter<
 
   vodkaLabel: Phaser.GameObjects.Text;
 
-  constructor(private scene: Phaser.Scene) {
+  constructor(private scene: Phaser.Scene, private inventory: Inventory) {
     super();
     this.sprite = this.scene.add.sprite(1150, 600, 'stolik').setScale(5);
     this.box = this.scene.add.rectangle(
@@ -95,13 +96,17 @@ export class Table extends EventEmitter<
       return;
     }
 
+    this.vodkaLabel.setVisible(true);
+
     if (this.isRoundOn) {
       this.uiContainer.setVisible(false);
-      this.vodkaLabel.setVisible(true);
       return;
     }
 
     this.uiContainer.setVisible(true);
-    this.vodkaLabel.setVisible(false);
   }
+
+  updateVodkaSprite = () => {
+    this.sprite.setFrame(this.inventory.vodkaCounter);
+  };
 }

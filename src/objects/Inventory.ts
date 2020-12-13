@@ -47,6 +47,11 @@ export class Inventory extends EventEmitter<'change'> {
     }
   }
 
+  drinkVodka() {
+    this.vodkaCounter -= 1;
+    this.emit('change');
+  }
+
   useAmmo(number = 1) {
     this.ammo -= number;
     this.emit('change');

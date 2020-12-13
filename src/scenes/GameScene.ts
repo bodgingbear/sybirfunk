@@ -14,7 +14,8 @@ const PRICES = {
   ammo: 100,
   sasha: 300,
   boris: 500,
-  vodka: 200,
+  vodka: 2,
+  // vodka: 200,
 };
 
 export class GameScene extends Phaser.Scene {
@@ -55,9 +56,8 @@ export class GameScene extends Phaser.Scene {
     new SnowManager(this);
     const keys = this.input.keyboard.createCursorKeys();
 
-    this.table = new Table(this);
-
     this.inventory = new Inventory();
+    this.table = new Table(this, this.inventory);
 
     this.ivan = new Ivan(
       this,
@@ -108,7 +108,10 @@ export class GameScene extends Phaser.Scene {
     this.boris.activate();
 
     const healthBar = new HealthBar(this, this.inventory);
-    this.inventory.on('change', healthBar.onChange);
+    this.inventory.on('change', () => {
+      healthBar.onChange();
+      this.table.updateVodkaSprite();
+    });
 
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
       this.ivan.hit(10);
@@ -178,6 +181,8 @@ export class GameScene extends Phaser.Scene {
   handleVodkaDrinked = () => {
     if (this.inventory.vodkaCounter > 0) {
       this.ivan.drinkVodka();
+      this.inventory.drinkVodka();
+
       this.cameras.main.startFollow(this.ivan.sprite).setLerp(0.1, 0.1);
       this.tweens.addCounter({
         from: 0,
