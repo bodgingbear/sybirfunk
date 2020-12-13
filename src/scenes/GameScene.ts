@@ -5,7 +5,7 @@ import { Commerade } from 'objects/Turrets/Commerade';
 import { CommeradesController } from 'objects/Turrets/CommeradesController';
 import { Table } from 'objects/Table';
 import { Flag } from 'objects/Flag';
-import { TourManager } from 'objects/TourManager';
+import { TourManager } from 'objects/TourManager/TourManager';
 import { Boris } from 'objects/Turrets/Boris';
 import { Inventory } from 'objects/Inventory';
 import { EnemyWinController } from 'objects/EnemyWinController';
