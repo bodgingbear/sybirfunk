@@ -58,7 +58,10 @@ export class GameScene extends Phaser.Scene {
     bg.setScale(5);
 
     this.physics.world.setBounds(0, 350, 1200, 720);
-    this.add.image(1280 / 2, 720 - 175, 'zasieki').setScale(5);
+    this.add
+      .image(1280 / 2, 720 - 175, 'zasieki')
+      .setScale(5)
+      .setPipeline('Light2D');
 
     new Flag(this, new Phaser.Math.Vector2(1270 - 250, 720 / 2 - 30));
 
