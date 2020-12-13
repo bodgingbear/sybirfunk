@@ -20,7 +20,7 @@ export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
     this.onRoundStart();
   }
 
-  public onEnemyKill = () => {
+  public onEnemyFinished = () => {
     this.enemiesCount--;
 
     if (this.enemiesCount !== 0) {

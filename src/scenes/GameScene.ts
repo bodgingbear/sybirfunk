@@ -8,6 +8,7 @@ import { Flag } from 'objects/Flag';
 import { TourManager } from 'objects/TourManager';
 import { Boris } from 'objects/Turrets/Boris';
 import { Inventory } from 'objects/Inventory';
+import { EnemyWinController } from 'objects/EnemyWinController';
 import { LightsController } from './LightsController';
 
 const SCENE_CENTER_X = 1280 / 2;
@@ -43,6 +44,8 @@ export class GameScene extends Phaser.Scene {
   private commeradesController!: CommeradesController;
 
   enemies!: Phaser.GameObjects.Group;
+
+  enemyWinController!: EnemyWinController;
 
   public create(): void {
     this.bullets = this.add.group();
@@ -88,7 +91,13 @@ export class GameScene extends Phaser.Scene {
         .sprite
     );
 
+    this.enemyWinController = new EnemyWinController(this, this.enemies);
+
     const tourManager = new TourManager(this, this.enemies, this.inventory);
+
+    this.enemyWinController.on('enemy-win', () => {
+      tourManager.onEnemyFinished();
+    });
     tourManager.on('round-start', () => {
       this.table.setRoundOn(true);
       lightsController.startAlarm();
@@ -104,7 +113,7 @@ export class GameScene extends Phaser.Scene {
       (enemyObj, bulletObj) => {
         enemyObj
           .getData('ref')
-          .onHit(bulletObj.getData('ref'), tourManager.onEnemyKill);
+          .onHit(bulletObj.getData('ref'), tourManager.onEnemyFinished);
         bulletObj.getData('ref').destroy();
       }
     );
@@ -149,6 +158,7 @@ export class GameScene extends Phaser.Scene {
       )
     );
     this.bullets?.getChildren().forEach((b) => b.getData('ref').update());
+    this.enemyWinController.update();
   }
 
   observeTableEvents = () => {
