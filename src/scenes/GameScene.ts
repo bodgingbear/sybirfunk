@@ -66,8 +66,7 @@ export class GameScene extends Phaser.Scene {
       new Phaser.Math.Vector2(1270 / 2, 720 / 2),
       keys,
       this.bullets,
-      'knife',
-      undefined,
+      'gun',
       this.inventory
     );
 
