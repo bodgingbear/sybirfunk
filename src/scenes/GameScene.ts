@@ -95,7 +95,7 @@ export class GameScene extends Phaser.Scene {
     const tourManager = new TourManager(this, this.enemies, this.inventory);
 
     this.enemyWinController.on('enemy-win', () => {
-      tourManager.onEnemyFinished();
+      this.scene.start('GameOverScene');
     });
     tourManager.on('round-start', () => {
       this.table.setRoundOn(true);
@@ -140,6 +140,9 @@ export class GameScene extends Phaser.Scene {
     this.ivan.update();
     this.boris?.update();
     this.commerades.children
+      .getArray()
+      .forEach((obj) => obj.getData('ref').update());
+    this.enemies.children
       .getArray()
       .forEach((obj) => obj.getData('ref').update());
     this.commeradesController.update();

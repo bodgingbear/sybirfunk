@@ -2,6 +2,7 @@ import 'phaser';
 
 import './index.css';
 
+import { GameOverScene } from 'scenes/GameOverScene';
 import { BootScene } from './scenes/BootScene';
 import { LoadingScene } from './scenes/LoadingScene';
 import { MainMenuScene } from './scenes/MainMenuScene';
@@ -21,6 +22,7 @@ const game = new Phaser.Game({
     GameScene,
     HowToPlayScene,
     CreditsScene,
+    GameOverScene,
   ],
   scale: {
     parent: 'app',

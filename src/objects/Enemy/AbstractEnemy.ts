@@ -19,7 +19,7 @@ export class AbstractEnemy {
   spriteName: string;
 
   constructor(
-    private scene: Phaser.Scene,
+    protected scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
     private inventory: Inventory,
     texture: 'guy1' | 'guy2' | 'pop'
@@ -45,7 +45,7 @@ export class AbstractEnemy {
     this.sprite.anims.play(`${this.spriteName}-walk`);
   }
 
-  public onHit = (bullet: Bullet, deathCb: () => void) => {
+  public onHit(bullet: Bullet, deathCb: () => void) {
     this.hp -= bullet.damage;
 
     if (this.hp > 0) {
@@ -60,7 +60,7 @@ export class AbstractEnemy {
     }
 
     this.inventory.increaseAccountBalance(10);
-  };
+  }
 
   public onCommeradeTouch = () => {
     this.body.velocity.x -= 20;
