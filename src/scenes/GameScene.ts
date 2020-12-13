@@ -8,6 +8,7 @@ import { Flag } from 'objects/Flag';
 import { TourManager } from 'objects/TourManager';
 import { Boris } from 'objects/Turrets/Boris';
 import { Inventory } from 'objects/Inventory';
+import { EnemyWinController } from 'objects/EnemyWinController';
 import { LightsController } from './LightsController';
 
 const SCENE_CENTER_X = 1280 / 2;
@@ -44,6 +45,8 @@ export class GameScene extends Phaser.Scene {
 
   enemies!: Phaser.GameObjects.Group;
 
+  enemyWinController!: EnemyWinController;
+
   public create(): void {
     this.bullets = this.add.group();
     const lightsController = new LightsController(this);
@@ -54,7 +57,8 @@ export class GameScene extends Phaser.Scene {
       .setPipeline('Light2D');
     bg.setScale(5);
 
-    this.physics.world.setBounds(0, 350, 1200, 720 - 350);
+    this.physics.world.setBounds(0, 350, 1200, 720);
+    this.add.image(1280 / 2, 720 - 175, 'zasieki').setScale(5);
 
     new Flag(this, new Phaser.Math.Vector2(1270 - 250, 720 / 2 - 30));
 
@@ -87,7 +91,13 @@ export class GameScene extends Phaser.Scene {
         .sprite
     );
 
+    this.enemyWinController = new EnemyWinController(this, this.enemies);
+
     const tourManager = new TourManager(this, this.enemies, this.inventory);
+
+    this.enemyWinController.on('enemy-win', () => {
+      tourManager.onEnemyFinished();
+    });
     tourManager.on('round-start', () => {
       this.table.setRoundOn(true);
       lightsController.startAlarm();
@@ -103,7 +113,7 @@ export class GameScene extends Phaser.Scene {
       (enemyObj, bulletObj) => {
         enemyObj
           .getData('ref')
-          .onHit(bulletObj.getData('ref'), tourManager.onEnemyKill);
+          .onHit(bulletObj.getData('ref'), tourManager.onEnemyFinished);
         bulletObj.getData('ref').destroy();
       }
     );
@@ -148,6 +158,7 @@ export class GameScene extends Phaser.Scene {
       )
     );
     this.bullets?.getChildren().forEach((b) => b.getData('ref').update());
+    this.enemyWinController.update();
   }
 
   observeTableEvents = () => {
