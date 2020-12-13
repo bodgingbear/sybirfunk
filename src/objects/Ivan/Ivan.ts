@@ -126,8 +126,8 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
     this.state = 'idle';
   }
 
-  hit(damage: number) {
-    if (this.scene.time.now - this.previouslyHitAt <= 1000) {
+  hit(damage: number, force = false) {
+    if (this.scene.time.now - this.previouslyHitAt <= 1000 && !force) {
       return;
     }
 

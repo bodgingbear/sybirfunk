@@ -95,7 +95,8 @@ export class GameScene extends Phaser.Scene {
     const tourManager = new TourManager(this, this.enemies, this.inventory);
 
     this.enemyWinController.on('enemy-win', () => {
-      this.scene.start('GameOverScene');
+      this.ivan.hit(20, true);
+      // this.scene.start('GameOverScene');
     });
     tourManager.on('round-start', () => {
       this.table.setRoundOn(true);
@@ -127,7 +128,12 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
       this.ivan.hit(10);
     });
-    this.ivan.on('changeHealth', healthBar.onHealthChange);
+    this.ivan.on('changeHealth', (health: number) => {
+      healthBar.onHealthChange(health);
+      if (health <= 0) {
+        this.scene.start('GameOverScene');
+      }
+    });
 
     this.commeradesController = new CommeradesController(
       this.commerades,

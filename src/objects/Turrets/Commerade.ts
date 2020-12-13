@@ -1,4 +1,5 @@
 import { Bullet } from 'objects/Bullet';
+import { Sound } from 'Sound';
 import { Ally } from './Ally';
 
 function getRandomInt(max: number) {
@@ -25,6 +26,7 @@ export class Commerade implements Ally {
     private bullets: Phaser.GameObjects.Group,
     private state: 'searching' | 'shooting' = 'searching'
   ) {
+    this.scene.sound.add(Sound.mosinShoot);
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'sasha')
       .setScale(5);
@@ -54,14 +56,16 @@ export class Commerade implements Ally {
       return;
     }
     this.state = 'shooting';
+    this.shoot(this.body.y);
     this.shootingEvent = this.scene.time.addEvent({
-      delay: 1200,
+      delay: 4000,
       loop: true,
       callback: () => this.shoot(this.body.y),
     });
   }
 
   shoot = (y: number) => {
+    this.scene.sound.play(Sound.mosinShoot);
     this.bullets.add(
       new Bullet(
         this.scene,
