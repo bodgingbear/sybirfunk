@@ -1,9 +1,15 @@
+/* eslint-disable no-nested-ternary */
 import { EventEmitter } from 'packages/utils';
-import { Enemy } from './Enemy/Enemy';
-import { Inventory } from './Inventory';
+import { RegularEnemy } from '../Enemy/RegularEnemy';
+import { BoomboxEnemy } from '../Enemy/BoomboxEnemy';
+import { PriestEnemy } from '../Enemy/PriestEnemy';
+import { Inventory } from '../Inventory';
+import { levels } from './levels';
 
 export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
   private enemiesCount = 0;
+
+  private levelId = 0;
 
   private text: Phaser.GameObjects.Text;
 
@@ -26,6 +32,7 @@ export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
     if (this.enemiesCount !== 0) {
       return;
     }
+    this.levelId++;
     this.emit('round-end');
 
     let timeLeft = 5;
@@ -58,22 +65,22 @@ export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
   }
 
   private spawnEnemies() {
-    const positions = [
-      new Phaser.Math.Vector2(0, 400),
-      new Phaser.Math.Vector2(50, 400),
-      new Phaser.Math.Vector2(-100, 500),
-      new Phaser.Math.Vector2(-150, 500),
-      new Phaser.Math.Vector2(-200, 500),
-      new Phaser.Math.Vector2(-250, 500),
-      new Phaser.Math.Vector2(-300, 500),
-      new Phaser.Math.Vector2(-350, 500),
-      new Phaser.Math.Vector2(-400, 500),
-    ];
+    levels[this.levelId].forEach(({ time, position, type }) => {
+      this.scene.time.addEvent({
+        delay: time,
+        callback: () => {
+          const enemy =
+            type === 'ordinary'
+              ? new RegularEnemy(this.scene, position, this.inventory)
+              : type === 'boombox'
+              ? new BoomboxEnemy(this.scene, position, this.inventory)
+              : new PriestEnemy(this.scene, position, this.inventory);
 
-    positions.forEach((v) => {
-      this.enemies.add(new Enemy(this.scene, v, this.inventory).sprite);
+          this.enemies.add(enemy.sprite);
+        },
+      });
     });
 
-    this.enemiesCount = positions.length;
+    this.enemiesCount = levels[this.levelId].length;
   }
 }

@@ -102,12 +102,22 @@ export class LoadingScene extends Phaser.Scene {
     this.load.image('money', loadAsset('images/money.png'));
 
     this.load.image('ammo-on', loadAsset('images/ammo-on.png'));
+    this.load.image('ammo-off', loadAsset('images/ammo-off.png'));
     this.load.image('boris-on', loadAsset('images/boris-on.png'));
+    this.load.image('boris-off', loadAsset('images/boris-off.png'));
     this.load.image('knife-on', loadAsset('images/knife-on.png'));
+    this.load.image('knife-off', loadAsset('images/knife-off.png'));
     this.load.image('molotov-on', loadAsset('images/molotov-on.png'));
+    this.load.image('molotov-off', loadAsset('images/molotov-off.png'));
     this.load.image('sasha-on', loadAsset('images/sasha-on.png'));
+    this.load.image('sasha-off', loadAsset('images/sasha-off.png'));
     this.load.image('vodka-on', loadAsset('images/vodka-on.png'));
-    this.load.image('zasieki', loadAsset('images/zasieki.png'));
+    this.load.image('vodka-off', loadAsset('images/vodka-off.png'));
+    this.load.image('vodka-press', loadAsset('images/vodka-press.png'));
+    this.load.image('zasieki', [
+      loadAsset('images/zasieki.png'),
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
     this.load.spritesheet('boris', loadAsset('images/boris.png'), {
       frameWidth: 21,
       frameHeight: 20,

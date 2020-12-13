@@ -7,7 +7,7 @@ import { Reward } from './Reward';
 
 const ENEMY_VELOCITY = 110;
 
-export class Enemy {
+export class AbstractEnemy {
   body: Phaser.Physics.Arcade.Body;
 
   position: Phaser.Math.Vector2;
@@ -21,9 +21,10 @@ export class Enemy {
   constructor(
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
-    private inventory: Inventory
+    private inventory: Inventory,
+    texture: 'guy1' | 'guy2' | 'pop'
   ) {
-    this.spriteName = Phaser.Math.RND.pick(['guy1', 'guy2', 'pop']);
+    this.spriteName = texture;
 
     this.sprite = this.scene.add
       .sprite(position.x, position.y, `${this.spriteName}-0`)

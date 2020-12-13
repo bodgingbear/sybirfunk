@@ -1,7 +1,7 @@
 // przekazac wszystkich enemies i sprawdzać czy są w
 // ANIMACJA DO ZROBIENIA
 
-// import { Enemy } from 'objects/Enemy/Enemy';
+import { Enemy } from 'objects/Enemy/RegularEnemy';
 
 export class Knife {
   constructor(
