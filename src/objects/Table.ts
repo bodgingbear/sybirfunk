@@ -100,7 +100,7 @@ export class Table extends EventEmitter<
       this.uiContainer.setVisible(false);
       if (this.inventory.vodkaCounter === 0) {
         this.vodkaLabel
-          .setText("You're out of vodka, by more!")
+          .setText("You're out of vodka, buy more!")
           .setVisible(true);
         return;
       }
