@@ -11,6 +11,9 @@ import { Inventory } from 'objects/Inventory';
 import { EnemyWinController } from 'objects/EnemyWinController';
 import { LightsController } from './LightsController';
 
+const SCENE_CENTER_X = 1280 / 2;
+const SCENE_CENTER_Y = 720 / 2;
+
 const PRICES = {
   ammo: 100,
   sasha: 300,
@@ -49,7 +52,9 @@ export class GameScene extends Phaser.Scene {
     const lightsController = new LightsController(this);
     lightsController.startAlarm();
 
-    const bg = this.add.image(1280 / 2, 720 / 2, 'bg').setPipeline('Light2D');
+    const bg = this.add
+      .image(SCENE_CENTER_X, SCENE_CENTER_Y, 'bg')
+      .setPipeline('Light2D');
     bg.setScale(5);
 
     this.physics.world.setBounds(0, 350, 1200, 720 - 350);
@@ -59,6 +64,8 @@ export class GameScene extends Phaser.Scene {
     new SnowManager(this);
     const keys = this.input.keyboard.createCursorKeys();
 
+    this.table = new Table(this, this.inventory);
+
     this.inventory = new Inventory();
     this.table = new Table(this, this.inventory);
 
@@ -67,7 +74,7 @@ export class GameScene extends Phaser.Scene {
       new Phaser.Math.Vector2(1270 / 2, 720 / 2),
       keys,
       this.bullets,
-      undefined,
+      'gun',
       this.inventory
     );
 
@@ -120,6 +127,7 @@ export class GameScene extends Phaser.Scene {
     this.inventory.on('change', () => {
       healthBar.onChange();
       this.table.updateVodkaSprite();
+      this.table.displayUI();
     });
 
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
@@ -189,46 +197,67 @@ export class GameScene extends Phaser.Scene {
   };
 
   handleVodkaDrinked = () => {
-    if (this.inventory.vodkaCounter > 0) {
-      this.ivan.drinkVodka();
-      this.inventory.drinkVodka();
+    if (
+      this.inventory.vodkaCounter <= 0 ||
+      this.ivan.getState() === 'drinking'
+    ) {
+      return;
+    }
 
-      this.cameras.main.startFollow(this.ivan.sprite).setLerp(0.1, 0.1);
-      this.tweens.addCounter({
-        from: 0,
-        to: 1,
-        duration: 1500,
-        onUpdate: (tween) => {
-          this.cameras.main.setRotation(
-            Phaser.Math.DegToRad(0 + 5 * tween.getValue())
-          );
-          this.cameras.main.setZoom(1 + 5 * tween.getValue());
-        },
-        onComplete: () => {
-          this.tweens.addCounter({
-            from: 0,
-            to: 1,
-            duration: 1500,
-            onUpdate: (tween) => {
-              this.cameras.main.setRotation(
-                Phaser.Math.DegToRad(6 - 6 * tween.getValue())
-              );
-              this.cameras.main.setZoom(6 - 5 * tween.getValue());
-            },
-            onComplete: () => {
-              this.cameras.main.stopFollow();
-              this.tweens.addCounter({
+    this.ivan.drinkVodka();
+    this.inventory.drinkVodka();
+
+    this.cameras.main.startFollow(this.ivan.sprite).setLerp(0.1, 0.1);
+
+    this.tweens.addCounter({
+      from: 0,
+      to: 1,
+      duration: 1000,
+      onUpdate: (tween) => {
+        this.cameras.main.setRotation(
+          Phaser.Math.DegToRad(0 + 5 * tween.getValue())
+        );
+        this.cameras.main.setZoom(1 + 5 * tween.getValue());
+        this.cameras.main.centerOn(
+          this.cameras.main.centerX * (1 - tween.getValue()) +
+            this.ivan.body.x * tween.getValue(),
+          this.cameras.main.centerY * (1 - tween.getValue()) +
+            this.ivan.body.y * tween.getValue()
+        );
+      },
+      onComplete: () => {
+        this.tweens.addCounter({
+          from: 0,
+          to: 1,
+          duration: 3500,
+          onUpdate: (tween) => {
+            this.cameras.main.setRotation(
+              Phaser.Math.DegToRad(6 - 6 * tween.getValue())
+            );
+            this.cameras.main.setZoom(6 - 5 * tween.getValue());
+          },
+          onComplete: () => {
+            this.cameras.main.stopFollow();
+            this.tweens
+              .addCounter({
                 from: 0,
                 to: 1,
-                duration: 1500,
-                onUpdate: () => {
-                  this.cameras.main.centerOn(1280 / 2, 720 / 2);
+                duration: 500,
+                onUpdate: (tween) => {
+                  this.cameras.main.centerOn(
+                    this.ivan?.body.x * (1 - tween.getValue()) +
+                      SCENE_CENTER_X * tween.getValue(),
+                    this.ivan.body.y * (1 - tween.getValue()) +
+                      SCENE_CENTER_Y * tween.getValue()
+                  );
                 },
+              })
+              .on('complete', () => {
+                this.ivan.finishDrinking();
               });
-            },
-          });
-        },
-      });
-    }
+          },
+        });
+      },
+    });
   };
 }

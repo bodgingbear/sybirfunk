@@ -14,7 +14,9 @@ export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
   ) {
     super();
 
-    this.text = this.scene.add.text(1280 - 100, 50, '');
+    this.text = this.scene.add
+      .text(620, 680, '', { color: 'yellow' })
+      .setOrigin(0.5, 1);
     this.onRoundStart();
   }
 

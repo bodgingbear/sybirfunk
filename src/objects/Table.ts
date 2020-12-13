@@ -49,7 +49,7 @@ export class Table extends EventEmitter<
     this.uiContainer.setVisible(false).setScale(0.75);
 
     this.vodkaLabel = this.scene.add
-      .text(1280 / 2 - 180, 200, 'Press D to dring vodka')
+      .text(1280 / 2 - 180, 200, '')
       .setVisible(false);
 
     this.scene.input.keyboard.on(`keydown-ONE`, () => {
@@ -96,10 +96,16 @@ export class Table extends EventEmitter<
       return;
     }
 
-    this.vodkaLabel.setVisible(true);
-
     if (this.isRoundOn) {
       this.uiContainer.setVisible(false);
+      if (this.inventory.vodkaCounter === 0) {
+        this.vodkaLabel
+          .setText("You're out of vodka, by more!")
+          .setVisible(true);
+        return;
+      }
+      this.vodkaLabel.setText("Press 'D' to drink vodka");
+      this.vodkaLabel.setVisible(true);
       return;
     }
 
