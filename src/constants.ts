@@ -15,7 +15,7 @@ export const TEAM: TeamMemberData[] = [
   },
   {
     name: 'Piotrek Szadkowski',
-    role: 'Programming',
+    role: 'Programming & Sounds',
     imageKey: 'piotrek_credits',
     imagePath: 'images/credits/piotrek.png',
   },
@@ -27,7 +27,7 @@ export const TEAM: TeamMemberData[] = [
   // },
   {
     name: 'Kuba Pietrzak',
-    role: 'Sounds & QA',
+    role: 'Programming & Sounds',
     imageKey: 'kuba_credits',
     imagePath: 'images/credits/kuba.png',
   },
