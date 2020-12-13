@@ -100,27 +100,27 @@ export class Table extends EventEmitter<
       .setVisible(false);
 
     this.scene.input.keyboard.on(`keydown-ONE`, () => {
-      if (this.uiContainer.visible) {
+      if (this.tableEntered && !this.isRoundOn) {
         this.emit('buy-ammo');
       }
     });
     this.scene.input.keyboard.on('keyup-TWO', () => {
-      if (this.uiContainer.visible) {
+      if (this.tableEntered && !this.isRoundOn) {
         this.emit('buy-sasha');
       }
     });
     this.scene.input.keyboard.on('keyup-THREE', () => {
-      if (this.uiContainer.visible) {
+      if (this.tableEntered && !this.isRoundOn) {
         this.emit('buy-boris');
       }
     });
     this.scene.input.keyboard.on('keyup-FOUR', () => {
-      if (this.uiContainer.visible) {
+      if (this.tableEntered && !this.isRoundOn) {
         this.emit('buy-vodka');
       }
     });
     this.scene.input.keyboard.on('keyup-D', () => {
-      if (this.vodkaLabel.visible) {
+      if (this.tableEntered) {
         this.emit('drink-vodka');
       }
     });

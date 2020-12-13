@@ -1,5 +1,5 @@
 import { Inventory } from 'objects/Inventory';
-import { EventEmitter } from 'packages/utils';
+import { bound, EventEmitter } from 'packages/utils';
 import { Gun } from './Gun';
 
 const PLAYER_VELOCITY = 300;
@@ -19,6 +19,8 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
   light: Phaser.GameObjects.Light;
 
   gun: Gun;
+
+  // knife: Knife;
 
   previouslyHitAt = 0;
 
@@ -50,11 +52,12 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
     );
 
     this.gun = new Gun(this.scene, this.body, this.bullets, inventory);
-    keys.space?.on('down', () => {
+    // this.knife = new Knife(this.scene, position);
+    this.scene.input.keyboard.on('keydown-SPACE', () => {
       if (weapon === 'gun') {
         this.gun.shoot();
       } else {
-        // knife.attack()
+        // this.knife.attack();
       }
     });
 
@@ -105,7 +108,7 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
 
   drinkVodka() {
     this.state = 'drinking';
-    this.hp = PLAYER_MAX_HP;
+    this.hp = bound(0, PLAYER_MAX_HP, this.hp + PLAYER_MAX_HP / 4);
     const anim = this.sprite.play('ivan-drink');
     anim.on('animationcomplete', () => {
       anim.off('animationcomplete');

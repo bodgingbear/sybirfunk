@@ -1,5 +1,6 @@
 import { Bullet } from 'objects/Bullet';
 import { Inventory } from 'objects/Inventory';
+import { Knife } from 'objects/Ivan/Knife';
 import { FlyingCorpse } from './FlyingCorpse';
 import { Blood } from './Blood';
 import { Reward } from './Reward';

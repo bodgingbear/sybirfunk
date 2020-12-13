@@ -18,8 +18,7 @@ const PRICES = {
   ammo: 100,
   sasha: 300,
   boris: 500,
-  vodka: 2,
-  // vodka: 200,
+  vodka: 200,
 };
 
 export class GameScene extends Phaser.Scene {
@@ -80,6 +79,7 @@ export class GameScene extends Phaser.Scene {
       this.inventory,
       () => {
         this.boris?.activate();
+        this.inventory.useBoris();
       }
     );
 
@@ -177,7 +177,7 @@ export class GameScene extends Phaser.Scene {
     this.table.on('buy-boris', () => {
       const price = PRICES.boris;
 
-      if (this.inventory.accountBalance < price) {
+      if (this.inventory.accountBalance < price || this.boris !== undefined) {
         return;
       }
       this.handleBorisBought(price);
@@ -211,7 +211,10 @@ export class GameScene extends Phaser.Scene {
     this.boris = new Boris(
       this,
       new Phaser.Math.Vector2(1300, 640),
-      this.bullets
+      this.bullets,
+      () => {
+        this.boris = undefined;
+      }
     );
   };
 
