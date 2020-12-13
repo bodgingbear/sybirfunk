@@ -1,8 +1,12 @@
 import { EventEmitter } from 'packages/utils';
+import { PRICES } from 'scenes/GameScene';
 import { Inventory } from './Inventory';
 
 const TEXT_X_OFFSET = 35;
 const TEXT_Y_OFFSET = -60;
+
+const PRICE_X_OFFSET = 0;
+const PRICE_Y_OFFSET = -85;
 
 export class Table extends EventEmitter<
   'buy-ammo' | 'buy-sasha' | 'buy-boris' | 'buy-vodka' | 'drink-vodka'
@@ -39,6 +43,14 @@ export class Table extends EventEmitter<
 
   tween?: Phaser.Tweens.Tween;
 
+  ammoPrice: Phaser.GameObjects.Text;
+
+  sashaPrice: Phaser.GameObjects.Text;
+
+  borisPrice: Phaser.GameObjects.Text;
+
+  vodkaPrice: Phaser.GameObjects.Text;
+
   constructor(private scene: Phaser.Scene, private inventory: Inventory) {
     super();
 
@@ -63,9 +75,22 @@ export class Table extends EventEmitter<
       .text(this.ammo.x + TEXT_X_OFFSET, this.ammo.y + TEXT_Y_OFFSET, '', {
         color: '#000000',
       })
-      .setStroke('#ffffff', 2 * 5)
+      .setStroke('#ffffff', 1 * 5)
       .setOrigin(0.5, 0.5);
     this.uiContainer.add(this.ammoText);
+
+    this.ammoPrice = this.scene.add
+      .text(
+        this.ammo.x + PRICE_X_OFFSET,
+        this.ammo.y + PRICE_Y_OFFSET,
+        `${PRICES.ammo} ₽`,
+        {
+          color: '#000000',
+        }
+      )
+      .setStroke('#ffffff', 1 * 5)
+      .setOrigin(0.5, 0.5);
+    this.uiContainer.add(this.ammoPrice);
 
     this.sasha = this.scene.add.image(100, 0, 'sasha-on').setScale(5);
     this.uiContainer.add(this.sasha);
@@ -78,6 +103,19 @@ export class Table extends EventEmitter<
       .setOrigin(0.5, 0.5);
     this.uiContainer.add(this.sashaText);
 
+    this.sashaPrice = this.scene.add
+      .text(
+        this.sasha.x + PRICE_X_OFFSET,
+        this.sasha.y + PRICE_Y_OFFSET,
+        `${PRICES.sasha} ₽`,
+        {
+          color: '#000000',
+        }
+      )
+      .setStroke('#ffffff', 1 * 5)
+      .setOrigin(0.5, 0.5);
+    this.uiContainer.add(this.sashaPrice);
+
     this.boris = this.scene.add.image(200, 0, 'boris-on').setScale(5);
     this.uiContainer.add(this.boris);
 
@@ -89,6 +127,19 @@ export class Table extends EventEmitter<
       .setOrigin(0.5, 0.5);
     this.uiContainer.add(this.borisText);
 
+    this.borisPrice = this.scene.add
+      .text(
+        this.boris.x + PRICE_X_OFFSET,
+        this.boris.y + PRICE_Y_OFFSET,
+        `${PRICES.boris} ₽`,
+        {
+          color: '#000000',
+        }
+      )
+      .setStroke('#ffffff', 1 * 5)
+      .setOrigin(0.5, 0.5);
+    this.uiContainer.add(this.borisPrice);
+
     this.vodka = this.scene.add.image(300, 0, 'vodka-on').setScale(5);
     this.uiContainer.add(this.vodka);
 
@@ -99,6 +150,19 @@ export class Table extends EventEmitter<
       .setStroke('#ffffff', 2 * 5)
       .setOrigin(0.5, 0.5);
     this.uiContainer.add(this.vodkaText);
+
+    this.vodkaPrice = this.scene.add
+      .text(
+        this.vodka.x + PRICE_X_OFFSET,
+        this.vodka.y + PRICE_Y_OFFSET,
+        `${PRICES.vodka} ₽`,
+        {
+          color: '#000000',
+        }
+      )
+      .setStroke('#ffffff', 1 * 5)
+      .setOrigin(0.5, 0.5);
+    this.uiContainer.add(this.vodkaPrice);
 
     // this.uiContainer.setVisible(false).setScale(0.75);
 
@@ -207,6 +271,11 @@ export class Table extends EventEmitter<
     this.boris.setTexture(`boris-${state}`);
     this.sasha.setTexture(`sasha-${state}`);
     this.vodka.setTexture(`vodka-${state}`);
+
+    this.ammoPrice.setVisible(state === 'on');
+    this.sashaPrice.setVisible(state === 'on');
+    this.borisPrice.setVisible(state === 'on');
+    this.vodkaPrice.setVisible(state === 'on');
   };
 
   updateVodkaSprite = () => {

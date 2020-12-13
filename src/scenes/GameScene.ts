@@ -15,7 +15,7 @@ import { LightsController } from './LightsController';
 const SCENE_CENTER_X = 1280 / 2;
 const SCENE_CENTER_Y = 720 / 2;
 
-const PRICES = {
+export const PRICES = {
   ammo: 30,
   sasha: 200,
   boris: 500,
