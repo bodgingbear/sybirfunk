@@ -1,4 +1,5 @@
 import type { Inventory } from './Inventory';
+import { PLAYER_MAX_HP } from './Ivan/Ivan';
 
 const HEALTH_BAR_X = 865;
 const HEALTH_BAR_Y = 105;
@@ -10,8 +11,6 @@ const TEXT_OFFSET_X = 2 * 5;
 
 export class HealthBar {
   barShrinking: Phaser.GameObjects.Rectangle;
-
-  hasCooledDown = true;
 
   ammoText: Phaser.GameObjects.Text;
 
@@ -49,7 +48,7 @@ export class HealthBar {
     this.moneyText = this.scene.add.text(
       MONEY_X + money.displayWidth / 2 + TEXT_OFFSET_X,
       TOP_LINE_Y,
-      String(this.inventory.accountBallance),
+      String(this.inventory.accountBalance),
       {
         fontSize: 24,
       }
@@ -59,26 +58,13 @@ export class HealthBar {
     this.barShrinking.setOrigin(0, 0.5);
   }
 
-  public shrink() {
-    if (this.hasCooledDown === false) {
-      return;
-    }
-    this.barShrinking.scaleX -= 0.1;
-    this.barShrinking.scaleX = Math.max(this.barShrinking.scaleX, 0);
-
-    this.hasCooledDown = false;
-
-    this.scene.time.addEvent({
-      delay: 1000,
-      callback: () => {
-        this.hasCooledDown = true;
-      },
-    });
-  }
-
   public onChange = () => {
-    this.moneyText.setText(String(this.inventory.accountBallance));
+    this.moneyText.setText(String(this.inventory.accountBalance));
     this.ammoText.setText(String(this.inventory.ammo));
+  };
+
+  onHealthChange = (health: number) => {
+    this.barShrinking.scaleX = health / PLAYER_MAX_HP;
   };
 
   update() {}

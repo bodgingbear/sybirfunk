@@ -17,7 +17,7 @@ export class Boris implements Ally {
 
   constructor(
     private scene: Phaser.Scene,
-    private position: Phaser.Math.Vector2,
+    position: Phaser.Math.Vector2,
     private bullets: Phaser.GameObjects.Group,
     private state: 'awaiting' | 'running' | 'shooting' | 'finish' = 'awaiting'
   ) {
@@ -101,7 +101,7 @@ export class Boris implements Ally {
       });
   }
 
-  private shoot = (y: number, hideLight = false) => {
+  private shoot = (y: number, hideLight = true) => {
     const vel = new Phaser.Math.Vector2(BULLET_VELOCITY, 0).rotate(
       this.sprite.rotation
     );

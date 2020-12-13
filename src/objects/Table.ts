@@ -1,4 +1,5 @@
 import { EventEmitter } from 'packages/utils';
+import { Inventory } from './Inventory';
 
 export class Table extends EventEmitter<
   'buy-ammo' | 'buy-sasha' | 'buy-boris' | 'buy-vodka' | 'drink-vodka'
@@ -23,7 +24,7 @@ export class Table extends EventEmitter<
 
   vodkaLabel: Phaser.GameObjects.Text;
 
-  constructor(private scene: Phaser.Scene) {
+  constructor(private scene: Phaser.Scene, private inventory: Inventory) {
     super();
     this.sprite = this.scene.add.sprite(1150, 600, 'stolik').setScale(5);
     this.box = this.scene.add.rectangle(
@@ -48,23 +49,33 @@ export class Table extends EventEmitter<
     this.uiContainer.setVisible(false).setScale(0.75);
 
     this.vodkaLabel = this.scene.add
-      .text(1280 / 2 - 180, 200, 'Press D to dring vodka')
+      .text(1280 / 2 - 180, 200, '')
       .setVisible(false);
 
     this.scene.input.keyboard.on(`keydown-ONE`, () => {
-      this.emit('buy-ammo');
+      if (this.uiContainer.visible) {
+        this.emit('buy-ammo');
+      }
     });
     this.scene.input.keyboard.on('keyup-TWO', () => {
-      this.emit('buy-sasha');
+      if (this.uiContainer.visible) {
+        this.emit('buy-sasha');
+      }
     });
     this.scene.input.keyboard.on('keyup-THREE', () => {
-      this.emit('buy-boris');
+      if (this.uiContainer.visible) {
+        this.emit('buy-boris');
+      }
     });
     this.scene.input.keyboard.on('keyup-FOUR', () => {
-      this.emit('buy-vodka');
+      if (this.uiContainer.visible) {
+        this.emit('buy-vodka');
+      }
     });
     this.scene.input.keyboard.on('keyup-D', () => {
-      this.emit('drink-vodka');
+      if (this.vodkaLabel.visible) {
+        this.emit('drink-vodka');
+      }
     });
   }
 
@@ -87,11 +98,21 @@ export class Table extends EventEmitter<
 
     if (this.isRoundOn) {
       this.uiContainer.setVisible(false);
+      if (this.inventory.vodkaCounter === 0) {
+        this.vodkaLabel
+          .setText("You're out of vodka, by more!")
+          .setVisible(true);
+        return;
+      }
+      this.vodkaLabel.setText("Press 'D' to drink vodka");
       this.vodkaLabel.setVisible(true);
       return;
     }
 
     this.uiContainer.setVisible(true);
-    this.vodkaLabel.setVisible(false);
   }
+
+  updateVodkaSprite = () => {
+    this.sprite.setFrame(this.inventory.vodkaCounter);
+  };
 }

@@ -1,6 +1,5 @@
 import { Ivan } from 'objects/Ivan/Ivan';
 import { HealthBar } from 'objects/HealthBar';
-import { Money } from 'objects/Money';
 import { SnowManager } from 'objects/SnowManager';
 import { Commerade } from 'objects/Turrets/Commerade';
 import { CommeradesController } from 'objects/Turrets/CommeradesController';
@@ -11,10 +10,20 @@ import { Boris } from 'objects/Turrets/Boris';
 import { Inventory } from 'objects/Inventory';
 import { LightsController } from './LightsController';
 
+const PRICES = {
+  ammo: 100,
+  sasha: 300,
+  boris: 500,
+  vodka: 2,
+  // vodka: 200,
+};
+
 export class GameScene extends Phaser.Scene {
   table!: Table;
 
   bullets!: Phaser.GameObjects.Group;
+
+  inventory!: Inventory;
 
   public constructor() {
     super({
@@ -33,6 +42,7 @@ export class GameScene extends Phaser.Scene {
   enemies!: Phaser.GameObjects.Group;
 
   public create(): void {
+    this.bullets = this.add.group();
     const lightsController = new LightsController(this);
     lightsController.startAlarm();
 
@@ -46,19 +56,22 @@ export class GameScene extends Phaser.Scene {
     new SnowManager(this);
     const keys = this.input.keyboard.createCursorKeys();
 
-    const inventory = new Inventory();
+    this.table = new Table(this, this.inventory);
 
-    this.bullets = this.add.group();
+    this.inventory = new Inventory();
+    this.table = new Table(this, this.inventory);
 
     this.ivan = new Ivan(
       this,
       new Phaser.Math.Vector2(1270 / 2, 720 / 2),
       keys,
       this.bullets,
-      'knife'
+      'knife',
+      undefined,
+      this.inventory
     );
 
-    this.table = new Table(this);
+    this.observeTableEvents();
     this.ivan.sprite.setDepth(2);
 
     this.enemies = this.add.group();
@@ -70,9 +83,7 @@ export class GameScene extends Phaser.Scene {
         .sprite
     );
 
-    const money = new Money(this, new Phaser.Math.Vector2(100, 200));
-
-    const tourManager = new TourManager(this, this.enemies, money);
+    const tourManager = new TourManager(this, this.enemies, this.inventory);
     tourManager.on('round-start', () => {
       this.table.setRoundOn(true);
       lightsController.startAlarm();
@@ -98,11 +109,18 @@ export class GameScene extends Phaser.Scene {
       this.bullets
     );
     this.boris.activate();
-    const healthBar = new HealthBar(this, inventory);
-    inventory.on('change', healthBar.onChange);
-    this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
-      healthBar.shrink();
+
+    const healthBar = new HealthBar(this, this.inventory);
+    this.inventory.on('change', () => {
+      healthBar.onChange();
+      this.table.updateVodkaSprite();
+      this.table.displayUI();
     });
+
+    this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
+      this.ivan.hit(10);
+    });
+    this.ivan.on('changeHealth', healthBar.onHealthChange);
 
     this.commeradesController = new CommeradesController(
       this.commerades,
@@ -127,4 +145,84 @@ export class GameScene extends Phaser.Scene {
     );
     this.bullets?.getChildren().forEach((b) => b.getData('ref').update());
   }
+
+  observeTableEvents = () => {
+    this.table.on('drink-vodka', this.handleVodkaDrinked);
+    this.table.on('buy-ammo', () => {
+      const price = PRICES.ammo;
+
+      if (this.inventory.accountBalance > price) {
+        this.inventory.increaseAmmo();
+        this.inventory.decreaseAccountBalance(price);
+      }
+    });
+    this.table.on('buy-sasha', () => {
+      const price = PRICES.sasha;
+
+      if (this.inventory.accountBalance > price) {
+        this.inventory.buySasha();
+        this.inventory.decreaseAccountBalance(price);
+      }
+    });
+    this.table.on('buy-boris', () => {
+      const price = PRICES.boris;
+
+      if (this.inventory.accountBalance > price) {
+        this.inventory.buyBoris();
+        this.inventory.decreaseAccountBalance(price);
+      }
+    });
+    this.table.on('buy-vodka', () => {
+      const price = PRICES.vodka;
+
+      if (this.inventory.accountBalance > price) {
+        this.inventory.buyVodka();
+        this.inventory.decreaseAccountBalance(price);
+      }
+    });
+  };
+
+  handleVodkaDrinked = () => {
+    if (this.inventory.vodkaCounter > 0) {
+      this.ivan.drinkVodka();
+      this.inventory.drinkVodka();
+
+      this.cameras.main.startFollow(this.ivan.sprite).setLerp(0.1, 0.1);
+      this.tweens.addCounter({
+        from: 0,
+        to: 1,
+        duration: 1500,
+        onUpdate: (tween) => {
+          this.cameras.main.setRotation(
+            Phaser.Math.DegToRad(0 + 5 * tween.getValue())
+          );
+          this.cameras.main.setZoom(1 + 5 * tween.getValue());
+        },
+        onComplete: () => {
+          this.tweens.addCounter({
+            from: 0,
+            to: 1,
+            duration: 1500,
+            onUpdate: (tween) => {
+              this.cameras.main.setRotation(
+                Phaser.Math.DegToRad(6 - 6 * tween.getValue())
+              );
+              this.cameras.main.setZoom(6 - 5 * tween.getValue());
+            },
+            onComplete: () => {
+              this.cameras.main.stopFollow();
+              this.tweens.addCounter({
+                from: 0,
+                to: 1,
+                duration: 1500,
+                onUpdate: () => {
+                  this.cameras.main.centerOn(1280 / 2, 720 / 2);
+                },
+              });
+            },
+          });
+        },
+      });
+    }
+  };
 }

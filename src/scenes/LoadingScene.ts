@@ -35,7 +35,10 @@ export class LoadingScene extends Phaser.Scene {
       true
     );
 
-    this.load.image('stolik', 'images/stolik.png');
+    this.load.spritesheet('stolik', 'images/stolik.png', {
+      frameWidth: 11,
+      frameHeight: 13,
+    });
     this.load.image('snow1', [
       'images/snowflake1.png',
       loadAsset('images/defaultNormalMap.png'),
@@ -48,6 +51,10 @@ export class LoadingScene extends Phaser.Scene {
       frameWidth: 11,
       frameHeight: 18,
     });
+    this.load.spritesheet('ivan-shot', loadAsset('images/iwan_shot.png'), {
+      frameWidth: 7,
+      frameHeight: 18,
+    });
 
     this.load.image('moon', loadAsset('images/moon.png'));
 
@@ -55,9 +62,26 @@ export class LoadingScene extends Phaser.Scene {
       loadAsset('images/guy1-0.png'),
       loadAsset('images/defaultNormalMap.png'),
     ]);
-
     this.load.image('guy1-1', [
       loadAsset('images/guy1-1.png'),
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
+
+    this.load.image('guy2-0', [
+      loadAsset('images/guy2-0.png'),
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
+    this.load.image('guy2-1', [
+      loadAsset('images/guy2-1.png'),
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
+
+    this.load.image('pop-0', [
+      loadAsset('images/pop-0.png'),
+      loadAsset('images/defaultNormalMap.png'),
+    ]);
+    this.load.image('pop-1', [
+      loadAsset('images/pop-1.png'),
       loadAsset('images/defaultNormalMap.png'),
     ]);
 
@@ -109,8 +133,33 @@ export class LoadingScene extends Phaser.Scene {
       repeat: -1,
     });
     this.anims.create({
+      key: 'ivan-drink',
+      frames: this.anims.generateFrameNumbers('ivan-shot', {
+        start: 0,
+        end: -1,
+      }),
+      frameRate: 3,
+      repeat: 0,
+      yoyo: true,
+    });
+    this.anims.create({
       key: 'guy1-walk',
+      // @ts-ignore
       frames: [{ key: 'guy1-0' }, { key: 'guy1-1' }],
+      frameRate: 6,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'guy2-walk',
+      // @ts-ignore
+      frames: [{ key: 'guy2-0' }, { key: 'guy2-1' }],
+      frameRate: 6,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'pop-walk',
+      // @ts-ignore
+      frames: [{ key: 'pop-0' }, { key: 'pop-1' }],
       frameRate: 6,
       repeat: -1,
     });
@@ -127,6 +176,7 @@ export class LoadingScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'flag-wave',
+      // @ts-ignore
       frames: [{ key: 'flag-0' }, { key: 'flag-1' }],
       frameRate: 3,
       repeat: -1,

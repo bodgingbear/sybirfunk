@@ -15,8 +15,8 @@ export class Bullet {
   constructor(
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
-    private xVelocity: number = BULLET_VELOCITY,
-    private yVelocity: number = 0,
+    xVelocity: number = BULLET_VELOCITY,
+    yVelocity: number = 0,
     public damage = 1,
     lightConfig?: BulletLightConfig
   ) {
