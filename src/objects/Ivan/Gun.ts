@@ -12,7 +12,7 @@ export class Gun {
     private inventory: Inventory
   ) {
     this.sound = this.scene.sound.add(Sound.ppsh40SingleShot, {
-      volume: 0.1,
+      volume: 0.3,
     });
   }
 
