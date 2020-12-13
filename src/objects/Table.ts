@@ -35,8 +35,15 @@ export class Table extends EventEmitter<
 
   vodkaText: Phaser.GameObjects.Text;
 
+  light: Phaser.GameObjects.Light;
+
+  tween?: Phaser.Tweens.Tween;
+
   constructor(private scene: Phaser.Scene, private inventory: Inventory) {
     super();
+
+    this.light = this.scene.lights.addLight(1150, 600, 125, 0x00ff00, 0);
+
     this.sprite = this.scene.add.sprite(1150, 600, 'stolik').setScale(7);
     this.box = this.scene.add.rectangle(
       this.sprite.x,
@@ -138,15 +145,42 @@ export class Table extends EventEmitter<
     this.displayUI();
   }
 
+  runLightTween() {
+    if (this.tween) {
+      return;
+    }
+
+    this.tween = this.scene.tweens.addCounter({
+      from: 0,
+      to: 1,
+      duration: 1000,
+      yoyo: true,
+      repeat: -1,
+      onUpdate: (tween) => {
+        const value = tween.getValue();
+        this.light.setIntensity(0.3 + value * 0.2);
+      },
+    });
+  }
+
   displayUI() {
     this.ammoText.setText(String(this.inventory.ammo));
     this.sashaText.setText(String(this.inventory.sashaCounter));
     this.borisText.setText(String(this.inventory.borisCounter));
     this.vodkaText.setText(String(this.inventory.vodkaCounter));
 
+    if (!this.isRoundOn) {
+      this.runLightTween();
+    } else {
+      this.tween?.stop();
+      this.tween = undefined;
+      this.light.setIntensity(0);
+    }
+
     if (!this.tableEntered) {
       this.setTextures('off');
       this.vodkaLabel.setVisible(false);
+
       return;
     }
 
