@@ -1,3 +1,4 @@
+import { Inventory } from 'objects/Inventory';
 import { Gun } from './Gun';
 
 const PLAYER_VELOCITY = 300;
@@ -18,7 +19,8 @@ export class Ivan {
     position: Phaser.Math.Vector2,
     private keys: Phaser.Types.Input.Keyboard.CursorKeys,
     private bullets: Phaser.GameObjects.Group,
-    weapon: 'gun' | 'knife' = 'gun'
+    weapon: 'gun' | 'knife' = 'gun',
+    inventory: Inventory
   ) {
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'ivan')
@@ -29,7 +31,7 @@ export class Ivan {
     this.body.collideWorldBounds = true;
     this.body.immovable = true;
 
-    this.gun = new Gun(this.scene, this.body, this.bullets);
+    this.gun = new Gun(this.scene, this.body, this.bullets, inventory);
     keys.space?.on('down', () => {
       if (weapon === 'gun') {
         this.gun.shoot();

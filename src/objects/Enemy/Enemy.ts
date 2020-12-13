@@ -1,5 +1,5 @@
-import { Money } from 'objects/Money';
 import { Bullet } from 'objects/Bullet';
+import { Inventory } from 'objects/Inventory';
 import { FlyingCorpse } from './FlyingCorpse';
 import { Blood } from './Blood';
 import { Reward } from './Reward';
@@ -18,7 +18,7 @@ export class Enemy {
   constructor(
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
-    private money: Money
+    private inventory: Inventory
   ) {
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'guy1-0')
@@ -53,7 +53,7 @@ export class Enemy {
       deathCb();
     }
 
-    this.money.onHit();
+    this.inventory.increaseAccountBalance(10);
   };
 
   public onCommeradeTouch = () => {

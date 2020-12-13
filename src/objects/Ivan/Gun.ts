@@ -1,26 +1,20 @@
 import { Bullet } from 'objects/Bullet';
+import { Inventory } from 'objects/Inventory';
 
 export class Gun {
-  private bulletsCount = 0;
-
-  private text: Phaser.GameObjects.Text;
-
   constructor(
     private scene: Phaser.Scene,
     private parentBody: Phaser.Physics.Arcade.Body,
-    private bullets: Phaser.GameObjects.Group
-  ) {
-    this.text = this.scene.add.text(1280 - 200, 720 - 80, '0 bullets');
-  }
+    private bullets: Phaser.GameObjects.Group,
+    private inventory: Inventory
+  ) {}
 
   public shoot = () => {
-    if (this.bulletsCount <= 0) {
+    if (this.inventory.ammo <= 0) {
       return;
     }
 
-    this.bulletsCount--;
-
-    this.text.setText(`${this.bulletsCount} bullets`);
+    this.inventory.useAmmo(1);
 
     this.bullets.add(
       new Bullet(
@@ -31,8 +25,6 @@ export class Gun {
   };
 
   public setBullets(bulletsCount: number) {
-    this.bulletsCount = bulletsCount;
-
-    this.text.setText(`${this.bulletsCount} bullets`);
+    this.inventory.setAmmo(bulletsCount);
   }
 }

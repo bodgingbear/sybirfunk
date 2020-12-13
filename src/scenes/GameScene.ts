@@ -1,6 +1,5 @@
 import { Ivan } from 'objects/Ivan/Ivan';
 import { HealthBar } from 'objects/HealthBar';
-import { Money } from 'objects/Money';
 import { SnowManager } from 'objects/SnowManager';
 import { Commerade } from 'objects/Turrets/Commerade';
 import { CommeradesController } from 'objects/Turrets/CommeradesController';
@@ -35,6 +34,7 @@ export class GameScene extends Phaser.Scene {
   enemies!: Phaser.GameObjects.Group;
 
   public create(): void {
+    this.bullets = this.add.group();
     const lightsController = new LightsController(this);
     lightsController.startAlarm();
 
@@ -47,6 +47,8 @@ export class GameScene extends Phaser.Scene {
 
     new SnowManager(this);
     const keys = this.input.keyboard.createCursorKeys();
+
+    this.table = new Table(this);
 
     this.inventory = new Inventory();
     this.table.on('buy-ammo', () => {
@@ -66,11 +68,11 @@ export class GameScene extends Phaser.Scene {
       this,
       new Phaser.Math.Vector2(1270 / 2, 720 / 2),
       keys,
-      this.bullets
+      this.bullets,
+      undefined,
+      this.inventory
     );
     this.ivan.sprite.setDepth(2);
-
-    this.table = new Table(this);
 
     this.enemies = this.add.group();
 
@@ -81,9 +83,7 @@ export class GameScene extends Phaser.Scene {
         .sprite
     );
 
-    const money = new Money(this, new Phaser.Math.Vector2(100, 200));
-
-    const tourManager = new TourManager(this, this.enemies, money);
+    const tourManager = new TourManager(this, this.enemies, this.inventory);
     tourManager.on('round-start', () => {
       this.table.setRoundOn(true);
       lightsController.startAlarm();

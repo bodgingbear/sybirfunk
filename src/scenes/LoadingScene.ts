@@ -110,6 +110,7 @@ export class LoadingScene extends Phaser.Scene {
     });
     this.anims.create({
       key: 'guy1-walk',
+      // @ts-ignore
       frames: [{ key: 'guy1-0' }, { key: 'guy1-1' }],
       frameRate: 6,
       repeat: -1,
@@ -127,6 +128,7 @@ export class LoadingScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'flag-wave',
+      // @ts-ignore
       frames: [{ key: 'flag-0' }, { key: 'flag-1' }],
       frameRate: 3,
       repeat: -1,

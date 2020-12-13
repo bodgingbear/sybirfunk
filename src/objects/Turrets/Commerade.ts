@@ -20,7 +20,7 @@ export class Commerade implements Ally {
 
   constructor(
     private scene: Phaser.Scene,
-    private position: Phaser.Math.Vector2,
+    position: Phaser.Math.Vector2,
     private bullets: Phaser.GameObjects.Group,
     private state: 'searching' | 'shooting' = 'searching'
   ) {

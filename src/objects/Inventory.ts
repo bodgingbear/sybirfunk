@@ -50,4 +50,14 @@ export class Inventory extends EventEmitter<'change'> {
       this.emit('change');
     }
   }
+
+  useAmmo(number = 1) {
+    this.ammo -= number;
+    this.emit('change');
+  }
+
+  setAmmo(ammo: number) {
+    this.ammo = ammo;
+    this.emit('change');
+  }
 }
