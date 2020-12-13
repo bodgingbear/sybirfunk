@@ -7,7 +7,7 @@ import { PriestEnemy } from '../Enemy/PriestEnemy';
 import { Inventory } from '../Inventory';
 import { levels } from './levels';
 
-const BUY_TIME = process.env.BALANCING_MODE === 'true' ? 30 : 5;
+const BUY_TIME = process.env.BALANCING_MODE !== 'false' ? 30 : 5;
 
 export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
   private enemiesCount = 0;

@@ -3,7 +3,7 @@ import { bound, EventEmitter } from 'packages/utils';
 import { Sound } from 'Sound';
 import { Gun } from './Gun';
 
-const PLAYER_VELOCITY = process.env.BALANCING_MODE === 'true' ? 120 : 1200;
+const PLAYER_VELOCITY = process.env.BALANCING_MODE !== 'false' ? 120 : 1200;
 export const PLAYER_MAX_HP = 100;
 
 type EventHandlers = {
