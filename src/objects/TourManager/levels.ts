@@ -351,4 +351,15 @@ const level6: Level = [
   },
 ];
 
-export const levels = [level1, level2, level3, level4, level5, level6];
+export const levels = [
+  level1,
+  level2,
+  level3,
+  level4,
+  level5,
+  level6,
+  level6,
+  level6,
+  level6,
+  level6,
+];
