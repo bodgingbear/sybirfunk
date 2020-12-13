@@ -18,7 +18,7 @@ const PRICES = {
   ammo: 30,
   sasha: 200,
   boris: 500,
-  vodka: 200,
+  vodka: 100,
 };
 
 export class GameScene extends Phaser.Scene {
@@ -95,7 +95,8 @@ export class GameScene extends Phaser.Scene {
     const tourManager = new TourManager(this, this.enemies, this.inventory);
 
     this.enemyWinController.on('enemy-win', () => {
-      this.ivan.hit(20, true);
+      this.ivan.hit(30, true);
+      tourManager.onEnemyFinished();
       // this.scene.start('GameOverScene');
     });
     tourManager.on('round-start', () => {
@@ -126,7 +127,7 @@ export class GameScene extends Phaser.Scene {
     });
 
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
-      this.ivan.hit(10);
+      this.ivan.hit(20);
     });
     this.ivan.on('changeHealth', (health: number) => {
       healthBar.onHealthChange(health);

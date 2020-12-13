@@ -55,7 +55,7 @@ export class AbstractEnemy {
       this.sprite.destroy();
 
       new FlyingCorpse(this.scene, this.body.position);
-      new Reward(this.scene, this.body.position);
+      new Reward(this.scene, this.body.position, this.reward);
       this.inventory.increaseAccountBalance(this.reward);
 
       deathCb();

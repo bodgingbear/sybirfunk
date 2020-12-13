@@ -174,4 +174,181 @@ const level5: Level = [
 
 // HAJS AFTER 5: 280
 
-export const levels = [level1, level2, level3, level4, level5];
+const level6: Level = [
+  {
+    time: 100,
+    position: new Phaser.Math.Vector2(0, 400),
+    type: 'ordinary',
+  },
+  {
+    time: 400,
+    position: new Phaser.Math.Vector2(0, 380),
+    type: 'boombox',
+  },
+  {
+    time: 100,
+    position: new Phaser.Math.Vector2(0, 420),
+    type: 'ordinary',
+  },
+  {
+    time: 600,
+    position: new Phaser.Math.Vector2(0, 480),
+    type: 'ordinary',
+  },
+  {
+    time: 200,
+    position: new Phaser.Math.Vector2(0, 520),
+    type: 'ordinary',
+  },
+  {
+    time: 600,
+    position: new Phaser.Math.Vector2(0, 580),
+    type: 'ordinary',
+  },
+  {
+    time: 600,
+    position: new Phaser.Math.Vector2(0, 620),
+    type: 'ordinary',
+  },
+
+  {
+    time: 5100,
+    position: new Phaser.Math.Vector2(0, 400),
+    type: 'ordinary',
+  },
+  {
+    time: 5400,
+    position: new Phaser.Math.Vector2(0, 380),
+    type: 'boombox',
+  },
+  {
+    time: 5100,
+    position: new Phaser.Math.Vector2(0, 420),
+    type: 'priest',
+  },
+  {
+    time: 5600,
+    position: new Phaser.Math.Vector2(0, 480),
+    type: 'ordinary',
+  },
+  {
+    time: 5200,
+    position: new Phaser.Math.Vector2(0, 520),
+    type: 'boombox',
+  },
+  {
+    time: 5600,
+    position: new Phaser.Math.Vector2(0, 620),
+    type: 'priest',
+  },
+
+  {
+    time: 5600,
+    position: new Phaser.Math.Vector2(0, 400),
+    type: 'ordinary',
+  },
+  {
+    time: 5900,
+    position: new Phaser.Math.Vector2(0, 380),
+    type: 'ordinary',
+  },
+  {
+    time: 6100,
+    position: new Phaser.Math.Vector2(0, 420),
+    type: 'boombox',
+  },
+  {
+    time: 6300,
+    position: new Phaser.Math.Vector2(0, 480),
+    type: 'ordinary',
+  },
+  {
+    time: 5400,
+    position: new Phaser.Math.Vector2(0, 520),
+    type: 'ordinary',
+  },
+  {
+    time: 6400,
+    position: new Phaser.Math.Vector2(0, 580),
+    type: 'ordinary',
+  },
+  {
+    time: 6600,
+    position: new Phaser.Math.Vector2(0, 620),
+    type: 'ordinary',
+  },
+
+  {
+    time: 7100,
+    position: new Phaser.Math.Vector2(0, 600),
+    type: 'boombox',
+  },
+  {
+    time: 6900,
+    position: new Phaser.Math.Vector2(0, 380),
+    type: 'ordinary',
+  },
+  {
+    time: 6900,
+    position: new Phaser.Math.Vector2(0, 420),
+    type: 'ordinary',
+  },
+  {
+    time: 6100,
+    position: new Phaser.Math.Vector2(0, 480),
+    type: 'ordinary',
+  },
+  {
+    time: 8200,
+    position: new Phaser.Math.Vector2(0, 520),
+    type: 'ordinary',
+  },
+  {
+    time: 8600,
+    position: new Phaser.Math.Vector2(0, 580),
+    type: 'ordinary',
+  },
+  {
+    time: 6600,
+    position: new Phaser.Math.Vector2(0, 620),
+    type: 'ordinary',
+  },
+
+  {
+    time: 11100,
+    position: new Phaser.Math.Vector2(0, 400),
+    type: 'ordinary',
+  },
+  {
+    time: 10900,
+    position: new Phaser.Math.Vector2(0, 380),
+    type: 'ordinary',
+  },
+  {
+    time: 10900,
+    position: new Phaser.Math.Vector2(0, 420),
+    type: 'ordinary',
+  },
+  {
+    time: 9100,
+    position: new Phaser.Math.Vector2(0, 480),
+    type: 'ordinary',
+  },
+  {
+    time: 10800,
+    position: new Phaser.Math.Vector2(0, 520),
+    type: 'ordinary',
+  },
+  {
+    time: 10000,
+    position: new Phaser.Math.Vector2(0, 580),
+    type: 'boombox',
+  },
+  {
+    time: 10600,
+    position: new Phaser.Math.Vector2(0, 620),
+    type: 'ordinary',
+  },
+];
+
+export const levels = [level1, level2, level3, level4, level5, level6];
