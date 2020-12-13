@@ -1,5 +1,6 @@
 import { Inventory } from 'objects/Inventory';
 import { bound, EventEmitter } from 'packages/utils';
+import { Sound } from 'Sound';
 import { Gun } from './Gun';
 
 const PLAYER_VELOCITY = process.env.BALANCING_MODE === 'true' ? 120 : 1200;
@@ -24,6 +25,10 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
 
   previouslyHitAt = 0;
 
+  get painVoices(): string[] {
+    return [Sound.ivanHit1, Sound.ivanHit2, Sound.ivanHit3];
+  }
+
   callBoris: () => void;
 
   constructor(
@@ -38,6 +43,7 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
     private state: 'idle' | 'drinking' = 'idle'
   ) {
     super();
+    this.painVoices.forEach((v) => this.scene.sound.add(v));
     this.callBoris = callBoris;
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'ivan')
@@ -127,6 +133,11 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
   }
 
   hit(damage: number, force = false) {
+    // @TODO play pain voice
+    // this.scene.sound.play(
+    //   this.painVoices[Math.floor(Math.random() * this.painVoices.length)]
+    // );
+
     if (this.scene.time.now - this.previouslyHitAt <= 1000 && !force) {
       return;
     }
