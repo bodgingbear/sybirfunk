@@ -46,6 +46,12 @@ export class BoomboxEnemy extends AbstractEnemy {
     super.onHit(bullet, cb);
   };
 
+  public onWin() {
+    super.onWin();
+    this.scene.lights.removeLight(this.light);
+    this.tween.stop();
+  }
+
   update() {
     super.update();
 

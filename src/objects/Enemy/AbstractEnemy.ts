@@ -61,6 +61,10 @@ export class AbstractEnemy {
     this.inventory.increaseAccountBalance(10);
   }
 
+  public onWin() {
+    this.sprite.destroy();
+  }
+
   public onCommeradeTouch = () => {
     this.body.velocity.x -= 20;
   };

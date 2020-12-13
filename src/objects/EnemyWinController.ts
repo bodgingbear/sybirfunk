@@ -11,7 +11,7 @@ export class EnemyWinController extends EventEmitter<'enemy-win'> {
   public update() {
     this.enemies.children.getArray().forEach((obj) => {
       if ((obj as Phaser.GameObjects.Sprite).x > 1280) {
-        obj.destroy();
+        obj.getData('ref').onWin();
         this.emit('enemy-win');
       }
     });
