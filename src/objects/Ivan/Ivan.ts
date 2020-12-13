@@ -1,6 +1,7 @@
 import { Inventory } from 'objects/Inventory';
 import { EventEmitter } from 'packages/utils';
 import { Gun } from './Gun';
+import { Knife } from './Knife';
 
 const PLAYER_VELOCITY = 300;
 export const PLAYER_MAX_HP = 100;
@@ -19,6 +20,8 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
   light: Phaser.GameObjects.Light;
 
   gun: Gun;
+
+  // knife: Knife;
 
   previouslyHitAt = 0;
 
@@ -46,11 +49,12 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
     );
 
     this.gun = new Gun(this.scene, this.body, this.bullets, inventory);
+    // this.knife = new Knife(this.scene, position);
     keys.space?.on('down', () => {
       if (weapon === 'gun') {
         this.gun.shoot();
       } else {
-        // knife.attack()
+        // this.knife.attack();
       }
     });
 
