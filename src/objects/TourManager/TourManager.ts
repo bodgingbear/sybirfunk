@@ -36,7 +36,6 @@ export class TourManager extends EventEmitter<'round-start' | 'round-end'> {
     this.onRoundStart();
 
     this.scene.input.keyboard.on('keydown-S', () => {
-      console.log('up');
       if (this.waitEvent) {
         this.waitEvent.destroy();
         this.onRoundStart();
