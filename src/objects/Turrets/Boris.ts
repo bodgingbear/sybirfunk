@@ -15,15 +15,20 @@ export class Boris implements Ally {
 
   rightWeaponShooting: Phaser.Time.TimerEvent | undefined;
 
+  finishedDuty: () => void;
+
   constructor(
     private scene: Phaser.Scene,
     position: Phaser.Math.Vector2,
     private bullets: Phaser.GameObjects.Group,
+    finishedDuty: () => void,
     private state: 'awaiting' | 'running' | 'shooting' | 'finish' = 'awaiting'
   ) {
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'boris')
       .setScale(5);
+
+    this.finishedDuty = finishedDuty;
 
     scene.physics.world.enable(this.sprite);
 
@@ -158,6 +163,7 @@ export class Boris implements Ally {
         if (this.body.x === 1095) {
           this.sprite.destroy();
           this.body.setVelocity(0);
+          this.finishedDuty();
         }
         if (this.body.x < 900) {
           this.body.setVelocityX(-JOG_SPEED);

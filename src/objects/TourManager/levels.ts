@@ -10,4 +10,13 @@ const level1: Level = [
   { time: 2500, position: new Phaser.Math.Vector2(0, 400), type: 'ordinary' },
 ];
 
-export const levels = [level1, level1, level1, level1];
+const level2: Level = [
+  { time: 1500, position: new Phaser.Math.Vector2(0, 400), type: 'ordinary' },
+  { time: 2000, position: new Phaser.Math.Vector2(0, 400), type: 'boombox' },
+  { time: 2500, position: new Phaser.Math.Vector2(0, 400), type: 'ordinary' },
+  { time: 1500, position: new Phaser.Math.Vector2(0, 400), type: 'ordinary' },
+  { time: 2000, position: new Phaser.Math.Vector2(0, 400), type: 'boombox' },
+  { time: 2500, position: new Phaser.Math.Vector2(0, 400), type: 'ordinary' },
+];
+
+export const levels = [level1, level2, level1, level1];
