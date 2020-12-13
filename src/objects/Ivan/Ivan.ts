@@ -29,7 +29,8 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
     private bullets: Phaser.GameObjects.Group,
     weapon: 'gun' | 'knife' = 'gun',
     inventory: Inventory,
-    private hp: number = PLAYER_MAX_HP
+    private hp: number = PLAYER_MAX_HP,
+    private state: 'idle' | 'drinking' = 'idle'
   ) {
     super();
     this.sprite = this.scene.add
@@ -63,6 +64,10 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
     );
   }
 
+  getState(): 'idle' | 'drinking' {
+    return this.state;
+  }
+
   update() {
     const velocity = new Phaser.Math.Vector2(0, 0);
 
@@ -88,6 +93,7 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
   }
 
   drinkVodka() {
+    this.state = 'drinking';
     this.hp = PLAYER_MAX_HP;
     const anim = this.sprite.play('ivan-drink');
     anim.on('animationcomplete', () => {
@@ -96,6 +102,10 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
     });
 
     this.emit('changeHealth', this.hp);
+  }
+
+  finishDrinking() {
+    this.state = 'idle';
   }
 
   hit(damage: number) {
