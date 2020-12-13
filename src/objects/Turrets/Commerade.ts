@@ -27,6 +27,7 @@ export class Commerade implements Ally {
     private state: 'searching' | 'shooting' = 'searching'
   ) {
     this.scene.sound.add(Sound.mosinShoot);
+    this.scene.sound.add(Sound.sashaDying);
     this.sprite = this.scene.add
       .sprite(position.x, position.y, 'sasha')
       .setScale(5);
@@ -56,6 +57,7 @@ export class Commerade implements Ally {
       return;
     }
     this.state = 'shooting';
+    // @FIXME: Add Cooldown for initial shoot
     this.shoot(this.body.y);
     this.shootingEvent = this.scene.time.addEvent({
       delay: 4000,
@@ -90,6 +92,7 @@ export class Commerade implements Ally {
   }
 
   public gotHit() {
+    this.scene.sound.play(Sound.sashaDying);
     this.light.intensity = 0;
     this.sprite.destroy();
     this.shootingEvent?.destroy();
