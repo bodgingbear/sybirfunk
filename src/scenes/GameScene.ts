@@ -169,7 +169,7 @@ export class GameScene extends Phaser.Scene {
     this.table.on('buy-ammo', () => {
       const price = PRICES.ammo;
 
-      if (this.inventory.accountBalance > price) {
+      if (this.inventory.accountBalance >= price) {
         this.inventory.increaseAmmo();
         this.inventory.decreaseAccountBalance(price);
       }
@@ -177,7 +177,7 @@ export class GameScene extends Phaser.Scene {
     this.table.on('buy-sasha', () => {
       const price = PRICES.sasha;
 
-      if (this.inventory.accountBalance > price) {
+      if (this.inventory.accountBalance >= price) {
         this.inventory.buySasha();
         this.inventory.decreaseAccountBalance(price);
       }
@@ -185,7 +185,7 @@ export class GameScene extends Phaser.Scene {
     this.table.on('buy-boris', () => {
       const price = PRICES.boris;
 
-      if (this.inventory.accountBalance > price) {
+      if (this.inventory.accountBalance >= price) {
         this.inventory.buyBoris();
         this.inventory.decreaseAccountBalance(price);
       }
@@ -193,7 +193,7 @@ export class GameScene extends Phaser.Scene {
     this.table.on('buy-vodka', () => {
       const price = PRICES.vodka;
 
-      if (this.inventory.accountBalance > price) {
+      if (this.inventory.accountBalance >= price) {
         this.inventory.buyVodka();
         this.inventory.decreaseAccountBalance(price);
       }
