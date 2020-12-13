@@ -98,14 +98,8 @@ export class GameScene extends Phaser.Scene {
       this.bullets
     );
     this.boris.activate();
-
-<<<<<<< HEAD
-    const healthBar = new HealthBar(this, new Phaser.Math.Vector2(865, 105));
-=======
     const healthBar = new HealthBar(this, inventory);
     inventory.on('change', healthBar.onChange);
->>>>>>> 4ad3fb6b0d16806216538237ae4b8f1d332662fe
-
     this.physics.add.collider(this.enemies, this.ivan.sprite, () => {
       healthBar.shrink();
     });
