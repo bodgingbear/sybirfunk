@@ -41,12 +41,7 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
     this.body.collideWorldBounds = true;
     this.body.immovable = true;
 
-<<<<<<< HEAD
-    this.gun = new Gun(this.scene, this.body, this.bullets);
-
-=======
     this.gun = new Gun(this.scene, this.body, this.bullets, inventory);
->>>>>>> a669dac735e2ac2356bb9eaaa9842e78d19c201e
     keys.space?.on('down', () => {
       if (weapon === 'gun') {
         this.gun.shoot();
