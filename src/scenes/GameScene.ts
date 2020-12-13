@@ -9,12 +9,13 @@ import { TourManager } from 'objects/TourManager/TourManager';
 import { Boris } from 'objects/Turrets/Boris';
 import { Inventory } from 'objects/Inventory';
 import { EnemyWinController } from 'objects/EnemyWinController';
+import { AbstractEnemy } from 'objects/Enemy/AbstractEnemy';
 import { LightsController } from './LightsController';
 
 const SCENE_CENTER_X = 1280 / 2;
 const SCENE_CENTER_Y = 720 / 2;
 
-const PRICES = {
+export const PRICES = {
   ammo: 30,
   sasha: 200,
   boris: 500,
@@ -94,10 +95,10 @@ export class GameScene extends Phaser.Scene {
 
     const tourManager = new TourManager(this, this.enemies, this.inventory);
 
-    this.enemyWinController.on('enemy-win', () => {
-      this.ivan.hit(30, true);
+    this.enemyWinController.on('enemy-win', (enemy: AbstractEnemy) => {
+      this.ivan.hit(25, true);
+      enemy.destroy();
       tourManager.onEnemyFinished();
-      // this.scene.start('GameOverScene');
     });
     tourManager.on('round-start', () => {
       this.table.setRoundOn(true);
@@ -141,6 +142,9 @@ export class GameScene extends Phaser.Scene {
       this.enemies,
       this.physics
     );
+    this.commeradesController.on('rip-sasha', () => {
+      this.inventory.sashaCounter -= 1;
+    });
   }
 
   update() {

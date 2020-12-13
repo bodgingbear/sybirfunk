@@ -8,5 +8,6 @@ export class RegularEnemy extends AbstractEnemy {
     inventory: Inventory
   ) {
     super(scene, position, inventory, 'guy1');
+    this.sprite.setData('ref', this);
   }
 }

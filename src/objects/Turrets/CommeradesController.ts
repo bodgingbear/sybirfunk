@@ -1,4 +1,6 @@
-export class CommeradesController {
+import { EventEmitter } from 'packages/utils';
+
+export class CommeradesController extends EventEmitter<'rip-sasha'> {
   get enemiesYs(): number[] {
     return this.enemies.children
       .getArray()
@@ -10,12 +12,14 @@ export class CommeradesController {
     private enemies: Phaser.GameObjects.Group,
     private physics: Phaser.Physics.Arcade.ArcadePhysics
   ) {
+    super();
     this.physics.add.collider(
       this.enemies,
       this.commerades,
       (enemyObj, commeradeObj) => {
         enemyObj.getData('ref').onCommeradeTouch();
         commeradeObj.getData('ref').gotHit();
+        this.emit('rip-sasha');
       }
     );
   }

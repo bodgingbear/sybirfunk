@@ -2,7 +2,7 @@ import { Inventory } from 'objects/Inventory';
 import { bound, EventEmitter } from 'packages/utils';
 import { Gun } from './Gun';
 
-const PLAYER_VELOCITY = 120;
+const PLAYER_VELOCITY = 1200;
 export const PLAYER_MAX_HP = 100;
 
 type EventHandlers = {
