@@ -18,8 +18,7 @@ const PRICES = {
   ammo: 100,
   sasha: 300,
   boris: 500,
-  vodka: 2,
-  // vodka: 200,
+  vodka: 200,
 };
 
 export class GameScene extends Phaser.Scene {
