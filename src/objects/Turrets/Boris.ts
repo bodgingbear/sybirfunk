@@ -29,7 +29,7 @@ export class Boris implements Ally {
   ) {
     this.shootSound = this.scene.sound.add(Sound.ppsh40, { volume: 0.2 });
     this.sprite = this.scene.add
-      .sprite(position.x, position.y, 'boris')
+      .sprite(position.x, position.y, 'master', 'boris/boris0000')
       .setScale(5);
 
     this.finishedDuty = finishedDuty;

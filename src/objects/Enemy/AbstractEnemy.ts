@@ -27,7 +27,12 @@ export class AbstractEnemy {
     this.spriteName = texture;
 
     this.sprite = this.scene.add
-      .sprite(position.x, position.y, `${this.spriteName}-0`)
+      .sprite(
+        position.x,
+        position.y,
+        'master',
+        `${this.spriteName}/${this.spriteName}0000`
+      )
       .setScale(5)
       .setPipeline('Light2D');
     scene.physics.world.enable(this.sprite);

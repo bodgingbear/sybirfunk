@@ -60,13 +60,13 @@ export class GameScene extends Phaser.Scene {
     lightsController.startAlarm();
 
     const bg = this.add
-      .image(SCENE_CENTER_X, SCENE_CENTER_Y, 'bg')
+      .sprite(SCENE_CENTER_X, SCENE_CENTER_Y, 'master', 'background/background')
       .setPipeline('Light2D');
     bg.setScale(5);
 
     this.physics.world.setBounds(0, 350, 1200, 720);
     this.add
-      .image(1280 / 2, 720 - 175, 'zasieki')
+      .image(1280 / 2, 720 - 175, 'master', 'zasieki/zasieki')
       .setScale(5)
       .setPipeline('Light2D');
 

@@ -18,7 +18,7 @@ export class HealthBar {
 
   constructor(private scene: Phaser.Scene, private inventory: Inventory) {
     const bar = this.scene.add
-      .sprite(HEALTH_BAR_X, HEALTH_BAR_Y, 'health-bar')
+      .sprite(HEALTH_BAR_X, HEALTH_BAR_Y, 'master', 'ui/healthbar')
       .setScale(5)
       .setDepth(11);
 
@@ -30,9 +30,11 @@ export class HealthBar {
       0xc20c0c
     );
 
-    const ammo = this.scene.add.sprite(AMMO_X, TOP_LINE_Y, 'ammo').setScale(5);
+    const ammo = this.scene.add
+      .sprite(AMMO_X, TOP_LINE_Y, 'master', 'ui/ammo-icon')
+      .setScale(5);
     const money = this.scene.add
-      .sprite(MONEY_X, TOP_LINE_Y, 'money')
+      .sprite(MONEY_X, TOP_LINE_Y, 'master', 'ui/money-icon')
       .setScale(5);
 
     this.ammoText = this.scene.add.text(

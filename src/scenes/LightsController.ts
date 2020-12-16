@@ -25,7 +25,7 @@ export class LightsController {
     this.alarmLights = [light, light2];
 
     const moon = this.scene.add
-      .sprite(1155, 85, 'moon')
+      .sprite(1155, 85, 'master', 'moon/moon')
       .setScale(5)
       .setDepth(10);
     this.scene.lights.addLight(moon.x, moon.y, 1280, 0xffffff, 1.25);

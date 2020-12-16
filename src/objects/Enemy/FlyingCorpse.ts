@@ -7,7 +7,7 @@ export class FlyingCorpse {
   constructor(private scene: Phaser.Scene, position: Phaser.Math.Vector2) {
     const parts = Array.from(Array(4)).map(() => {
       const sprite = this.scene.add
-        .sprite(position.x, position.y, 'blood')
+        .sprite(position.x, position.y, 'master', 'blood/blood')
         .setScale(4)
         .setPipeline('Light2D');
 

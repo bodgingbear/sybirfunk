@@ -1,5 +1,6 @@
 import { loadAsset } from 'packages/utils';
 import { shouldSkipIntro } from 'packages/utils/shouldSkipIntro';
+import { shouldSkipIntro2 } from 'packages/utils/shouldSkipIntro2';
 import { Sound } from '../Sound';
 import { TEAM } from '../constants';
 
@@ -17,16 +18,8 @@ export class LoadingScene extends Phaser.Scene {
   }
 
   private loadAssets() {
-    this.load.image('bg', [
-      loadAsset('images/background.png'),
-      loadAsset('images/NormalMap.png'),
-    ]);
+    this.load.multiatlas('master', 'atlas/master.json', 'atlas');
 
-    this.load.image('blood', [
-      loadAsset('images/blood.png'),
-      loadAsset('images/defaultNormalMap.png'),
-    ]);
-    this.load.image('health-bar', loadAsset('images/health_bar.png'));
     // Assets go here
     this.load.video(
       'demo',
@@ -38,110 +31,6 @@ export class LoadingScene extends Phaser.Scene {
 
     Object.values(Sound).forEach((value) => {
       this.load.audio(value, `audio/${value}.mp3`);
-    });
-
-    this.load.spritesheet('stolik', 'images/stolik.png', {
-      frameWidth: 11,
-      frameHeight: 13,
-    });
-    this.load.image('snow1', [
-      'images/snowflake1.png',
-      loadAsset('images/defaultNormalMap.png'),
-    ]);
-    this.load.image('snow2', [
-      'images/snowflake2.png',
-      loadAsset('images/defaultNormalMap.png'),
-    ]);
-    this.load.spritesheet('ivan', loadAsset('images/iwan.png'), {
-      frameWidth: 11,
-      frameHeight: 18,
-    });
-    this.load.spritesheet('ivan-shot', loadAsset('images/iwan_shot.png'), {
-      frameWidth: 7,
-      frameHeight: 18,
-    });
-
-    this.load.image('moon', loadAsset('images/moon.png'));
-
-    this.load.image('guy1-0', [
-      loadAsset('images/guy1-0.png'),
-      loadAsset('images/defaultNormalMap.png'),
-    ]);
-    this.load.image('guy1-1', [
-      loadAsset('images/guy1-1.png'),
-      loadAsset('images/defaultNormalMap.png'),
-    ]);
-
-    this.load.image('guy2-0', [
-      loadAsset('images/guy2-0.png'),
-      loadAsset('images/defaultNormalMap.png'),
-    ]);
-    this.load.image('guy2-1', [
-      loadAsset('images/guy2-1.png'),
-      loadAsset('images/defaultNormalMap.png'),
-    ]);
-
-    this.load.image('pop-0', [
-      loadAsset('images/pop-0.png'),
-      loadAsset('images/defaultNormalMap.png'),
-    ]);
-    this.load.image('pop-1', [
-      loadAsset('images/pop-1.png'),
-      loadAsset('images/defaultNormalMap.png'),
-    ]);
-
-    this.load.image('flag-0', [
-      loadAsset('images/flag-0.png'),
-      loadAsset('images/defaultNormalMap.png'),
-    ]);
-    this.load.image('flag-1', [
-      loadAsset('images/flag-1.png'),
-      loadAsset('images/defaultNormalMap.png'),
-    ]);
-    this.load.spritesheet('sasha', loadAsset('images/sasha.png'), {
-      frameWidth: 14,
-      frameHeight: 17,
-    });
-
-    this.load.spritesheet('intro1-frames', loadAsset('images/intro1.png'), {
-      frameWidth: 256,
-      frameHeight: 144,
-    });
-
-    this.load.spritesheet('intro2-frames', loadAsset('images/intro2.png'), {
-      frameWidth: 50,
-      frameHeight: 29,
-    });
-
-    this.load.spritesheet('intro3-frames', loadAsset('images/intro3.png'), {
-      frameWidth: 256,
-      frameHeight: 144,
-    });
-
-    this.load.image('ammo', loadAsset('images/ammo.png'));
-    this.load.image('money', loadAsset('images/money.png'));
-
-    this.load.image('ammo-on', loadAsset('images/ammo-on.png'));
-    this.load.image('ammo-off', loadAsset('images/ammo-off.png'));
-    this.load.image('boris-on', loadAsset('images/boris-on.png'));
-    this.load.image('boris-off', loadAsset('images/boris-off.png'));
-    this.load.image('boris-press', loadAsset('images/boris-press.png'));
-    this.load.image('knife-on', loadAsset('images/knife-on.png'));
-    this.load.image('knife-off', loadAsset('images/knife-off.png'));
-    this.load.image('molotov-on', loadAsset('images/molotov-on.png'));
-    this.load.image('molotov-off', loadAsset('images/molotov-off.png'));
-    this.load.image('sasha-on', loadAsset('images/sasha-on.png'));
-    this.load.image('sasha-off', loadAsset('images/sasha-off.png'));
-    this.load.image('vodka-on', loadAsset('images/vodka-on.png'));
-    this.load.image('vodka-off', loadAsset('images/vodka-off.png'));
-    this.load.image('vodka-press', loadAsset('images/vodka-press.png'));
-    this.load.image('zasieki', [
-      loadAsset('images/zasieki.png'),
-      loadAsset('images/defaultNormalMap.png'),
-    ]);
-    this.load.spritesheet('boris', loadAsset('images/boris.png'), {
-      frameWidth: 21,
-      frameHeight: 20,
     });
   }
 
@@ -157,18 +46,23 @@ export class LoadingScene extends Phaser.Scene {
   public create(): void {
     this.anims.create({
       key: 'ivan-walk',
-      frames: this.anims.generateFrameNumbers('ivan', {
+      frames: this.anims.generateFrameNames('master', {
         start: 0,
-        end: -1,
+        end: 1,
+        zeroPad: 4,
+        prefix: 'ivan/ivan',
       }),
       frameRate: 6,
       repeat: -1,
     });
+
     this.anims.create({
       key: 'ivan-drink',
-      frames: this.anims.generateFrameNumbers('ivan-shot', {
+      frames: this.anims.generateFrameNames('master', {
         start: 0,
-        end: -1,
+        end: 3,
+        zeroPad: 4,
+        prefix: 'ivan_shot/ivan_shot',
       }),
       frameRate: 3,
       repeat: 0,
@@ -176,49 +70,69 @@ export class LoadingScene extends Phaser.Scene {
     });
     this.anims.create({
       key: 'guy1-walk',
-      // @ts-ignore
-      frames: [{ key: 'guy1-0' }, { key: 'guy1-1' }],
+      frames: this.anims.generateFrameNames('master', {
+        start: 0,
+        end: 1,
+        zeroPad: 4,
+        prefix: 'guy1/guy1',
+      }),
       frameRate: 6,
       repeat: -1,
     });
     this.anims.create({
       key: 'guy2-walk',
-      // @ts-ignore
-      frames: [{ key: 'guy2-0' }, { key: 'guy2-1' }],
+      frames: this.anims.generateFrameNames('master', {
+        start: 0,
+        end: 1,
+        zeroPad: 4,
+        prefix: 'guy2/guy2',
+      }),
       frameRate: 6,
       repeat: -1,
     });
     this.anims.create({
       key: 'pop-walk',
-      // @ts-ignore
-      frames: [{ key: 'pop-0' }, { key: 'pop-1' }],
-      frameRate: 6,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: 'sasha-walk',
-      frames: this.anims.generateFrameNumbers('sasha', {
+      frames: this.anims.generateFrameNames('master', {
         start: 0,
-        end: -1,
+        end: 1,
+        zeroPad: 4,
+        prefix: 'pop/pop',
       }),
       frameRate: 6,
       repeat: -1,
     });
 
     this.anims.create({
-      key: 'flag-wave',
-      // @ts-ignore
-      frames: [{ key: 'flag-0' }, { key: 'flag-1' }],
+      key: 'sasha-walk',
+      frames: this.anims.generateFrameNames('master', {
+        start: 0,
+        end: 1,
+        zeroPad: 4,
+        prefix: 'sasha/sasha',
+      }),
+      frameRate: 6,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'flag',
+      frames: this.anims.generateFrameNames('master', {
+        start: 0,
+        end: 1,
+        zeroPad: 4,
+        prefix: 'flag/flag',
+      }),
       frameRate: 3,
       repeat: -1,
     });
 
     this.anims.create({
       key: 'boris-walk',
-      frames: this.anims.generateFrameNumbers('boris', {
+      frames: this.anims.generateFrameNames('master', {
         start: 0,
-        end: -1,
+        end: 1,
+        zeroPad: 4,
+        prefix: 'boris/boris',
       }),
       frameRate: 6,
       repeat: -1,
@@ -226,9 +140,11 @@ export class LoadingScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'intro1',
-      frames: this.anims.generateFrameNumbers('intro1-frames', {
+      frames: this.anims.generateFrameNames('master', {
         start: 0,
-        end: -1,
+        end: 7,
+        zeroPad: 4,
+        prefix: 'intro1/intro1',
       }),
       frameRate: 2,
       repeat: 0,
@@ -236,9 +152,11 @@ export class LoadingScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'intro2',
-      frames: this.anims.generateFrameNumbers('intro2-frames', {
+      frames: this.anims.generateFrameNames('master', {
         start: 0,
-        end: -1,
+        end: 13,
+        zeroPad: 4,
+        prefix: 'intro2/intro2',
       }),
       frameRate: 2,
       repeat: 0,
@@ -246,9 +164,11 @@ export class LoadingScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'intro3',
-      frames: this.anims.generateFrameNumbers('intro3-frames', {
+      frames: this.anims.generateFrameNames('master', {
         start: 0,
-        end: -1,
+        end: 22,
+        zeroPad: 4,
+        prefix: 'intro3/intro3',
       }),
       frameRate: 2,
       repeat: 0,
@@ -310,6 +230,10 @@ export class LoadingScene extends Phaser.Scene {
   };
 
   private changeScene = () => {
-    this.scene.start('IntroScene');
+    if (!shouldSkipIntro2()) {
+      this.scene.start('IntroScene');
+    } else {
+      this.scene.start('MainMenuScene');
+    }
   };
 }

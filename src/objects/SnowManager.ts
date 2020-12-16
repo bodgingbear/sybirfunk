@@ -14,11 +14,11 @@ export class SnowManager {
   constructor(scene: GameScene) {
     this.scene = scene;
     this.snow1 = this.scene.add
-      .particles('snow1')
+      .particles('master')
       .setDepth(2)
       .setPipeline('Light2D');
     this.snow2 = this.scene.add
-      .particles('snow2')
+      .particles('master')
       .setDepth(2)
       .setPipeline('Light2D');
 
@@ -36,6 +36,9 @@ export class SnowManager {
       speedX: -10,
       speedY: { min: MIN_SPEED, max: 40 },
       frequency: 200,
+      frame: {
+        frames: ['snowflakes/snowflakes0000', 'snowflakes/snowflakes0001'],
+      },
     });
     emitter.setScale(2);
     emitter.setBlendMode(Phaser.BlendModes.ADD);

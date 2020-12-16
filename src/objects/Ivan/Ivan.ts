@@ -47,7 +47,7 @@ export class Ivan extends EventEmitter<'changeHealth', EventHandlers> {
     this.scene.sound.add(Sound.ivanDrinks);
     this.callBoris = callBoris;
     this.sprite = this.scene.add
-      .sprite(position.x, position.y, 'ivan')
+      .sprite(position.x, position.y, 'master', 'ivan/ivan0000')
       .setScale(5);
     scene.physics.world.enable(this.sprite);
 

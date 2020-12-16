@@ -13,7 +13,8 @@ export class Blood {
         .sprite(
           position.x - spreadX / 2 + Math.random() * spreadY,
           position.y - spreadY / 2 + Math.random() * spreadY,
-          'blood'
+          'master',
+          'blood/blood'
         )
         .setPipeline('Light2D');
 

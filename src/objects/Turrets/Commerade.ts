@@ -31,7 +31,7 @@ export class Commerade implements Ally {
     this.shootSound = this.scene.sound.add(Sound.mosinShoot, { volume: 0.35 });
     this.scene.sound.add(Sound.sashaDying);
     this.sprite = this.scene.add
-      .sprite(position.x, position.y, 'sasha')
+      .sprite(position.x, position.y, 'master', 'sasha/sasha0000')
       .setScale(5);
 
     scene.physics.world.enable(this.sprite);

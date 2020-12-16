@@ -56,7 +56,9 @@ export class Table extends EventEmitter<
 
     this.light = this.scene.lights.addLight(1150, 600, 125, 0x00ff00, 0);
 
-    this.sprite = this.scene.add.sprite(1150, 600, 'stolik').setScale(7);
+    this.sprite = this.scene.add
+      .sprite(1150, 600, 'master', 'stolik/stolik0000')
+      .setScale(7);
     this.box = this.scene.add.rectangle(
       this.sprite.x,
       this.sprite.y + 15,
@@ -68,7 +70,9 @@ export class Table extends EventEmitter<
 
     this.uiContainer = this.scene.add.container(60, 100);
 
-    this.ammo = this.scene.add.image(0, 0, 'ammo-on').setScale(5);
+    this.ammo = this.scene.add
+      .sprite(0, 0, 'master', 'ui/ammo-shop')
+      .setScale(5);
     this.uiContainer.add(this.ammo);
 
     this.ammoText = this.scene.add
@@ -92,7 +96,9 @@ export class Table extends EventEmitter<
       .setOrigin(0.5, 0.5);
     this.uiContainer.add(this.ammoPrice);
 
-    this.sasha = this.scene.add.image(100, 0, 'sasha-on').setScale(5);
+    this.sasha = this.scene.add
+      .sprite(100, 0, 'master', 'ui/sasha-shop')
+      .setScale(5);
     this.uiContainer.add(this.sasha);
 
     this.sashaText = this.scene.add
@@ -116,7 +122,9 @@ export class Table extends EventEmitter<
       .setOrigin(0.5, 0.5);
     this.uiContainer.add(this.sashaPrice);
 
-    this.boris = this.scene.add.image(200, 0, 'boris-on').setScale(5);
+    this.boris = this.scene.add
+      .sprite(200, 0, 'master', 'ui/boris-shop')
+      .setScale(5);
     this.uiContainer.add(this.boris);
 
     this.borisText = this.scene.add
@@ -140,7 +148,9 @@ export class Table extends EventEmitter<
       .setOrigin(0.5, 0.5);
     this.uiContainer.add(this.borisPrice);
 
-    this.vodka = this.scene.add.image(300, 0, 'vodka-on').setScale(5);
+    this.vodka = this.scene.add
+      .sprite(300, 0, 'master', 'ui/vodka-shop')
+      .setScale(5);
     this.uiContainer.add(this.vodka);
 
     this.vodkaText = this.scene.add
@@ -238,46 +248,45 @@ export class Table extends EventEmitter<
       this.tween = undefined;
       this.light.setIntensity(0);
     }
-    if (!this.tableEntered) {
-      this.setTextures('off');
-      this.vodkaLabel.setVisible(false);
-      if (this.inventory.borisCounter > 0) {
-        this.boris.setTexture('boris-press');
-      }
+
+    if (this.tableEntered && !this.isRoundOn) {
+      this.setFrames('shop');
+      this.uiContainer.setVisible(true);
       return;
     }
 
-    if (this.isRoundOn) {
-      this.setTextures('off');
-      if (this.inventory.vodkaCounter === 0) {
+    this.setFrames('idle');
+    this.vodkaLabel.setVisible(false);
+
+    if (this.tableEntered) {
+      if (this.inventory.vodkaCounter > 0) {
+        this.vodkaLabel.setVisible(false);
+        this.vodka.setFrame('ui/vodka-press');
+      } else {
         this.vodkaLabel
-          .setText("You're out of vodka, buy more!")
-          .setVisible(true);
-        return;
+          .setVisible(true)
+          .setText("You're out of vodka, buy more!");
       }
-      this.vodkaLabel.setText("Press 'D' to drink vodka");
-      this.vodka.setTexture('vodka-press');
-      this.vodkaLabel.setVisible(true);
-      return;
     }
 
-    this.setTextures('on');
-    this.uiContainer.setVisible(true);
+    if (this.isRoundOn && this.inventory.borisCounter > 0) {
+      this.boris.setFrame('ui/boris-press');
+    }
   }
 
-  setTextures = (state: 'on' | 'off') => {
-    this.ammo.setTexture(`ammo-${state}`);
-    this.boris.setTexture(`boris-${state}`);
-    this.sasha.setTexture(`sasha-${state}`);
-    this.vodka.setTexture(`vodka-${state}`);
+  setFrames = (state: 'shop' | 'idle') => {
+    this.ammo.setFrame(`ui/ammo-${state}`);
+    this.boris.setFrame(`ui/boris-${state}`);
+    this.sasha.setFrame(`ui/sasha-${state}`);
+    this.vodka.setFrame(`ui/vodka-${state}`);
 
-    this.ammoPrice.setVisible(state === 'on');
-    this.sashaPrice.setVisible(state === 'on');
-    this.borisPrice.setVisible(state === 'on');
-    this.vodkaPrice.setVisible(state === 'on');
+    this.ammoPrice.setVisible(state === 'shop');
+    this.sashaPrice.setVisible(state === 'shop');
+    this.borisPrice.setVisible(state === 'shop');
+    this.vodkaPrice.setVisible(state === 'shop');
   };
 
   updateVodkaSprite = () => {
-    this.sprite.setFrame(this.inventory.vodkaCounter);
+    this.sprite.setFrame(`stolik/stolik000${this.inventory.vodkaCounter}`);
   };
 }
