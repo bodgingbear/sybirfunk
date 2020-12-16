@@ -24,12 +24,23 @@ export class HowToPlayScene extends Phaser.Scene {
     });
 
     howToPlayButton.on('click', () => this.scene.start('MainMenuScene'));
-
-    const text = this.add.text(1280 / 2, 720 / 2, "You'll figure it out", {
-      color: 'white',
-      fontSize: 32,
-      align: 'center',
-    });
+    const text = this.add.text(
+      1280 / 2,
+      720 / 2,
+      [
+        'Use ARROWS to move',
+        'Press SPACE to shoot',
+        'Buy things with 1,2,3,4',
+        'Make Boris shoot with Q',
+        'Drink vodka with D',
+      ],
+      {
+        color: 'white',
+        fontSize: 32,
+        align: 'center',
+        lineSpacing: 16,
+      }
+    );
     centerElement(text);
   }
 }
