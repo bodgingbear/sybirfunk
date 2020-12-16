@@ -1,7 +1,7 @@
 import { EventEmitter } from 'packages/utils';
 
 export class Inventory extends EventEmitter<'change'> {
-  accountBalance: number = process.env.BALANCING_MODE === 'true' ? 0 : 1000;
+  accountBalance: number = process.env.BALANCING_MODE !== 'false' ? 0 : 1000;
 
   sashaCounter: number = 0;
 

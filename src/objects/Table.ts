@@ -238,11 +238,12 @@ export class Table extends EventEmitter<
       this.tween = undefined;
       this.light.setIntensity(0);
     }
-
     if (!this.tableEntered) {
       this.setTextures('off');
       this.vodkaLabel.setVisible(false);
-
+      if (this.inventory.borisCounter > 0) {
+        this.boris.setTexture('boris-press');
+      }
       return;
     }
 

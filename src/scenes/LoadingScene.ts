@@ -125,6 +125,7 @@ export class LoadingScene extends Phaser.Scene {
     this.load.image('ammo-off', loadAsset('images/ammo-off.png'));
     this.load.image('boris-on', loadAsset('images/boris-on.png'));
     this.load.image('boris-off', loadAsset('images/boris-off.png'));
+    this.load.image('boris-press', loadAsset('images/boris-press.png'));
     this.load.image('knife-on', loadAsset('images/knife-on.png'));
     this.load.image('knife-off', loadAsset('images/knife-off.png'));
     this.load.image('molotov-on', loadAsset('images/molotov-on.png'));
