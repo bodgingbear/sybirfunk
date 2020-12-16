@@ -14,6 +14,18 @@ This game was created during **Warsaw Film School Game Jam (2020)**
 
 [https://sybirfunk.bodgingbear.dev](https://sybirfunk.bodgingbear.dev/)
 
+## Controls
+
+* Move using ***arrow keys***
+* Shoot with ***space bar***
+* Shop with ***numerics***:  
+  1. ammo  
+  2. sasha
+  3. boris
+  4. vodka
+* Activate Boris (fat soviet soldier) with **Q**
+* Drink vodka with **D**
+
 ## Links
 * GitHub: [https://github.com/bodgingbear/sybirfunk](https://github.com/bodgingbear/sybirfunk/)
 
