@@ -2,7 +2,7 @@
 
 Stop funked up gulag prisoners from escaping
 
-![ ](https://raw.githubusercontent.com/sybirfunk/airplane/master/website/screenshot.png)
+![ ](https://raw.githubusercontent.com/bodgingbear/sybirfunk/master/website/screenshot.png)
 
 This game was created during **Warsaw Film School Game Jam (2020)**
 
