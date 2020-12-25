@@ -18,8 +18,8 @@ This game was created during **Warsaw Film School Game Jam (2020)**
 
 * Move using ***arrow keys***
 * Shoot with ***space bar***
-* Shop with ***numerics***:  
-  1. ammo  
+* Shop with ***numerics***:
+  1. ammo
   2. sasha
   3. boris
   4. vodka

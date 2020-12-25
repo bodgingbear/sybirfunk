@@ -2,6 +2,8 @@
   "name": "@bbear/phaser3-typescript",
   "version": "1.0.0",
   "description": "Sybirfunk 1943",
+  "appName": "Sybirfunk 1943",
+  "appDescription": "Stop funked up gulag prisoners from escaping",
   "license": "CC-BY-NC-4.0",
   "scripts": {
     "start": "webpack-dev-server --config ./_config/builder/webpack.development.js",
